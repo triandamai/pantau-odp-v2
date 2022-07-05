@@ -25,7 +25,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.buildFileName = "build.gradle.kts"
-rootProject.name = "Buss-Tracker"
+rootProject.name = "Pantau-ODP"
 include(":app_coordinator")
 include(":app_pemantau")
 include(":data")
