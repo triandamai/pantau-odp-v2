@@ -8,6 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +21,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.trian.component.ButtonPrimary
 import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
+import com.trian.component.utils.from
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
@@ -35,6 +37,7 @@ fun ScreenOnboard(
     modifier: Modifier = Modifier,
     onGetStarted:()->Unit={}
 ) {
+    val ctx = LocalContext.current
     val pagerState = rememberPagerState(
         pageCount = 3,
         initialPage = 0,
@@ -111,8 +114,8 @@ fun ScreenOnboard(
                     painter = painterResource(id = itemOnboard[page].image),
                     contentDescription = stringResource(R.string.content_description_image_page_dashboard),
                     modifier = modifier
-                        .fillMaxHeight()
-                        .fillMaxWidth(fraction = 0.7f)
+                        .height(256.dp.from(ctx))
+                        .width(226.dp.from(ctx))
                 )
             }
         }
