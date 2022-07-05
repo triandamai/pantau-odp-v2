@@ -30,6 +30,7 @@ android{
 }
 dependencies {
 
+    implementation(Libs.Com.Github.GrenderG.toasty)
 
     with(Libs.AndroidX.Compose){
         implementation(Libs.AndroidX.Compose.Ui.ui)

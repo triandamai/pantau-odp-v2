@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="app.trian.driver">
+    package="app.trian.pemantau">
 
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -29,7 +29,7 @@
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
-        android:name="app.trian.driver.MainApplication"
+        android:name="app.trian.pemantau.MainApplication"
         android:label="@string/app_name"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -57,7 +57,7 @@
 
 
         <activity
-            android:name="app.trian.driver.MainActivity"
+            android:name="app.trian.pemantau.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.TesMultiModule"
             android:windowSoftInputMode="adjustResize"
