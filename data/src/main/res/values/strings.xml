@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name_cexup">Cexup</string>
+    <string name="app_name_ams">Ams</string>
+    <string name="app_name_rsui">RSUI</string>
+    <string name="app_name_imunn">Imunn</string>
+    <string name="app_name_pusdokkes">Pusdokkes</string>
+
+    <string name="message_text_notification_foreground">Aplikasi berjalan di latar belakang</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FF18A0FB</color>
+
+    <color name="purple_500">#FF7B61FF</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF1BC47D</color>
+    <color name="teal_700">#FF1BC47D</color>
+    <color name="black">#FF000000</color>
+    <color name="surface">#FF272727</color>
+    <color name="onSurface">#474545</color>
+    <color name="onSurfaceDark">#AEAEAE</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary_main">#C618A0FB</color>
+    <color name="transparent_primary">#2218A0FB</color>
+    <color name="primary_newpatient">#21B9D1</color>
+    <color name="primary_oldpatient">#F16A51</color>
+    <color name="primary_day">#4FC5D8</color>
+    <color name="primary_day2">#A8E6F0</color>
+    <color name="primary_week">#008CA3</color>
+    <color name="primary_week2">#BDDEE3</color>
+</resources>

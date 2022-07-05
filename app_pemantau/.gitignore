@@ -1,0 +1,6 @@
+/build
+.settings
+.classpath
+.project
+google-services.json
+keystore.jks
