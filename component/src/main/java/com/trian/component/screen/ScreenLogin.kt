@@ -30,7 +30,9 @@ import com.trian.component.theme.fontFamily
 @Composable
 fun ScreenLogin(
     modifier: Modifier=Modifier,
-    onSignIn:()->Unit={},
+    onSignIn:(email:String,password:String)->Unit={
+                                                  _,_->
+    },
     onResetPassword:()->Unit={}
 ) {
     val ctx = LocalContext.current
@@ -118,7 +120,10 @@ fun ScreenLogin(
                     showPasswordObsecure = true,
                     singleLine = true,
                     onSubmit = {
-                        onSignIn()
+                        onSignIn(
+                            email,
+                            password
+                        )
                     },
                     keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Send
