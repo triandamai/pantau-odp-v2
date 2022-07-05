@@ -9,12 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.trian.component.theme.DisableColor
 import com.trian.component.theme.DisableContentColor
 import com.trian.component.theme.PantauWargaTheme
+import com.trian.component.utils.from
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowRight24
 
@@ -32,12 +35,18 @@ fun ButtonPrimary(
     enabled:Boolean = true,
     onClick:()->Unit={}
 ) {
+    val ctx = LocalContext.current
+
     Button(
         enabled=enabled,
         onClick = onClick,
         modifier= modifier
             .fillMaxWidth()
-            .height(50.dp),
+            .height(
+                48.dp.from(
+                    ctx = ctx,
+                )
+            ),
         colors = ButtonDefaults.buttonColors(
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = MaterialTheme.colors.onPrimary,
@@ -61,13 +70,14 @@ fun ButtonSecondary(
     enabled:Boolean = true,
     onClick:()->Unit={}
 ) {
+    val ctx = LocalContext.current
 
     OutlinedButton(
         enabled=enabled,
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .height(50.dp),
+            .height(48.dp.from(ctx)),
         colors = ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color.Transparent,
             contentColor = MaterialTheme.colors.primary,
@@ -124,10 +134,11 @@ fun ButtonSocial(
     enabled:Boolean = true,
     onClick:()->Unit={}
 ) {
+    val ctx = LocalContext.current
     OutlinedButton(
         modifier= modifier
             .fillMaxWidth()
-            .height(50.dp),
+            .height(48.dp.from(ctx)),
         enabled=enabled,
         contentPadding= PaddingValues(
             vertical = 6.dp
@@ -193,7 +204,7 @@ fun ButtonSmall(
 @Composable
 fun ButtonSmallSecondary(
     text: String="",
-    textColor:Color=MaterialTheme.colors.onPrimary,
+    textColor:Color=MaterialTheme.colors.primary,
     backgroundColor:Color=MaterialTheme.colors.primary,
     modifier: Modifier=Modifier,
     enabled:Boolean=true,
@@ -222,28 +233,34 @@ fun ButtonSmallSecondary(
 @Preview
 @Composable
 fun PreviewComponentButton(){
-    PantauWargaTheme() {
+    PantauWargaTheme {
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colors.background)
+                .fillMaxSize()
                 .padding(
                     horizontal = 16.dp
-                )
+                ),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             ButtonPrimary(text = "Save")
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonPrimary(text = "Save", enabled = false)
-
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonSecondary("Edit")
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonSecondary("Edit", enabled = false)
-
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonIcon()
-
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonIcon(enabled = false)
-
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonSocial("Continue With Google")
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonSocial("Continue With Google", enabled = false)
-
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonSmall("Update"){}
+            Spacer(modifier = Modifier.height(16.dp))
             ButtonSmallSecondary("Update"){}
         }
     }
