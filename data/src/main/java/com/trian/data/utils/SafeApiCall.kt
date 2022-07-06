@@ -17,9 +17,7 @@ import java.net.UnknownHostException
  * Created by Trian Damai
  * 01/09/2021
  */
-
-
-suspend fun <T> safeApiCall(a:Boolean=false,call: suspend () -> Response<T>): DataState<T> {
+suspend fun <T> safeApiCall(call: suspend () -> Response<T>): DataState<T> {
 
     try {
         val response = call.invoke()
@@ -37,7 +35,7 @@ suspend fun <T> safeApiCall(a:Boolean=false,call: suspend () -> Response<T>): Da
         }
         return  DataState.onFailure(response.message())
     } catch (e: Exception) {
-        logcat("get",LogPriority.ERROR) { e.message.toString()}
+        e.printStackTrace()
         return when (e) {
             is IOException ->{
                 DataState.onFailure(e.message ?: "")

@@ -186,6 +186,52 @@ fun AppbarProfile(
 
     )
 }
+/**
+ *
+ * author Trian Damai
+ * created_at 10/03/22 - 03.15
+ * site https://trian.app
+ */
+@Composable
+fun AppbarBasic(
+    modifier: Modifier=Modifier,
+    title:String="",
+    navigationIcon:@Composable (()->Unit)?=null,
+    actions:@Composable RowScope.()->Unit={},
+) {
+
+    TopAppBar(
+        title = {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.h4.copy(
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Bold
+                )
+            )
+        },
+        navigationIcon = navigationIcon,
+        actions = actions,
+        backgroundColor = MaterialTheme.colors.surface,
+        modifier = modifier.clip(
+            RoundedCornerShape(
+                bottomStart = 20.dp,
+                bottomEnd = 20.dp
+            )
+        ),
+        elevation = 0.dp
+    )
+}
+
+@Preview
+@Composable
+fun PreviewAppbarBudget() {
+    PantauWargaTheme {
+        AppbarBasic(title = "Budget") {
+
+        }
+    }
+}
 
 @Preview
 @Composable

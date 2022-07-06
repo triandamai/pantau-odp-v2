@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.trian.component.theme.PantauWargaTheme
+import com.trian.component.utils.from
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowRight24
 
@@ -93,6 +95,54 @@ fun ItemStat(
     }
 }
 
+@Composable
+fun ItemStatFull(
+    modifier: Modifier =Modifier,
+    name:String="",
+    value:String="",
+    onClick:()->Unit={}
+) {
+    val ctx = LocalContext.current
+    val currentWidth = ctx
+        .resources
+        .displayMetrics.widthPixels.dp /
+            LocalDensity.current.density
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(150.dp.from(ctx))
+            .clip(MaterialTheme.shapes.large)
+            .background(MaterialTheme.colors.surface)
+            .clickable {
+                onClick()
+            }
+    ) {
+        Column(
+            modifier = modifier.fillMaxHeight(),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.Start
+        ) {
+            Column(
+                modifier = modifier.padding(all = 20.dp)
+            ) {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.subtitle2.copy(
+                        color = MaterialTheme.colors.onSurface
+                    )
+                )
+                Spacer(modifier = modifier.height(16.dp))
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.body2.copy(
+                        color = MaterialTheme.colors.onBackground,
+                    )
+                )
+            }
+            Divider()
+        }
+    }
+}
 @Preview
 @Composable
 fun PreviewItemStat() {

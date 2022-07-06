@@ -1,6 +1,7 @@
 package com.trian.component.screen.main
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -12,6 +13,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.trian.component.AppbarHome
 import com.trian.component.ItemStat
+import com.trian.component.ItemStatFull
 import com.trian.component.theme.ExpensesColor
 import com.trian.component.theme.PantauWargaTheme
 import compose.icons.Octicons
@@ -67,37 +69,153 @@ fun PageHome(
             )
         },
         content = {
-            Column (
+            LazyColumn (
                 modifier = modifier.padding(vertical = 10.dp)
             ){
-                Box(
-                    modifier = modifier.padding(
-                        horizontal = 30.dp
-                    )
-                ) {
-                    //CardChartHome()
-                }
-                Spacer(modifier = modifier.height(30.dp))
-                Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 30.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    ItemStat(
-                        name = "Income",
-                        value = "Rp 1.000.00",
-                        iconColor = MaterialTheme.colors.secondary
-                    ){
-
+                item {
+                    //                ODP
+                    Box(
+                        modifier = modifier.padding(
+                            horizontal = 30.dp
+                        )
+                    ) {
+                        ItemStatFull(
+                            name = "ODP Dalam Pemantauan",
+                            value = "500.000"
+                        )
                     }
-                    ItemStat(
-                        name = "Expense",
-                        value = "Rp 1.000.00",
-                        iconColor = ExpensesColor
-                    ){
+                    Spacer(modifier = modifier.height(30.dp))
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 30.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ItemStat(
+                            name = "ODP Selesai",
+                            value = "300.00",
+                            iconColor = MaterialTheme.colors.primary
+                        ){
 
+                        }
+                        ItemStat(
+                            name = "ODP Total",
+                            value = "200.000",
+                            iconColor = ExpensesColor
+                        ){
+
+                        }
+                    }
+                }
+                item {
+                    //                PDP
+                    Spacer(modifier = modifier.height(30.dp))
+                    Box(
+                        modifier = modifier.padding(
+                            horizontal = 30.dp
+                        )
+                    ) {
+                        ItemStatFull(
+                            name = "PDP Total",
+                            value = "500.000"
+                        )
+                    }
+                    Spacer(modifier = modifier.height(30.dp))
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 30.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ItemStat(
+                            name = "PDP Dirawat",
+                            value = "300.00",
+                            iconColor = MaterialTheme.colors.primary
+                        ){
+
+                        }
+                        ItemStat(
+                            name = "PDP Negatif",
+                            value = "200.000",
+                            iconColor = ExpensesColor
+                        ){
+
+                        }
+                    }
+                    Spacer(modifier = modifier.height(30.dp))
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 30.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ItemStat(
+                            name = "PDP Menunggu",
+                            value = "300.00",
+                            iconColor = MaterialTheme.colors.primary
+                        ){
+
+                        }
+                        ItemStat(
+                            name = "PDP Meninggal",
+                            value = "200.000",
+                            iconColor = ExpensesColor
+                        ){
+
+                        }
+                    }
+                }
+
+                item {
+                    //POSITIF
+                    Spacer(modifier = modifier.height(30.dp))
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 30.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ItemStat(
+                            name = "Total Positif",
+                            value = "300.00",
+                            iconColor = MaterialTheme.colors.primary
+                        ){
+
+                        }
+                        ItemStat(
+                            name = "Dirawat",
+                            value = "200.000",
+                            iconColor = ExpensesColor
+                        ){
+
+                        }
+                    }
+                    Spacer(modifier = modifier.height(30.dp))
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 30.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        ItemStat(
+                            name = "Sembuh",
+                            value = "300.00",
+                            iconColor = MaterialTheme.colors.primary
+                        ){
+
+                        }
+                        ItemStat(
+                            name = "Meninggal",
+                            value = "200.000",
+                            iconColor = ExpensesColor
+                        ){
+
+                        }
                     }
                 }
             }

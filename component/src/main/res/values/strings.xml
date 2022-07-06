@@ -67,4 +67,19 @@
     <string name="btn_update">Update</string>
     <string name="label_email">Email</string>
     <string name="label_date_of_birth">Date of birth</string>
+
+<!--    odp  -->
+    <string name="label_input_petugas_name">Nama</string>
+    <string name="placeholder_petugas_name">John</string>
+    <string name="label_input_petugas_nip">NIP</string>
+    <string name="placeholder_petugas_nip">64031xxxx</string>
+    <string name="label_input_petugas_opd">OPD</string>
+    <string name="placeholder_petugas_opd">000xxx</string>
+    <string name="label_input_petugas_email">Email</string>
+    <string name="placeholder_petugas_email">trian@trian.app</string>
+    <string name="label_input_petugas_desa">Desa Penugasan</string>
+    <string name="placeholder_petugas_desa">Purwokerto selatan</string>
+    <string name="appbar_title_create_user">Tambah Petugas</string>
+    <string name="content_description_image_form_user">Tambahkan data petugas baru</string>
+    <string name="title_page_form_user">Tambahkan petugas baru</string>
 </resources>
