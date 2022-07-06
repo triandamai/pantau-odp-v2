@@ -56,8 +56,6 @@ creating apps for odp version 2
 - riwayat_val
 - sesak_nafas_string
 - sesak_nafas_val
-- umur_string
-- umur_val
 - butuhbantuan
 - daerah_dikunjungi
 - go_darah
