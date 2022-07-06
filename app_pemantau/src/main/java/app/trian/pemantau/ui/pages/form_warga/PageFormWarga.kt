@@ -12,7 +12,19 @@ import com.trian.component.screen.user.ScreenFormPemantau
 fun NavGraphBuilder.routeFormWarga(
     router: NavHostController
 ) {
-    composable(Routes.FormUser) {
-        ScreenFormWarga()
+    composable(
+        Routes.FormWarga.route,
+        arguments = Routes.FormWarga.navArg()
+    ) {
+        ScreenFormWarga(
+            onBackPressed = {
+                router.popBackStack()
+            },
+            onSubmit = {
+                router.navigate(Routes.SuccessFormWarga){
+                    launchSingleTop=true
+                }
+            }
+        )
     }
 }

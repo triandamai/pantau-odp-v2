@@ -22,13 +22,14 @@ import compose.icons.octicons.ArrowLeft24
 @Composable
 fun ScreenListWarga(
     modifier: Modifier = Modifier,
-    onBackPressed:()->Unit={}
+    onBackPressed:()->Unit={},
+    onDetailOfficer:(slug:String)->Unit={}
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
     Scaffold(
         topBar = {
             AppbarBasic(
-                title = "List Petugas",
+                title = "List Warga",
                 navigationIcon = {
                     IconToggleButton(
                         checked = false,
@@ -49,7 +50,11 @@ fun ScreenListWarga(
         SwipeRefresh(state =swipeRefreshState, onRefresh = { /*TODO*/ }) {
             LazyColumn(content = {
                 item {
-                    ItemPetugas()
+                    ItemPetugas(
+                        onClick = {
+                            onDetailOfficer("wkwk")
+                        }
+                    )
                 }
             })
         }

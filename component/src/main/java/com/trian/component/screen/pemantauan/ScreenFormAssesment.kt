@@ -95,7 +95,7 @@ fun ScreenFormAssesment(
                     IconToggleButton(
                         checked = false,
                         onCheckedChange = {
-                            onBackPressed()
+                            prevPage()
                         }
                     ) {
                         Icon(
@@ -247,6 +247,7 @@ fun ScreenFormAssesment(
                                         },
                                         onSubmit = {
 
+                                                   nextPage()
                                         },
 
                                         )
@@ -358,7 +359,7 @@ fun ScreenFormAssesment(
 
                                         },
                                         onSubmit = {
-
+nextPage()
                                         },
 
                                         )

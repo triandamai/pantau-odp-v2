@@ -1,5 +1,6 @@
 package com.trian.component.screen.main
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.trian.component.AppbarHome
+import com.trian.component.ItemMenuDrawer
 import com.trian.component.ItemStat
 import com.trian.component.ItemStatFull
 import com.trian.component.theme.ExpensesColor
@@ -32,8 +34,10 @@ import kotlinx.coroutines.launch
 fun ScreenHome(
     modifier: Modifier = Modifier,
     router: NavHostController,
+    menus:List<ItemMenuDrawer> = listOf(),
     onFabClicked:()->Unit={},
-    onRestartActivity:()->Unit={}
+    onRestartActivity:()->Unit={},
+    onDetailMonitoring:()->Unit={}
 ) {
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -44,6 +48,7 @@ fun ScreenHome(
         router = router,
         onRestartActivity=onRestartActivity,
         onFabClicked = onFabClicked,
+        menus = menus,
         topAppbar = {
             AppbarHome(
                 title = "Home",
@@ -89,7 +94,10 @@ fun ScreenHome(
                         Text(
                             text = "All",
                             style = MaterialTheme.typography.body2.copy(),
-                            color = MaterialTheme.colors.primary
+                            color = MaterialTheme.colors.primary,
+                            modifier=modifier.clickable {
+                                onDetailMonitoring()
+                            }
                         )
 
                     }

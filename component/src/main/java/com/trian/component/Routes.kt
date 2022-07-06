@@ -23,34 +23,35 @@ object Routes {
     const val FormOdp = "FormOdpScreen"
 
     const val ListPemantau = "ListPemantau"
-    const val ListWarga = "ListWarga"
+    const val ListOdp = "ListOdp"
+
 
     object DetailUser{
         const val argKey = "slug"
         const val route = "Petugas/{$argKey}"
         fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
-        fun navigate(arg:String) = "$route/$arg"
+        fun navigate(arg:String) = "Petugas/$arg"
     }
 
-    object DetailWarga{
+    object DetailOdp{
         const val argKey = "slug"
-        const val route = "Warga/{$argKey}"
+        const val route = "Odp/{$argKey}"
         fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
-        fun navigate(arg:String) = "$route/$arg"
+        fun navigate(arg:String) = "Odp/$arg"
     }
 
     object FormAssesment{
         const val argKey = "slug"
-        const val route = "Assesment/{$argKey}"
+        const val route = "Assessment/{$argKey}"
         fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
-        fun navigate(arg:String) = "${route}/$arg"
+        fun navigate(arg:String) = "Assessment/$arg"
     }
 
     object FormWarga{
         const val argKey = "slug"
         const val route = "FormWarga/{$argKey}"
         fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
-        fun navigate(arg:String) = "${route}/$arg"
+        fun navigate(arg:String) = "FormWarga/$arg"
     }
 
 }

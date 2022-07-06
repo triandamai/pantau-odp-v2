@@ -22,6 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.trian.component.AppbarProfile
 import com.trian.component.ButtonSmallSecondary
+import com.trian.component.ItemMenuDrawer
 import com.trian.component.theme.HexToJetpackColor
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.theme.listGradient
@@ -40,6 +41,7 @@ import kotlinx.coroutines.launch
 fun ScreenProfile(
     modifier: Modifier = Modifier,
     router: NavHostController,
+    menus:List<ItemMenuDrawer> = listOf(),
     onRestartActivity:()->Unit={}
 ) {
 
@@ -53,6 +55,7 @@ fun ScreenProfile(
         drawerState=drawerState,
         router = router,
         onRestartActivity = onRestartActivity,
+        menus = menus,
         onFabClicked = {
 
         },

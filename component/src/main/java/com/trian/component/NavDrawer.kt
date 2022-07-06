@@ -30,35 +30,13 @@ import compose.icons.octicons.SignOut24
 @Composable
 fun NavDrawer(
     modifier: Modifier = Modifier,
-    currentUser: String="",
+    userName: String="",
+    menus:List<ItemMenuDrawer> = listOf(),
     onClick: (item: ItemMenuDrawer) -> Unit={},
     onNavigate:(route:String)->Unit={}
 ) {
     val ctx = LocalContext.current
 
-    val menu = listOf(
-        ItemMenuDrawer(
-            name = "Categories",
-            route = "",
-            type = "nav"
-        ),
-        ItemMenuDrawer(
-            name = "Feedback",
-            route = "categories",
-            type = "button"
-        ),
-        ItemMenuDrawer(
-            name = "Rating",
-            route = "categories",
-            type = "button"
-        ),
-        ItemMenuDrawer(
-            name = "Privacy policy",
-            route = "categories",
-            type = "button"
-        ),
-
-        )
 
     Column(
         modifier= modifier
@@ -86,7 +64,7 @@ fun NavDrawer(
                 )
             )
             Text(
-                text = "Unknown",
+                text = userName,
                 style =  MaterialTheme.typography.h4.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colors.onBackground
@@ -95,7 +73,7 @@ fun NavDrawer(
         }
 
         Column {
-            menu.forEachIndexed {
+            menus.forEachIndexed {
                     index,data->
                 ItemDrawer(
                     item=data,

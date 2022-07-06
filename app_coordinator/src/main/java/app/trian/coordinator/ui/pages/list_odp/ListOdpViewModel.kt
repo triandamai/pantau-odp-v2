@@ -1,10 +1,10 @@
-package app.trian.coordinator.ui.pages.list_warga
+package app.trian.coordinator.ui.pages.list_odp
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ListWargaViewModel @Inject constructor() : ViewModel() {
+class ListOdpViewModel @Inject constructor() : ViewModel() {
 
 }

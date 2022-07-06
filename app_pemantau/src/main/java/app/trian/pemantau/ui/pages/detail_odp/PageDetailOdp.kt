@@ -13,8 +13,8 @@ fun NavGraphBuilder.routeDetailOdp(
     router: NavHostController
 ) {
     composable(
-        Routes.DetailWarga.route,
-        arguments = Routes.DetailWarga.navArg()
+        Routes.DetailOdp.route,
+        arguments = Routes.DetailOdp.navArg()
     ) {
        ScreenDetailOdp()
     }

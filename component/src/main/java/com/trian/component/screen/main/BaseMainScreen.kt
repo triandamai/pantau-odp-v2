@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.trian.component.BottomNav
+import com.trian.component.ItemMenuDrawer
 import com.trian.component.NavDrawer
 import com.trian.component.theme.BackgroundDashboard
 import compose.icons.Octicons
@@ -27,6 +28,7 @@ fun BaseMainScreen(
     modifier: Modifier = Modifier,
     router: NavHostController,
     drawerState: DrawerState,
+    menus:List<ItemMenuDrawer> = listOf(),
     topAppbar: @Composable ()->Unit = {},
     onRestartActivity:()->Unit={},
     content:@Composable ()->Unit={},
@@ -38,6 +40,7 @@ fun BaseMainScreen(
         drawerState = drawerState ,
         drawerContent = {
             NavDrawer(
+                menus = menus,
                 onClick = {
 
                     scope.launch {

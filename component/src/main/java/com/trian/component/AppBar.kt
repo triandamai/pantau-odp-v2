@@ -204,7 +204,7 @@ fun AppbarBasic(
         title = {
             Text(
                 text = title,
-                style = MaterialTheme.typography.h4.copy(
+                style = MaterialTheme.typography.body1.copy(
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Bold
                 )

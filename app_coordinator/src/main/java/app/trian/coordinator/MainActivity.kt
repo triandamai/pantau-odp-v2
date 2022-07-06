@@ -1,17 +1,11 @@
 package app.trian.coordinator
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.Colors
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
 import app.trian.coordinator.ui.pages.detail_pemantau.routeDetailPemantau
 import app.trian.coordinator.ui.pages.login.routeLogin
@@ -20,22 +14,17 @@ import app.trian.coordinator.ui.pages.main.profile.routeProfile
 import app.trian.coordinator.ui.pages.form_pemantau.routeFormPemantau
 import app.trian.coordinator.ui.pages.form_pemantau_success.routeFormPemantauSuccess
 import app.trian.coordinator.ui.pages.list_pemantau.routeListPemantau
-import app.trian.coordinator.ui.pages.list_warga.routeListWarga
+import app.trian.coordinator.ui.pages.list_odp.routeListWarga
 import app.trian.coordinator.ui.pages.onboard.routeOnboard
 import app.trian.coordinator.ui.pages.reset_password.routeResetPassword
 import app.trian.coordinator.ui.pages.splash.routeSplash
-import com.google.accompanist.insets.ExperimentalAnimatedInsets
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.navigation
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.trian.component.Routes
 import com.trian.component.theme.PantauWargaTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.InternalCoroutinesApi
 
 /**
  * Main Activity

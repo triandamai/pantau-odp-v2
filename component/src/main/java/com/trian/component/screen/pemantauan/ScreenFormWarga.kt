@@ -97,7 +97,7 @@ fun ScreenFormWarga(
                     IconToggleButton(
                         checked = false,
                         onCheckedChange = {
-                            onBackPressed()
+                           prevPage()
                         }
                     ) {
                         Icon(
@@ -205,7 +205,7 @@ fun ScreenFormWarga(
 
                                         },
                                         onSubmit = {
-
+                nextPage()
                                         },
 
                                         )
@@ -251,7 +251,7 @@ fun ScreenFormWarga(
 
                                         },
                                         onSubmit = {
-
+nextPage()
                                         },
 
                                         )
@@ -308,7 +308,7 @@ fun ScreenFormWarga(
 
                                         },
                                         onSubmit = {
-
+nextPage()
                                         },
 
                                         )
@@ -354,7 +354,7 @@ fun ScreenFormWarga(
 
                                         },
                                         onSubmit = {
-
+            onSubmit()
                                         },
 
                                         )

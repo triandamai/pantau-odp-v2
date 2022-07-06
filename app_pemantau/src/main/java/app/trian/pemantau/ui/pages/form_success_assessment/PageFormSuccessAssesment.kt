@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.composable
 import com.trian.component.Routes
+import com.trian.component.screen.pemantauan.ScreenFormAssesment
 import com.trian.component.screen.pemantauan.ScreenSuccessOdp
 
 /**
@@ -17,8 +18,20 @@ import com.trian.component.screen.pemantauan.ScreenSuccessOdp
 fun NavGraphBuilder.routeFormSuccessAssessment(
     router: NavHostController
 ) {
-    composable(Routes.SuccessFormAssessment) {
-        ScreenSuccessOdp()
+    composable(
+        Routes.FormAssesment.route,
+        arguments = Routes.FormAssesment.navArg()
+    ) {
+        ScreenFormAssesment(
+            onBackPressed = {
+                router.popBackStack()
+            },
+            onSubmit = {
+                router.navigate(Routes.SuccessFormAssessment){
+                    launchSingleTop = true
+                }
+            }
+        )
     }
 }
 

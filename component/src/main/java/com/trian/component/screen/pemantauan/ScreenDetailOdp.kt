@@ -6,10 +6,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.trian.component.AppbarBasic
+import com.trian.component.ButtonSecondary
 import com.trian.component.ButtonSmallSecondary
 import com.trian.component.DottedLine
 import com.trian.component.theme.PantauWargaTheme
@@ -183,6 +185,13 @@ fun ScreenDetailOdp(
 
                         )
                 }
+
+                Spacer(modifier = modifier
+                    .height(30.dp))
+                ButtonSecondary(
+                    text = "Edit",
+                    onClick = {}
+                )
             }
         }
     }

@@ -22,7 +22,8 @@ import compose.icons.octicons.ArrowLeft24
 @Composable
 fun ScreenListPetugas(
     modifier: Modifier = Modifier,
-    onBackPressed:()->Unit={}
+    onBackPressed:()->Unit={},
+    onDetailOfficer:(slug:String)->Unit={}
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
     Scaffold(
@@ -49,7 +50,11 @@ fun ScreenListPetugas(
         SwipeRefresh(state =swipeRefreshState, onRefresh = { /*TODO*/ }) {
             LazyColumn(content = {
                 item {
-                    ItemPetugas()
+                    ItemPetugas(
+                        onClick = {
+                            onDetailOfficer("")
+                        }
+                    )
                 }
             })
         }
