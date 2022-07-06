@@ -1,6 +1,7 @@
 package com.trian.component.screen.pemantauan
 
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -42,9 +43,9 @@ fun ScreenSuccessOdp(
     modifier: Modifier = Modifier,
     onDismiss:()->Unit={}
 ) {
-    val ctx = LocalContext.current
-
-
+    BackHandler {
+        onDismiss()
+    }
 
     Box(
         modifier = modifier
@@ -54,7 +55,7 @@ fun ScreenSuccessOdp(
         IconToggleButton(
             checked = false,
             onCheckedChange = {
-
+                onDismiss()
             },
             modifier = modifier.align(Alignment.TopStart)
         ) {

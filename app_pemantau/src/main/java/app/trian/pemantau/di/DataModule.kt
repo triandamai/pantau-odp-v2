@@ -10,8 +10,6 @@ import com.trian.data.local.Persistence
 import com.trian.data.local.room.*
 import com.trian.data.remote.app.design.MainDataSource
 import app.trian.pemantau.BuildConfig
-import app.trian.pemantau.repository.MainRepositoryImpl
-import app.trian.pemantau.repository.design.MainRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,24 +53,6 @@ object DataModule {
     internal fun providePersistence(
         @ApplicationContext appContext: Context
     ): Persistence = CexupData.getPersistence(appContext)
-
-
-    //repository
-    @Provides
-    fun provideMeasurementRepository(
-        dispatcherProvider: DispatcherProvider,
-        persistence: Persistence,
-        mainDataSource: MainDataSource,
-        appSettingDao: AppSettingDao
-    ): MainRepository {
-        return MainRepositoryImpl(
-            dispatcherProvider,
-            persistence,
-            mainDataSource,
-            appSettingDao
-        )
-    }
-
 
 
     @Provides

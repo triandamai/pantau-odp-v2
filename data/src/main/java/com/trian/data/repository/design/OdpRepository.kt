@@ -1,12 +1,9 @@
 package com.trian.data.repository.design
 
+import com.trian.data.models.response.MonitoringResponse
+import com.trian.data.utils.network.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface OdpRepository {
-    suspend fun saveOdp():Flow<Any>
-
-    suspend fun saveAssessment():Flow<Any>
-
-    suspend fun saveWarga():Flow<Any>
-
+    suspend fun getMonitoring():Flow<DataState<MonitoringResponse>>
 }

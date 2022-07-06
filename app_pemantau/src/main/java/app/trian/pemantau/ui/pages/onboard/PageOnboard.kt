@@ -14,6 +14,10 @@ fun NavGraphBuilder.routeOnboard(
     router: NavHostController
 ) {
     composable(Routes.Onboard) {
-        ScreenOnboard()
+        ScreenOnboard(
+            onGetStarted = {
+                router.navigate(Routes.Login)
+            }
+        )
     }
 }

@@ -18,10 +18,14 @@ fun NavGraphBuilder.routeLogin(
         ScreenLogin(
             onSignIn = {
                 _,_->
-                router.navigate(Routes.Main.MAIN)
+                router.navigate(Routes.Main.MAIN){
+                    launchSingleTop = true
+                }
             },
             onResetPassword = {
-
+                router.navigate(Routes.ResetPassword){
+                    launchSingleTop = true
+                }
             }
         )
     }

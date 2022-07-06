@@ -110,4 +110,6 @@
     <string name="appbar_title_form_warga">Form ODP</string>
     <string name="label_nip">NIP</string>
     <string name="label_opd">OPD</string>
+    <string name="content_description_image_form_odp">Input warga dipantau</string>
+    <string name="title_page_form_monitoring">Input data warga dipantau</string>
 </resources>

@@ -8,11 +8,8 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,7 +22,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -51,33 +47,33 @@ import kotlinx.coroutines.launch
 @Composable
 fun ScreenFormOdp(
     modifier: Modifier = Modifier,
-    onBackPressed:()->Unit={},
-    onShowDatePicker:()->Unit={},
-    onShowPickReligion:()->Unit={},
-    onSubmit:()->Unit={}
+    onBackPressed: () -> Unit = {},
+    onShowDatePicker: () -> Unit = {},
+    onShowPickReligion: () -> Unit = {},
+    onSubmit: () -> Unit = {}
 ) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
 
     val pagerState = rememberPagerState(
         pageCount = 7,
-        initialPage = 6,
+        initialPage = 0,
         infiniteLoop = false
     )
 
 
-
-    fun nextPage(){
+    fun nextPage() {
         scope.launch {
             pagerState.scrollToPage(pagerState.currentPage + 1)
         }
 
     }
-    fun prevPage(){
+
+    fun prevPage() {
         scope.launch {
-            if(pagerState.currentPage > 0){
-                pagerState.scrollToPage(pagerState.currentPage-1)
-            }else{
+            if (pagerState.currentPage > 0) {
+                pagerState.scrollToPage(pagerState.currentPage - 1)
+            } else {
                 onBackPressed()
             }
         }
@@ -97,7 +93,7 @@ fun ScreenFormOdp(
                     IconToggleButton(
                         checked = false,
                         onCheckedChange = {
-                            onBackPressed()
+                            prevPage()
                         }
                     ) {
                         Icon(
@@ -115,8 +111,7 @@ fun ScreenFormOdp(
         HorizontalPager(
             state = pagerState,
             dragEnabled = false
-        ) {
-                page->
+        ) { page ->
             /**
              * page:
              * 0:
@@ -131,7 +126,7 @@ fun ScreenFormOdp(
             ) {
 
                 AnimatedVisibility(
-                    visible = page== pagerState.currentPage,
+                    visible = page == pagerState.currentPage,
                     enter = slideInHorizontally(
                         initialOffsetX = { it }, // it == fullWidth
                         animationSpec = tween(
@@ -156,14 +151,14 @@ fun ScreenFormOdp(
                                 ) {
                                     Image(
                                         painter = painterResource(id = R.drawable.bg_onboard_3),
-                                        contentDescription = stringResource(R.string.content_description_image_form_user),
+                                        contentDescription = stringResource(R.string.content_description_image_form_odp),
                                         modifier = Modifier
                                             .width(60.dp.from(ctx))
                                             .height(75.dp.from(ctx))
                                     )
                                     Spacer(modifier = modifier.height(10.dp))
                                     Text(
-                                        text = stringResource(R.string.title_page_form_user),
+                                        text = stringResource(R.string.title_page_form_monitoring),
                                         style = MaterialTheme.typography.body1
                                     )
                                 }
@@ -205,7 +200,7 @@ fun ScreenFormOdp(
 
                                         },
                                         onSubmit = {
-
+                                            nextPage()
                                         },
 
                                         )
@@ -225,7 +220,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Tempat, dan tanggal lahir?",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         )
                                     )
@@ -251,7 +246,7 @@ fun ScreenFormOdp(
 
                                         },
                                         onSubmit = {
-
+                                            nextPage()
                                         },
 
                                         )
@@ -259,7 +254,7 @@ fun ScreenFormOdp(
                                 }
                             )
                         }
-                        2 ->{
+                        2 -> {
                             ScreenNameTransaction(
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
@@ -271,7 +266,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Alamat warga",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         )
                                     )
@@ -308,7 +303,7 @@ fun ScreenFormOdp(
 
                                         },
                                         onSubmit = {
-
+                                            nextPage()
                                         },
 
                                         )
@@ -316,7 +311,7 @@ fun ScreenFormOdp(
                                 }
                             )
                         }
-                        3 ->{
+                        3 -> {
                             ScreenNameTransaction(
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
@@ -328,7 +323,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Informasi Pekerjaan",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         )
                                     )
@@ -354,7 +349,7 @@ fun ScreenFormOdp(
 
                                         },
                                         onSubmit = {
-
+nextPage()
                                         },
 
                                         )
@@ -374,7 +369,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Golongan Darah",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         )
                                     )
@@ -383,7 +378,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "A",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -392,7 +387,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "B",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -414,7 +409,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Riwayat Perjalanan",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         ),
                                         textAlign = TextAlign.Start
@@ -424,7 +419,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Luar Negeri",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -433,7 +428,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Daerah Terjangkit",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -442,7 +437,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Kontak dengan pasien Positif COVID19",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -451,7 +446,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Tidak melakukan perjalanan",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -468,7 +463,7 @@ fun ScreenFormOdp(
 
                                         },
                                         onSubmit = {
-
+nextPage()
                                         },
 
                                         )
@@ -488,7 +483,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Surat pernyataan isolasi mandiri",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         ),
                                         textAlign = TextAlign.Start
@@ -498,7 +493,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Surat ada",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -507,7 +502,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Tidak ada surat",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -516,7 +511,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Jaring pengaman",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         ),
                                         textAlign = TextAlign.Start
@@ -526,7 +521,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Butuh Bantuan",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -535,7 +530,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Tidak Butuh Bantuan",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -544,7 +539,7 @@ fun ScreenFormOdp(
                                     Text(
                                         text = "Perilaku",
                                         style = MaterialTheme.typography.body1.copy(
-                                            color=MaterialTheme.colors.onBackground,
+                                            color = MaterialTheme.colors.onBackground,
                                             fontWeight = FontWeight.Bold
                                         ),
                                         textAlign = TextAlign.Start
@@ -554,7 +549,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Patuh",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -563,7 +558,7 @@ fun ScreenFormOdp(
                                             ItemTripSelection(
                                                 name = "Tidak Patuh",
                                                 selected = false
-                                            ){
+                                            ) {
 
                                                 nextPage()
                                             }
@@ -580,7 +575,7 @@ fun ScreenFormOdp(
 
                                         },
                                         onSubmit = {
-
+                                            onSubmit()
                                         },
 
                                         )

@@ -24,7 +24,9 @@ import compose.icons.octicons.ArrowLeft24
 
 @Composable
 fun ScreenFormPemantau(
-    modifier: Modifier=Modifier
+    modifier: Modifier=Modifier,
+    onBackPressed:()->Unit={},
+    onSubmit:()->Unit={}
 ){
     val ctx = LocalContext.current
     Scaffold(
@@ -35,7 +37,7 @@ fun ScreenFormPemantau(
                     IconToggleButton(
                         checked = false,
                         onCheckedChange = {
-
+onBackPressed()
                         }
                     ) {
                         Icon(
@@ -134,7 +136,7 @@ fun ScreenFormPemantau(
 
                     },
                     onSubmit = {
-
+                        onSubmit()
                     },
 
                     )

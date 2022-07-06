@@ -15,6 +15,15 @@ fun NavGraphBuilder.routeFormPemantau(
     router: NavHostController
 ) {
     composable(Routes.FormUser) {
-        ScreenFormPemantau()
+        ScreenFormPemantau(
+            onBackPressed = {
+                router.popBackStack()
+            },
+            onSubmit = {
+                router.navigate(Routes.SuccessFormPemantau){
+                    launchSingleTop = true
+                }
+            }
+        )
     }
 }

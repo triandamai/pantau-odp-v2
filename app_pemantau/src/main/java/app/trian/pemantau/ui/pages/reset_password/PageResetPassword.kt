@@ -12,6 +12,11 @@ fun NavGraphBuilder.routeResetPassword(
     router: NavHostController
 ) {
     composable(Routes.ResetPassword) {
-       ScreenResetPassword()
+       ScreenResetPassword(
+           onSubmit = {},
+           onLogin = {
+               router.popBackStack()
+           }
+       )
     }
 }

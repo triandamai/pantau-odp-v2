@@ -12,7 +12,12 @@ fun NavGraphBuilder.routeHome(
     router: NavHostController
 ) {
     composable(Routes.Main.Home) {
-       ScreenHome(router = router)
+       ScreenHome(
+           router = router,
+           onFabClicked = {
+               router.navigate(Routes.FormOdp)
+           }
+       )
     }
 }
 

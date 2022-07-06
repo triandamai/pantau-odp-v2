@@ -8,7 +8,10 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.graphics.Color
 import app.trian.pemantau.ui.pages.detail_odp.routeDetailOdp
 import app.trian.pemantau.ui.pages.form_assesment.routeFormAssessment
 import app.trian.pemantau.ui.pages.form_odp.routeFormOdp
@@ -58,6 +61,17 @@ class MainActivity : ComponentActivity() {
             //make status bar custom color
             val systemUiController = rememberSystemUiController()
 
+            fun setStatusBar(color: Color, isDark:Boolean){
+                systemUiController.setStatusBarColor(
+                    color=color,
+                    darkIcons = isDark
+                )
+            }
+            val status = MaterialTheme.colors.background
+
+            LaunchedEffect(key1 = Unit, block = {
+                setStatusBar(status,true)
+            })
             PantauWargaTheme {
                     AnimatedNavHost(
                         navController = router,

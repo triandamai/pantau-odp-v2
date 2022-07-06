@@ -1,6 +1,7 @@
 package com.trian.component.screen.user
 
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -35,6 +36,9 @@ fun ScreenSuccessUser(
     modifier: Modifier = Modifier,
     onDismiss:()->Unit={}
 ) {
+    BackHandler {
+        onDismiss()
+    }
     Box(
         modifier = modifier
             .fillMaxSize()

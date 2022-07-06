@@ -14,6 +14,13 @@ fun NavGraphBuilder.routeFormPemantauSuccess(
     router: NavHostController
 ) {
     composable(Routes.SuccessFormPemantau) {
-        ScreenSuccessUser()
+        ScreenSuccessUser(
+            onDismiss = {
+                router.navigate(Routes.Main.MAIN){
+                    popUpTo(Routes.Main.Home)
+                    launchSingleTop=true
+                }
+            }
+        )
     }
 }

@@ -14,7 +14,14 @@ fun NavGraphBuilder.routeFormOdp(
     router: NavHostController
 ) {
     composable(Routes.FormOdp) {
-        ScreenFormOdp()
+        ScreenFormOdp(
+            onSubmit = {
+                router.navigate(Routes.SuccessFormOdp)
+            },
+            onBackPressed = {
+                router.popBackStack()
+            }
+        )
     }
 }
 
