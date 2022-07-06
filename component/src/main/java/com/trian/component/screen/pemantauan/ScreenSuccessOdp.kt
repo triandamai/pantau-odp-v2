@@ -80,12 +80,12 @@ fun ScreenSuccessOdp(
             )
             Spacer(modifier = modifier.height(20.dp))
             Text(
-                text = "Congratulation!",
+                text = "Success!",
                 style = MaterialTheme.typography.body1
             )
             Spacer(modifier = modifier.height(20.dp))
             Text(
-                text = "Your bank account is added successfully to the app",
+                text = "Warga is added successfully to the app",
                 style = MaterialTheme.typography.caption.copy(
                     color = MaterialTheme.colors.onSurface
                 ),

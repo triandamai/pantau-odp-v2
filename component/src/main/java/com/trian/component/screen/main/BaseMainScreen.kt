@@ -46,8 +46,7 @@ fun BaseMainScreen(
                         when(it.route){
                             "logout"->{
                                 //sign out
-                                    onRestartActivity()
-
+                                onRestartActivity()
                             }
                         }
 
@@ -72,7 +71,7 @@ fun BaseMainScreen(
             bottomBar = {
                 BottomAppBar(
                     cutoutShape = CircleShape,
-                    elevation=0.dp,
+                    elevation=1.dp,
                     backgroundColor = BackgroundDashboard,
                 ) {
                     BottomNav(router = router)

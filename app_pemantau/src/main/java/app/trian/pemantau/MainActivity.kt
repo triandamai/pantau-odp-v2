@@ -6,23 +6,32 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.ExperimentalComposeUiApi
-import app.trian.pemantau.ui.pages.MainPage
+import app.trian.pemantau.ui.pages.detail_odp.routeDetailOdp
+import app.trian.pemantau.ui.pages.form_assesment.routeFormAssessment
+import app.trian.pemantau.ui.pages.form_odp.routeFormOdp
+import app.trian.pemantau.ui.pages.form_success_assessment.routeFormSuccessAssessment
+import app.trian.pemantau.ui.pages.form_success_odp.routeFormSuccessOdp
+import app.trian.pemantau.ui.pages.form_success_warga.routeSuccessFormWarga
+import app.trian.pemantau.ui.pages.form_warga.routeFormWarga
+import app.trian.pemantau.ui.pages.list_warga.routeListWarga
+import app.trian.pemantau.ui.pages.login.routeLogin
+import app.trian.pemantau.ui.pages.main.home.routeHome
+import app.trian.pemantau.ui.pages.main.profile.routeProfile
+import app.trian.pemantau.ui.pages.onboard.routeOnboard
+import app.trian.pemantau.ui.pages.reset_password.routeResetPassword
+import app.trian.pemantau.ui.pages.splash.routeSplash
 import com.google.accompanist.insets.ExperimentalAnimatedInsets
 import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.navigation
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
-import com.google.accompanist.navigation.material.ModalBottomSheetLayout
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.trian.component.Routes
 import com.trian.component.theme.PantauWargaTheme
-import com.trian.data.utils.network.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -35,54 +44,60 @@ import kotlinx.coroutines.InternalCoroutinesApi
  **/
 
 
-@InternalCoroutinesApi
-@ExperimentalCoroutinesApi
-@ExperimentalMaterialNavigationApi
-@ExperimentalAnimationApi
-@ExperimentalPagerApi
-@ExperimentalFoundationApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimatedInsets
-@RequiresApi(Build.VERSION_CODES.O)
-@ExperimentalMaterialApi
+
+@OptIn(ExperimentalAnimationApi::class)
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val navHostController = rememberAnimatedNavController()
-            val bottomSheetNavigator = rememberBottomSheetNavigator()
+            val router = rememberAnimatedNavController()
 
-            //make statusbar custom color
+            //make status bar custom color
             val systemUiController = rememberSystemUiController()
 
-
-
             PantauWargaTheme {
-                ModalBottomSheetLayout(bottomSheetNavigator) {
                     AnimatedNavHost(
-                        navController = navHostController,
-                        startDestination = Routes.SPLASH
+                        navController = router,
+                        startDestination = Routes.Splash
                     ) {
+                        routeSplash(router)
 
-                        composable(
-                            Routes.SPLASH,
-                            enterTransition = {
-                                fadeIn(animationSpec = tween(2000))
-                            }
-                        ) {
+                        routeOnboard(router)
 
-                            MainPage(datas = DataState.onLoading)
+                        routeResetPassword(router)
+
+                        routeLogin(router)
+
+                        navigation(
+                            route = Routes.Main.MAIN,
+                            startDestination = Routes.Main.Home
+                        ){
+                            routeHome(router)
+
+                            routeProfile(router)
+
                         }
 
-                    }
+                        routeFormSuccessOdp(router)
 
-                }
+                        routeFormSuccessAssessment(router)
+
+                        routeSuccessFormWarga(router)
+
+                        routeFormOdp(router)
+
+                        routeFormAssessment(router)
+
+                        routeFormWarga(router)
+
+                        routeDetailOdp(router)
+
+                        routeListWarga(router)
+
+                    }
             }
 
 

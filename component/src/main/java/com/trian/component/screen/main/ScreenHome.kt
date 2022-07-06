@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -28,9 +29,10 @@ import kotlinx.coroutines.launch
  */
 
 @Composable
-fun PageHome(
+fun ScreenHome(
     modifier: Modifier = Modifier,
     router: NavHostController,
+    onFabClicked:()->Unit={},
     onRestartActivity:()->Unit={}
 ) {
 
@@ -41,9 +43,7 @@ fun PageHome(
         drawerState=drawerState,
         router = router,
         onRestartActivity=onRestartActivity,
-        onFabClicked = {
-
-        },
+        onFabClicked = onFabClicked,
         topAppbar = {
             AppbarHome(
                 title = "Home",
@@ -72,6 +72,28 @@ fun PageHome(
             LazyColumn (
                 modifier = modifier.padding(vertical = 10.dp)
             ){
+                item {
+                    Row(
+                        modifier = modifier.fillMaxWidth().padding(
+                            horizontal = 30.dp
+                        ),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "ODP",
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+                        Text(
+                            text = "All",
+                            style = MaterialTheme.typography.body2.copy(),
+                            color = MaterialTheme.colors.primary
+                        )
+
+                    }
+                }
                 item {
                     //                ODP
                     Box(
@@ -106,6 +128,24 @@ fun PageHome(
                         ){
 
                         }
+                    }
+                }
+                item {
+                    Row(
+                        modifier = modifier.fillMaxWidth().padding(
+                            horizontal = 30.dp
+                        ),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "PDP",
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+
+
                     }
                 }
                 item {
@@ -170,6 +210,24 @@ fun PageHome(
                 }
 
                 item {
+                    Row(
+                        modifier = modifier.fillMaxWidth().padding(
+                            horizontal = 30.dp
+                        ),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Covid 19",
+                            style = MaterialTheme.typography.body2.copy(
+                                fontWeight = FontWeight.Bold
+                            )
+                        )
+
+
+                    }
+                }
+                item {
                     //POSITIF
                     Spacer(modifier = modifier.height(30.dp))
                     Row(
@@ -226,8 +284,8 @@ fun PageHome(
 
 @Preview
 @Composable
-fun PreviewPageHome() {
+fun PreviewScreenHome() {
     PantauWargaTheme {
-        PageHome(router = rememberNavController())
+        ScreenHome(router = rememberNavController())
     }
 }

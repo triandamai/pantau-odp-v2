@@ -35,15 +35,14 @@ dependencies {
         implementation(retrofit)
         implementation(gsonFactory)
     }
+
     with(Libs.Com.Squareup.Okhttp3){
         implementation(okhttp)
         implementation(loggingInterceptor)
         implementation(mockWebServer)
     }
 
-
     implementation(Libs.JodaTime.jodaTime)
-
 
     implementation(Libs.Com.Squareup.Logcat.logcat)
 

@@ -167,6 +167,40 @@ fun ScreenProfile(
                         .padding(horizontal = 30.dp, vertical = 10.dp)
                 ) {
                     Text(
+                        text = stringResource(R.string.label_nip),
+                        style = MaterialTheme.typography.caption.copy(
+                            color = MaterialTheme.colors.onSurface
+                        )
+                    )
+                    Spacer(modifier = modifier.height(6.dp))
+                    Text(
+                        text = "32563256",
+                        style = MaterialTheme.typography.body1
+                    )
+                }
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp, vertical = 10.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.label_opd),
+                        style = MaterialTheme.typography.caption.copy(
+                            color = MaterialTheme.colors.onSurface
+                        )
+                    )
+                    Spacer(modifier = modifier.height(6.dp))
+                    Text(
+                        text = "32563256",
+                        style = MaterialTheme.typography.body1
+                    )
+                }
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp, vertical = 10.dp)
+                ) {
+                    Text(
                         text = stringResource(R.string.label_date_of_birth),
                         style = MaterialTheme.typography.caption.copy(
                             color = MaterialTheme.colors.onSurface

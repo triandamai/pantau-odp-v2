@@ -8,8 +8,6 @@ import com.google.gson.Gson
  * Created by Trian Damai
  * 01/09/2021
  */
-
-
 class Persistence(
     private val sharedPreferences: SharedPreferences,
     private val gson: Gson = Gson()

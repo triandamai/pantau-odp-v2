@@ -1,6 +1,5 @@
 package com.trian.component.screen
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
@@ -30,9 +29,7 @@ import com.trian.component.theme.fontFamily
 @Composable
 fun ScreenLogin(
     modifier: Modifier=Modifier,
-    onSignIn:(email:String,password:String)->Unit={
-                                                  _,_->
-    },
+    onSignIn:(email:String,password:String)->Unit={ _,_-> },
     onResetPassword:()->Unit={}
 ) {
     val ctx = LocalContext.current

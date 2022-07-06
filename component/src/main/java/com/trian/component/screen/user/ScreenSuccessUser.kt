@@ -33,7 +33,7 @@ import com.trian.component.R
 @Composable
 fun ScreenSuccessUser(
     modifier: Modifier = Modifier,
-    onDissmiss:()->Unit={}
+    onDismiss:()->Unit={}
 ) {
     Box(
         modifier = modifier
@@ -43,7 +43,7 @@ fun ScreenSuccessUser(
         IconToggleButton(
             checked = false,
             onCheckedChange = {
-               onDissmiss()
+               onDismiss()
             },
             modifier = modifier.align(Alignment.TopStart)
         ) {

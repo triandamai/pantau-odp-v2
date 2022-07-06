@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">KasKu</string>
+    <string name="app_name">Pantau ODP</string>
     <string name="password_not_match">Password didn\'t match!</string>
     <string name="email_not_valid">Email is not valid email!</string>
     <string name="password_cannot_empty">Password cannot empty!</string>
@@ -79,7 +79,35 @@
     <string name="placeholder_petugas_email">trian@trian.app</string>
     <string name="label_input_petugas_desa">Desa Penugasan</string>
     <string name="placeholder_petugas_desa">Purwokerto selatan</string>
-    <string name="appbar_title_create_user">Tambah Petugas</string>
+
+    <string name="label_input_warga_nama">Nama</string>
+    <string name="placeholder_warga_nama">John</string>
+    <string name="label_input_warga_agama">Agama</string>
+    <string name="placeholder_warga_agama">misal:Islam</string>
+    <string name="label_input_warga_nik">NIK</string>
+    <string name="placeholder_warga_nik">56xxx</string>
+    <string name="label_input_warga_tempat_lahir">Tempat Lahir</string>
+    <string name="placeholder_warga_tempat_lahir">banyumas</string>
+    <string name="label_input_warga_tanggal_lahir">Tanggal Lahir</string>
+    <string name="placeholder_warga_tanggal_lahir">01–09-1998</string>
+    <string name="label_input_warga_alamat">Alamat</string>
+    <string name="placeholder_warga_alamat">Jl. bla bla</string>
+    <string name="label_input_warga_rw">RW</string>
+    <string name="placeholder_warga_rw">xx</string>
+    <string name="label_input_warga_rt">RT</string>
+    <string name="placeholder_warga_rt">xx</string>
+    <string name="label_input_warga_pekerjaan">Pekerjaan</string>
+    <string name="placeholder_warga_pekerjaan">Masukkan Pekerjaan</string>
+    <string name="label_input_warga_no_telp">No.Telp</string>
+    <string name="placeholder_warga_no_telp">08xxxx</string>
+    <string name="label_input_warga_kondisi">Kondisi</string>
+    <string name="placeholder_warga_kondisi">Masukkan kondisi</string>
+
+
+    <string name="appbar_title_form_user">Tambah Petugas</string>
     <string name="content_description_image_form_user">Tambahkan data petugas baru</string>
     <string name="title_page_form_user">Tambahkan petugas baru</string>
+    <string name="appbar_title_form_warga">Form ODP</string>
+    <string name="label_nip">NIP</string>
+    <string name="label_opd">OPD</string>
 </resources>
