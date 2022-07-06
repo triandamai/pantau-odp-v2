@@ -4,8 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,9 @@ import androidx.compose.ui.unit.dp
 import com.trian.component.theme.DisableContentColor
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.utils.coloredShadow
+import compose.icons.Octicons
+import compose.icons.octicons.Gear24
+import compose.icons.octicons.Quote24
 
 /**
  *
@@ -75,6 +77,132 @@ fun AppbarAuth(
     }
 }
 
+/**
+ *
+ * author Trian Damai
+ * created_at 09/03/22 - 20.23
+ * site https://trian.app
+ */
+
+@Composable
+fun AppbarHome(
+    modifier: Modifier = Modifier,
+    title:String="",
+    navigationIcon:@Composable ()->Unit={},
+    actions:@Composable RowScope.()->Unit={},
+    content:@Composable ()->Unit = {}
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .clip(
+                RoundedCornerShape(
+                    bottomStart = 20.dp,
+                    bottomEnd = 20.dp
+                )
+            )
+            .background(MaterialTheme.colors.surface)
+    ) {
+        TopAppBar(
+            elevation = 0.dp,
+            backgroundColor = MaterialTheme.colors.surface,
+            navigationIcon = {
+                navigationIcon.invoke()
+            },
+            actions = actions,
+            title = {
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.h4.copy(
+                        color = MaterialTheme.colors.onBackground,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        )
+        Box(modifier = modifier.padding(horizontal = 16.dp)){
+            content.invoke()
+        }
+        Spacer(modifier = modifier.height(16.dp))
+    }
+}
+
+/**
+ *
+ * author Trian Damai
+ * created_at 09/03/22 - 22.35
+ * site https://trian.app
+ */
+
+@Composable
+fun AppbarProfile(
+    onNavigation:()->Unit={},
+    onAction:()->Unit={}
+) {
+    TopAppBar(
+        elevation = 0.dp,
+        backgroundColor = MaterialTheme.colors.surface,
+        navigationIcon = {
+            IconToggleButton(
+                checked = false,
+                onCheckedChange = {
+                    onNavigation()
+                }
+            ) {
+                Icon(
+                    imageVector = Octicons.Quote24,
+                    contentDescription = "",
+                    tint = MaterialTheme.colors.onBackground
+                )
+            }
+
+        },
+        title = {
+            Row {
+                Spacer(modifier = Modifier.width(10.dp))
+                Text(
+                    text = "Profile",
+                    style = MaterialTheme.typography.h4.copy(
+                        color = MaterialTheme.colors.onBackground,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            }
+        },
+        actions = {
+            IconToggleButton(
+                checked = false,
+                onCheckedChange = {
+                    onAction()
+                }
+            ) {
+                Icon(
+                    imageVector = Octicons.Gear24,
+                    contentDescription = "",
+                    tint = MaterialTheme.colors.onBackground
+                )
+            }
+        }
+
+    )
+}
+
+@Preview
+@Composable
+fun PreviewAppBarProfile() {
+    PantauWargaTheme {
+        AppbarProfile()
+    }
+}
+@Preview
+@Composable
+fun PreviewAppbarDashboard() {
+    PantauWargaTheme {
+        AppbarHome(
+            title = "Stat"
+        )
+    }
+}
 @Preview
 @Composable
 fun PreviewAppbarAuth() {

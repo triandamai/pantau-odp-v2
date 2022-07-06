@@ -15,12 +15,26 @@ Name | Description      | design
 # pantau-odp-v2
 creating apps for odp version 2
 
+## Feature
+1. Dashboard statistik
+2. Merubah Profil
+3. Me reset password
+4. Login
+### Koordinator
+1. Nambah Data Pemantau
+2. Melihat Hasil Pemantauan  Per Desa
+
+### Pemantau
+1. Memantau Warga(Assesment)
+2. Melihat Hasil Pemantauan di regionnya(di desa penugasan)
+
+
 
 ## USER
 - desa
 - id induk
 - kecamatan
-- level
+- level[PEMANTAU,KOORDINTAOR,DINKES,DINSOS,BUPATI]
 - nama
 - nip
 - opd
