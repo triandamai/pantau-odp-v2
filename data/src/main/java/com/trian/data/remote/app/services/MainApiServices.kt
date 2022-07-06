@@ -16,5 +16,4 @@ interface MainApiServices {
         @Query("page") page:Int
     ): Response<BaseResponse<List<TodoResponse>>>
 
-
 }

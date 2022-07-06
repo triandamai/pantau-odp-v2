@@ -50,10 +50,6 @@ creating apps for odp version 2
 - jenis_kelamin_string
 - jenis_kelamin_val
 - jumlah
-- kecamatan
-- kelurahan
-- nama
-- nippemantai
 - penyakit_string
 - penyakit_val
 - riwayat_string
@@ -62,32 +58,35 @@ creating apps for odp version 2
 - sesak_nafas_val
 - umur_string
 - umur_val
-
-## WARGA DIPANTAU
-- agama
-- alamat
 - butuhbantuan
-- creted_at
 - daerah_dikunjungi
 - go_darah
 - jenis_kelamin
 - jenisbantuan
 - jumlah bantuan
-- kecamatan
-- kelurahan
 - kondisi
+- surat_isolasi
+
+- perilaku
+- riwayat_perjalanan
+
+## WARGA DIPANTAU
+- agama
+- alamat
 - nama
 - nik
 - nippemantai
 - nohp
 - pekerjaan
-- perilaku
-- riwayat_perjalanan
 - rt
 - rw
 - status
-- surat_isolasi
-- tanggal_lahir
-- tampat_lahir
 - umur
 - updated_at
+- kecamatan
+- kelurahan
+- nippemantai
+- created_at
+- updated_at
+- tanggal_lahir
+- tampat_lahir
