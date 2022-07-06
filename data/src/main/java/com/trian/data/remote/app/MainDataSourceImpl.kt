@@ -8,10 +8,13 @@ import com.trian.data.utils.safeApiCall
 class MainDataSourceImpl(
     private val apiServices: MainApiServices
 ): MainDataSource {
-    override suspend fun getTodos(
-        page: Int,
-        size: Int
-    )= safeApiCall { apiServices.getTodos(page,size) }
+    override suspend fun getDistricts(
+    )= safeApiCall {apiServices.getDistricts()}
 
+    override suspend fun getVillages(
+    )= safeApiCall { apiServices.getVillage()}
+
+    override suspend fun getMonitoring(
+    )= safeApiCall { apiServices.getMonitoring()}
 
 }

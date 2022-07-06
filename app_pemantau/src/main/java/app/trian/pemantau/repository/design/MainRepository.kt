@@ -1,6 +1,5 @@
 package app.trian.pemantau.repository.design
 
-import com.trian.data.models.response.TodoResponse
 import com.trian.data.utils.network.DataState
 import kotlinx.coroutines.flow.Flow
 
