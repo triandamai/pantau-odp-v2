@@ -23,7 +23,7 @@ data class MonitoringResponse (
     val positifDirawat: String,
     @SerializedName("POSITIF-SEMBUH")
     val positifSembuh: String,
-    @SerializedName("POSTIF-MENINGGAL")
+    @SerializedName("POSITIF-MENINGGAL")
     val positifMeninggal: String,
     @SerializedName("LASTUPDATE")
     val lastupdate: String

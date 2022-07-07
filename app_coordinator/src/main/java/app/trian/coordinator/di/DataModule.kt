@@ -2,7 +2,7 @@ package app.trian.coordinator.di
 
 
 import android.content.Context
-import com.trian.data.CexupData
+import com.trian.data.PantauOdpData
 import com.trian.data.coroutines.DefaultDispatcherProvider
 import com.trian.data.coroutines.DispatcherProvider
 import com.trian.data.local.CexupDatabase
@@ -15,6 +15,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import app.trian.coordinator.BuildConfig
+import com.trian.data.repository.OdpRepositoryImpl
+import com.trian.data.repository.design.OdpRepository
 
 /**
  * Persistence Class
@@ -35,21 +37,31 @@ object DataModule {
     @Provides
     internal fun provideDataSource(
         @ApplicationContext appContext: Context
-    ): MainDataSource = CexupData.getDataSource(
+    ): MainDataSource = PantauOdpData.getDataSource(
         BuildConfig.BASE_URL,
         BuildConfig.API_KEY
+    )
+
+    //repository
+    @Provides
+    internal fun provideOdpRepository(
+        dispatcherProvider: DispatcherProvider,
+        mainDataSource: MainDataSource
+    ):OdpRepository = OdpRepositoryImpl(
+        dispatcher = dispatcherProvider,
+        mainDataSource = mainDataSource
     )
 
     //local database
     @Provides
     internal fun localDatabase(
         @ApplicationContext appContext: Context
-    ): CexupDatabase = CexupData.initializeDatabase(appContext)
+    ): CexupDatabase = PantauOdpData.initializeDatabase(appContext)
 
     @Provides
     internal fun providePersistence(
         @ApplicationContext appContext: Context
-    ): Persistence = CexupData.getPersistence(appContext)
+    ): Persistence = PantauOdpData.getPersistence(appContext)
 
 
 

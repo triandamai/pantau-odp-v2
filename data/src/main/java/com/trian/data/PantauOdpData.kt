@@ -14,7 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class CexupData() {
+class PantauOdpData() {
     companion object{
         private val REQUEST_TIMEOUT = 5
 
@@ -33,7 +33,7 @@ class CexupData() {
                     val origin = chain.request()
                     val request = origin.newBuilder()
                         .header(
-                            "x-api-key",
+                            "apiKey",
                             apiKey
                         )
                         .method(origin.method, origin.body)

@@ -1,11 +1,15 @@
 package app.trian.coordinator.ui.pages.main.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.composable
 import com.trian.component.ItemMenuDrawer
 import com.trian.component.Routes
+import com.trian.component.screen.main.MonitoringUIState
 import com.trian.component.screen.main.ScreenHome
 
 val menu = listOf(
@@ -35,10 +39,17 @@ fun NavGraphBuilder.routeHome(
     router: NavHostController
 ) {
     composable(Routes.Main.Home) {
+        val viewModel = hiltViewModel<HomeViewModel>()
 
+        val monitoring by viewModel.monitoringState.observeAsState(
+            initial = MonitoringUIState(
+                loading = true
+            )
+        )
        ScreenHome(
            router = router,
            menus = menu,
+            monitoring=monitoring,
            onFabClicked = {
                router.navigate(Routes.FormUser){
                    launchSingleTop=true

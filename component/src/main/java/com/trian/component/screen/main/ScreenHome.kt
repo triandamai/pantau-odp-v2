@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,6 +20,8 @@ import com.trian.component.ItemStat
 import com.trian.component.ItemStatFull
 import com.trian.component.theme.ExpensesColor
 import com.trian.component.theme.PantauWargaTheme
+import com.trian.component.utils.from
+import com.trian.data.models.response.MonitoringResponse
 import compose.icons.Octicons
 import compose.icons.octicons.Quote24
 import kotlinx.coroutines.launch
@@ -29,17 +32,38 @@ import kotlinx.coroutines.launch
  * created_at 09/03/22 - 21.21
  * site https://trian.app
  */
+data class MonitoringUIState(
+    var loading:Boolean =true,
+    var error:Boolean=false,
+    var errorMessage:String="n/a",
+
+    var odp:String="n/a",
+    var odpOnMonitoring:String="n/a",
+    var odpFinish:String="n/a",
+
+    var pdp:String="n/a",
+    var pdpLabNegative:String="n/a",
+    var pdpWaiting:String="n/a",
+    var pdpDied:String="n/a",
+
+    var positive:String="n/a",
+    var positiveOnTreated:String="n/a",
+    var positiveCured:String="n/a",
+    var positiveDied:String="n/a"
+)
 
 @Composable
 fun ScreenHome(
     modifier: Modifier = Modifier,
     router: NavHostController,
     menus:List<ItemMenuDrawer> = listOf(),
+    monitoring:MonitoringUIState= MonitoringUIState(),
     onFabClicked:()->Unit={},
     onRestartActivity:()->Unit={},
     onDetailMonitoring:()->Unit={}
 ) {
 
+    val ctx = LocalContext.current
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -79,9 +103,11 @@ fun ScreenHome(
             ){
                 item {
                     Row(
-                        modifier = modifier.fillMaxWidth().padding(
-                            horizontal = 30.dp
-                        ),
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 30.dp
+                            ),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -111,7 +137,7 @@ fun ScreenHome(
                     ) {
                         ItemStatFull(
                             name = "ODP Dalam Pemantauan",
-                            value = "500.000"
+                            value = monitoring.odp
                         )
                     }
                     Spacer(modifier = modifier.height(30.dp))
@@ -124,15 +150,15 @@ fun ScreenHome(
                     ) {
                         ItemStat(
                             name = "ODP Selesai",
-                            value = "300.00",
+                            value = monitoring.odpFinish,
                             iconColor = MaterialTheme.colors.primary
                         ){
 
                         }
                         ItemStat(
                             name = "ODP Total",
-                            value = "200.000",
-                            iconColor = ExpensesColor
+                            value =monitoring.odpFinish ,
+                            iconColor = MaterialTheme.colors.primary
                         ){
 
                         }
@@ -140,9 +166,11 @@ fun ScreenHome(
                 }
                 item {
                     Row(
-                        modifier = modifier.fillMaxWidth().padding(
-                            horizontal = 30.dp
-                        ),
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 30.dp
+                            ),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -159,17 +187,6 @@ fun ScreenHome(
                 item {
                     //                PDP
                     Spacer(modifier = modifier.height(30.dp))
-                    Box(
-                        modifier = modifier.padding(
-                            horizontal = 30.dp
-                        )
-                    ) {
-                        ItemStatFull(
-                            name = "PDP Total",
-                            value = "500.000"
-                        )
-                    }
-                    Spacer(modifier = modifier.height(30.dp))
                     Row(
                         modifier = modifier
                             .fillMaxWidth()
@@ -178,16 +195,16 @@ fun ScreenHome(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         ItemStat(
-                            name = "PDP Dirawat",
-                            value = "300.00",
+                            name = "PDP",
+                            value = monitoring.pdp,
                             iconColor = MaterialTheme.colors.primary
                         ){
 
                         }
                         ItemStat(
-                            name = "PDP Negatif",
-                            value = "200.000",
-                            iconColor = ExpensesColor
+                            name = "PDP Negative",
+                            value = monitoring.pdpLabNegative,
+                            iconColor = MaterialTheme.colors.primary
                         ){
 
                         }
@@ -202,14 +219,14 @@ fun ScreenHome(
                     ) {
                         ItemStat(
                             name = "PDP Menunggu",
-                            value = "300.00",
-                            iconColor = MaterialTheme.colors.primary
+                            value = monitoring.pdpWaiting,
+                            iconColor = MaterialTheme.colors.secondaryVariant
                         ){
 
                         }
                         ItemStat(
                             name = "PDP Meninggal",
-                            value = "200.000",
+                            value = monitoring.pdpDied,
                             iconColor = ExpensesColor
                         ){
 
@@ -219,9 +236,11 @@ fun ScreenHome(
 
                 item {
                     Row(
-                        modifier = modifier.fillMaxWidth().padding(
-                            horizontal = 30.dp
-                        ),
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = 30.dp
+                            ),
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -247,15 +266,15 @@ fun ScreenHome(
                     ) {
                         ItemStat(
                             name = "Total Positif",
-                            value = "300.00",
+                            value = monitoring.positive,
                             iconColor = MaterialTheme.colors.primary
                         ){
 
                         }
                         ItemStat(
                             name = "Dirawat",
-                            value = "200.000",
-                            iconColor = ExpensesColor
+                            value = monitoring.positiveOnTreated,
+                            iconColor = MaterialTheme.colors.primaryVariant
                         ){
 
                         }
@@ -270,19 +289,22 @@ fun ScreenHome(
                     ) {
                         ItemStat(
                             name = "Sembuh",
-                            value = "300.00",
+                            value = monitoring.positiveCured,
                             iconColor = MaterialTheme.colors.primary
                         ){
 
                         }
                         ItemStat(
                             name = "Meninggal",
-                            value = "200.000",
+                            value = monitoring.positiveDied,
                             iconColor = ExpensesColor
                         ){
 
                         }
                     }
+                }
+                item {
+                    Spacer(modifier = modifier.height(40.dp.from(ctx)))
                 }
             }
         }
