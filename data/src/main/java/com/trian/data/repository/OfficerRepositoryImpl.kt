@@ -29,6 +29,7 @@ class OfficerRepositoryImpl(
         villageName:String
     ): Flow<Pair<Boolean, String>> = flow{
         try {
+
             val currentUser = firebaseAuth.currentUser ?: throw Exception("Anda belum masuk!")
 
             val user = firestore.collection("OFFICER")
@@ -36,6 +37,7 @@ class OfficerRepositoryImpl(
                 .get().await().toObject(Officer::class.java) ?: throw Exception("Anda belum masuk!.")
 
             val randomPassword = getRandomPassword()
+            //TODO: should use firebase function http
             val authenticate = firebaseAuth.createUserWithEmailAndPassword(
                 email,
                 randomPassword
