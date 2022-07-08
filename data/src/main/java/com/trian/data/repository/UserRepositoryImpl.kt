@@ -1,6 +1,7 @@
 package com.trian.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.trian.data.coroutines.DispatcherProvider
@@ -66,5 +67,17 @@ class UserRepositoryImpl(
         }
 
 
+    }.flowOn(dispatcherProvider.io())
+
+    override suspend fun getProfileOfficer(): Flow<Pair<FirebaseUser,Officer>> = flow {
+        try {
+            val user = firebaseAuth.currentUser ?: throw Exception("User belum login")
+            val officer = firestore.collection("OFFICER")
+                .document(user.uid)
+                .get().await().toObject(Officer::class.java) ?: throw Exception("Gagal mengambil informasi user. Coba lagi beberapa saat!")
+            emit(Pair(user,officer))
+        }catch (e:Exception){
+            throw e
+        }
     }.flowOn(dispatcherProvider.io())
 }

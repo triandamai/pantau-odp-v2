@@ -37,11 +37,24 @@ import kotlinx.coroutines.launch
  * site https://trian.app
  */
 
+data class ProfileUIState(
+    var loading:Boolean=false,
+    var error:Boolean = false,
+    var errorMessage :String = "",
+
+    var name:String="",
+    var email:String="",
+    var placeOfAssignment:String="",
+    var nip:String="",
+    var opd:String="",
+)
+
 @Composable
 fun ScreenProfile(
     modifier: Modifier = Modifier,
     router: NavHostController,
     menus:List<ItemMenuDrawer> = listOf(),
+    profile:ProfileUIState=ProfileUIState(),
     onRestartActivity:()->Unit={}
 ) {
 
@@ -95,7 +108,7 @@ fun ScreenProfile(
 
                         Column {
                             Text(
-                                text =  "Trian Damai",
+                                text =  profile.name,
                                 style = MaterialTheme.typography.h4.copy(
                                     color = MaterialTheme.colors.onBackground,
                                     fontWeight = FontWeight.Bold
@@ -137,7 +150,7 @@ fun ScreenProfile(
                             )
                             Spacer(modifier = modifier.height(16.dp))
                             Text(
-                                text = "Kecamatan Purwokerto selatan",
+                                text = profile.placeOfAssignment,
                                 style = MaterialTheme.typography.body1.copy(
                                     color = MaterialTheme.colors.onPrimary
                                 )
@@ -160,7 +173,7 @@ fun ScreenProfile(
                     )
                     Spacer(modifier = modifier.height(6.dp))
                     Text(
-                        text = "trian@gmail.com",
+                        text = profile.email,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -177,7 +190,7 @@ fun ScreenProfile(
                     )
                     Spacer(modifier = modifier.height(6.dp))
                     Text(
-                        text = "32563256",
+                        text = profile.nip,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -194,27 +207,11 @@ fun ScreenProfile(
                     )
                     Spacer(modifier = modifier.height(6.dp))
                     Text(
-                        text = "32563256",
+                        text = profile.opd,
                         style = MaterialTheme.typography.body1
                     )
                 }
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 30.dp, vertical = 10.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.label_date_of_birth),
-                        style = MaterialTheme.typography.caption.copy(
-                            color = MaterialTheme.colors.onSurface
-                        )
-                    )
-                    Spacer(modifier = modifier.height(6.dp))
-                    Text(
-                        text = "16 Sept 2020",
-                        style = MaterialTheme.typography.body1
-                    )
-                }
+
             }
         }
     )

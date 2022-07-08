@@ -1,8 +1,6 @@
 package app.trian.pemantau.ui.pages.onboard
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.composable
@@ -16,7 +14,12 @@ fun NavGraphBuilder.routeOnboard(
     composable(Routes.Onboard) {
         ScreenOnboard(
             onGetStarted = {
-                router.navigate(Routes.Login)
+                router.navigate(Routes.Login){
+                    popUpTo(Routes.Splash){
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
             }
         )
     }

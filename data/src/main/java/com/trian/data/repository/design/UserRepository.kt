@@ -1,5 +1,7 @@
 package com.trian.data.repository.design
 
+import com.google.firebase.auth.FirebaseUser
+import com.trian.data.models.dto.Officer
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
@@ -12,4 +14,6 @@ interface UserRepository {
     ):Flow<Pair<Boolean,String>>
 
     suspend fun resetPassword(email:String):Flow<Pair<Boolean,String>>
+
+    suspend fun getProfileOfficer():Flow<Pair<FirebaseUser,Officer>>
 }
