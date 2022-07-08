@@ -5,6 +5,8 @@
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     kotlin("android")
     kotlin("kapt")
 }
@@ -18,7 +20,7 @@ val storePasswordProperties =  findProperty("STORE_PASSWORD")
 android {
     compileSdk = 31
     defaultConfig {
-        applicationId = ApplicationId.Driver
+        applicationId = ApplicationId.Pemantau
         minSdk = 23
         targetSdk = 30
         versionCode = 17
@@ -91,9 +93,6 @@ android {
 
 
 dependencies {
-    //Loads packaged libraries in the libs folder
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
 
     implementation(project(Modules.data))
     implementation(project(Modules.component))
@@ -193,6 +192,24 @@ dependencies {
     implementation(Libs.Com.Github.PhilJay.mpAndroidChart)
     implementation(Libs.JodaTime.jodaTime)
 
+    //firebase
+    with(Libs.Com.Google.Firebase) {
+        implementation(platform(bom))
+        implementation(auth)
+        implementation(firestore)
+        implementation(storage)
+        implementation(messaging)
+        implementation(crashlytics)
+        implementation(analytics)
+
+    }
+
+
+    //allow use await() in firebase task
+    with(Libs.Org.Jetbrains.Kotlinx) {
+        implementation(googlePlayKotlinCoroutine)
+    }
+
 
     testImplementation(Libs.Org.Mockito.mockitoCore)
     //  Bump to 4.6.* after https://github.com/robolectric/robolectric/issues/6593 is fixed
@@ -212,6 +229,9 @@ dependencies {
     androidTestImplementation(Libs.AndroidX.Test.Espresso.espressoCore)
 
     androidTestImplementation(Libs.Org.Jetbrains.Kotlinx.kotlinxCoroutinesTest)
+
+    //toasty
+    implementation(Libs.Com.Github.GrenderG.toasty)
 
 
 }

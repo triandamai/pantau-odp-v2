@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -22,8 +22,11 @@ import com.trian.component.theme.PantauWargaTheme
 fun ScreenResetPassword(
     modifier:Modifier=Modifier,
     onLogin:()->Unit={},
-    onSubmit:()->Unit={}
+    onSubmit:(String)->Unit={}
 ) {
+    var email by remember {
+        mutableStateOf("")
+    }
     Scaffold(
         topBar = {
             AppbarAuth(navigationText = stringResource(R.string.btn_login)){
@@ -62,9 +65,14 @@ fun ScreenResetPassword(
                 FormInputWithButton(
                     placeholder = stringResource(R.string.placeholder_email),
                     label = stringResource(R.string.label_input_email),
+                    buttonEnabled=email.isNotBlank(),
+                    initialValue = email,
+                    onChange = {
+                               email = it
+                    },
                     singleLine = true,
                     onSubmit = {
-                        onSubmit()
+                        onSubmit(email)
                     },
                     keyboardType = KeyboardType.Email,
                 )

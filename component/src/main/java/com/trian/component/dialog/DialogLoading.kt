@@ -10,15 +10,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
+import androidx.compose.ui.window.SecureFlagPolicy
 
 @Composable
 fun DialogLoading(
     modifier:Modifier=Modifier,
     show:Boolean,
-    onDismiss:()->Unit
 ){
     if(show){
-        Dialog(onDismissRequest = onDismiss) {
+        Dialog(
+            properties = DialogProperties(
+                dismissOnBackPress = false,
+                dismissOnClickOutside = false
+            ),
+            onDismissRequest = {}
+        ) {
 
                 Box(
                     contentAlignment = Alignment.Center,

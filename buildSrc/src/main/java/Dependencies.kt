@@ -1,8 +1,5 @@
 object ApplicationId{
-
-    const val Driver = "app.trian.driver"
-    const val User = "app.trian.user"
-
-
+    const val Coordinator = "app.trian.coordinator"
+    const val Pemantau = "app.trian.pemantau"
 }
 

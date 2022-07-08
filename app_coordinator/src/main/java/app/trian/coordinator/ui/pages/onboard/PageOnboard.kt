@@ -16,7 +16,12 @@ fun NavGraphBuilder.routeOnboard(
     composable(Routes.Onboard) {
         ScreenOnboard(
             onGetStarted = {
-                router.navigate(Routes.Login)
+                router.navigate(Routes.Login){
+                    popUpTo(Routes.Onboard){
+                        inclusive = true
+                    }
+                    launchSingleTop = true
+                }
             }
         )
     }

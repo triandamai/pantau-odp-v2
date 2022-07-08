@@ -46,6 +46,23 @@ dependencies {
 
     implementation(Libs.Com.Squareup.Logcat.logcat)
 
+    //firebase
+    with(Libs.Com.Google.Firebase) {
+        implementation(platform(bom))
+        implementation(auth)
+        implementation(firestore)
+        implementation(storage)
+        implementation(messaging)
+        implementation(crashlytics)
+        implementation(analytics)
+
+    }
+
+
+    //allow use await() in firebase task
+    with(Libs.Org.Jetbrains.Kotlinx) {
+        implementation(googlePlayKotlinCoroutine)
+    }
 
 
 }

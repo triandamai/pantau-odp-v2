@@ -123,7 +123,8 @@ fun ScreenLogin(
                         )
                     },
                     keyboardType = KeyboardType.Password,
-                    imeAction = ImeAction.Send
+                    imeAction = ImeAction.Send,
+                    buttonEnabled = email.isNotBlank() && password.isNotBlank()
                 )
             }
 

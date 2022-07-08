@@ -15,8 +15,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import app.trian.coordinator.BuildConfig
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.trian.data.repository.OdpRepositoryImpl
+import com.trian.data.repository.UserRepositoryImpl
 import com.trian.data.repository.design.OdpRepository
+import com.trian.data.repository.design.UserRepository
 
 /**
  * Persistence Class
@@ -51,6 +55,24 @@ object DataModule {
         dispatcher = dispatcherProvider,
         mainDataSource = mainDataSource
     )
+
+    @Provides
+    internal fun provideUserRepository(
+        dispatcherProvider: DispatcherProvider,
+        firebaseAuth: FirebaseAuth,
+        firestore: FirebaseFirestore
+    ):UserRepository=UserRepositoryImpl(
+        dispatcherProvider = dispatcherProvider,
+        firebaseAuth = firebaseAuth,
+        firestore = firestore
+    )
+
+    //firebase
+    @Provides
+    fun provideFirebaseAuth():FirebaseAuth = FirebaseAuth.getInstance()
+
+    @Provides
+    fun provideFirestore():FirebaseFirestore=FirebaseFirestore.getInstance()
 
     //local database
     @Provides

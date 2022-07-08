@@ -76,11 +76,12 @@ fun ScreenOnboard(
         Column (
             modifier = modifier
                 .fillMaxWidth()
+                .height(100.dp.from(ctx))
                 .padding(
                     horizontal = 30.dp
                 ),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.SpaceEvenly
+            verticalArrangement = Arrangement.SpaceBetween
         ){
             Text(
                 text = stringResource(title),
@@ -100,13 +101,15 @@ fun ScreenOnboard(
             )
         }
         HorizontalPager(
-            state = pagerState
+            state = pagerState,
+            modifier = modifier.fillMaxWidth()
         ) {
                 page->
             Column(
-                modifier = modifier.fillMaxHeight(
+                modifier = modifier
+                    .fillMaxHeight(
                     fraction = 0.5f
-                ),
+                ).fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -124,7 +127,10 @@ fun ScreenOnboard(
                 horizontal = 30.dp
             )
         ) {
-            ButtonPrimary(stringResource(R.string.btn_get_started)){
+            ButtonPrimary(
+                stringResource(R.string.btn_get_started),
+                enabled = pagerState.currentPage == 2
+            ){
                 onGetStarted()
             }
         }

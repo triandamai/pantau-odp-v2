@@ -9,7 +9,10 @@ buildscript {
         classpath("com.google.dagger:hilt-android-gradle-plugin:2.40.1")
         // Check that you have the Google services Gradle plugin v4.3.2 or later
         // (if not, add it).
-        classpath("com.google.gms:google-services:4.3.10")
+        classpath("com.google.gms:google-services:4.3.13")
+
+        // Add the Crashlytics Gradle plugin
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.1")
 
     }
 }
