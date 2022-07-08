@@ -12,6 +12,7 @@ import com.trian.component.AppbarBasic
 import com.trian.component.ButtonSmallSecondary
 import com.trian.component.DottedLine
 import com.trian.component.theme.PantauWargaTheme
+import com.trian.data.models.dto.Officer
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
 
@@ -21,10 +22,17 @@ import compose.icons.octicons.ArrowLeft24
  * created_at 10/03/22 - 13.25
  * site https://trian.app
  */
+data class DetailOfficerUIState(
+    var loading:Boolean = false,
+    var error:Boolean = false,
+    var errorMessage:String = "",
 
+    var officer: Officer = Officer()
+)
 @Composable
-fun ScreenDetailPetugas(
+fun ScreenDetailOfficer(
     modifier: Modifier = Modifier,
+    state:DetailOfficerUIState=DetailOfficerUIState(),
     onBackPressed:()->Unit={}
 ) {
     Scaffold(
@@ -71,7 +79,7 @@ fun ScreenDetailPetugas(
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "Trian Damai",
+                        text = state.officer.name,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -85,7 +93,7 @@ fun ScreenDetailPetugas(
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "00xxxx",
+                        text = state.officer.nip,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -99,7 +107,7 @@ fun ScreenDetailPetugas(
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "00xxxx",
+                        text = state.officer.opd,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -120,7 +128,7 @@ fun ScreenDetailPetugas(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "Pemantau",
+                            text = if(state.officer.level == "PEMANTAU") "Pemantau" else "Kordinator",
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -171,7 +179,7 @@ fun ScreenDetailPetugas(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "Purwokerto selatan",
+                            text = if(state.officer.level == "PEMANTAU")state.officer.villageName else state.officer.districtName,
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -190,6 +198,18 @@ fun ScreenDetailPetugas(
 @Composable
 fun PreviewScreenDetailPetugas() {
     PantauWargaTheme {
-        ScreenDetailPetugas()
+        ScreenDetailOfficer(
+            state = DetailOfficerUIState(
+                loading = false,
+                error = false,
+                officer = Officer(
+                    name = "Trian Damai",
+                    nip = "657890",
+                    opd = "657890",
+                    level = "PEMANTAU",
+                    villageName = "Purwkerto Selatan"
+                )
+            )
+        )
     }
 }

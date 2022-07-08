@@ -1,15 +1,20 @@
 package com.trian.component.screen
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trian.component.AppbarBasic
 import com.trian.component.ItemPetugas
 import com.trian.component.theme.PantauWargaTheme
+import com.trian.data.models.dto.Officer
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
 
@@ -19,9 +24,17 @@ import compose.icons.octicons.ArrowLeft24
  * created_at 10/03/22 - 13.25
  * site https://trian.app
  */
+data class ListPemantauUIState(
+    var loading:Boolean=false,
+    var error:Boolean=false,
+    var errorMessage:String = "",
+
+    var data:List<Officer> = listOf()
+)
 @Composable
 fun ScreenListPetugas(
     modifier: Modifier = Modifier,
+    state:ListPemantauUIState= ListPemantauUIState(),
     onBackPressed:()->Unit={},
     onDetailOfficer:(slug:String)->Unit={}
 ) {
@@ -50,12 +63,25 @@ fun ScreenListPetugas(
         SwipeRefresh(state =swipeRefreshState, onRefresh = { /*TODO*/ }) {
             LazyColumn(content = {
                 item {
-                    ItemPetugas(
-                        onClick = {
-                            onDetailOfficer("")
-                        }
-                    )
+                    Spacer(modifier = modifier.height(16.dp))
                 }
+                if(!state.error && !state.loading) {
+                    items(state.data) {
+                        ItemPetugas(
+                            name = it.name,
+                            email = it.email,
+                            nip = it.nip,
+                            onClick = {
+                                onDetailOfficer(it.uid)
+                            }
+                        )
+                    }
+                }
+
+                //TODO: show empty state and loading
+
+
+
             })
         }
     }

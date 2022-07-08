@@ -30,6 +30,9 @@ import compose.icons.octicons.Person24
 @Composable
 fun ItemPetugas(
     modifier: Modifier=Modifier,
+    name:String="",
+    email:String="",
+    nip:String="",
     onClick:()->Unit={}
 ) {
     val ctx = LocalContext.current
@@ -82,21 +85,21 @@ fun ItemPetugas(
             ) {
                 Column {
                     Text(
-                        text = "Trian Damai",
+                        text = name,
                         style = MaterialTheme.typography.body2.copy(
 
                         )
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "Desa",
+                        text = email,
                         style = MaterialTheme.typography.caption.copy(
                             color = MaterialTheme.colors.onSurface
                         )
                     )
                 }
                 Text(
-                    text = "01xxxxxx",
+                    text = nip,
                     style = MaterialTheme.typography.body2.copy(
                         color = MaterialTheme.colors.secondary
                     )
@@ -114,7 +117,11 @@ fun ItemPetugas(
 fun PreviewItemPetugas() {
     PantauWargaTheme {
         Column {
-            ItemPetugas()
+            ItemPetugas(
+                name = "Trian Damai",
+                email = "trian@trian.app",
+                nip = "00044"
+            )
 
         }
 

@@ -3,7 +3,7 @@ package com.trian.component.screen.user
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -25,10 +25,30 @@ import compose.icons.octicons.ArrowLeft24
 @Composable
 fun ScreenFormPemantau(
     modifier: Modifier=Modifier,
+    selectedAddress:String ="",
+    onSelectAddress:()->Unit={},
     onBackPressed:()->Unit={},
-    onSubmit:()->Unit={}
+    onSubmit:(
+        name:String,
+        email:String,
+        nip:String,
+        opd:String
+    )->Unit={ _,_,_,_-> }
 ){
     val ctx = LocalContext.current
+    var name by remember {
+        mutableStateOf("")
+    }
+    var email by remember {
+        mutableStateOf("")
+    }
+    var nip by remember {
+        mutableStateOf("")
+    }
+    var opd by remember {
+        mutableStateOf("")
+    }
+
     Scaffold(
         topBar = {
             AppbarBasic(
@@ -37,7 +57,7 @@ fun ScreenFormPemantau(
                     IconToggleButton(
                         checked = false,
                         onCheckedChange = {
-onBackPressed()
+                            onBackPressed()
                         }
                     ) {
                         Icon(
@@ -82,61 +102,71 @@ onBackPressed()
 
 
                 FormInput(
-                    initialValue = "",
+                    initialValue = name,
                     placeholder = stringResource(R.string.placeholder_petugas_name),
                     label = stringResource(R.string.label_input_petugas_name),
                     singleLine = true,
                     onChange = {
-
+                        name = it
                     },
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 )
                 FormInput(
-                    initialValue = "",
-                    placeholder = stringResource(R.string.placeholder_petugas_email),
-                    label = stringResource(R.string.label_input_petugas_email),
+                    initialValue = selectedAddress,
+                    asButton = true,
+                    placeholder = stringResource(R.string.placeholder_petugas_desa),
+                    label = stringResource(R.string.label_input_petugas_desa),
                     singleLine = true,
-                    onChange = {
-
+                    onClick={
+                            onSelectAddress()
                     },
                     keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Next
                 )
                 FormInput(
-                    initialValue = "",
+                    initialValue = nip,
                     placeholder = stringResource(R.string.placeholder_petugas_nip),
                     label = stringResource(R.string.label_input_petugas_nip),
                     singleLine = true,
                     onChange = {
-
+                        nip = it
                     },
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 )
                 FormInput(
-                    initialValue = "",
+                    initialValue = opd,
                     placeholder = stringResource(R.string.placeholder_petugas_opd),
                     label = stringResource(R.string.label_input_petugas_opd),
                     singleLine = true,
                     onChange = {
-
+                               opd = it
                     },
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 )
                 FormInputWithButton(
-                    initialValue = "",
-                    placeholder = stringResource(R.string.placeholder_petugas_desa),
-                    label = stringResource(R.string.label_input_petugas_desa),
+                    initialValue = email,
                     singleLine = true,
-                    keyboardType = KeyboardType.Number,
-                    maxLength = 13,
+                    placeholder = stringResource(R.string.placeholder_petugas_email),
+                    label = stringResource(R.string.label_input_petugas_email),
+                    keyboardType = KeyboardType.Email,
+                    buttonEnabled = nip.isNotBlank() &&
+                            email.isNotBlank() &&
+                            name.isNotBlank() &&
+                            opd.isNotBlank() &&
+                            selectedAddress.isNotBlank(),
                     onChange = {
-
+                               email = it
                     },
                     onSubmit = {
-                        onSubmit()
+                        onSubmit(
+                            name,
+                            email,
+                            nip,
+                            opd
+                        )
                     },
 
                     )

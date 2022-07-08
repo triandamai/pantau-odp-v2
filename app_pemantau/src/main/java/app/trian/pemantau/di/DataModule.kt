@@ -13,8 +13,10 @@ import app.trian.pemantau.BuildConfig
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.trian.data.repository.OdpRepositoryImpl
+import com.trian.data.repository.OfficerRepositoryImpl
 import com.trian.data.repository.UserRepositoryImpl
 import com.trian.data.repository.design.OdpRepository
+import com.trian.data.repository.design.OfficerRepository
 import com.trian.data.repository.design.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -67,6 +69,17 @@ object DataModule {
         firestore: FirebaseFirestore
     ): UserRepository = UserRepositoryImpl(
         dispatcherProvider = dispatcherProvider,
+        firebaseAuth = firebaseAuth,
+        firestore = firestore
+    )
+
+    @Provides
+    internal fun provideOfficerRepository(
+        dispatcherProvider: DispatcherProvider,
+        firestore: FirebaseFirestore,
+        firebaseAuth: FirebaseAuth
+    ): OfficerRepository = OfficerRepositoryImpl(
+        dispatcher=dispatcherProvider,
         firebaseAuth = firebaseAuth,
         firestore = firestore
     )

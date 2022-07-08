@@ -18,9 +18,21 @@ android{
         targetSdk = 30
 
     }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        isCoreLibraryDesugaringEnabled =true
+
+        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
+
+    //Loads packaged libraries in the libs folder
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     with(Libs.AndroidX.Room){
         api(roomRuntime)

@@ -46,11 +46,13 @@ fun FormInput(
     maxLine:Int=1,
     maxLength:Int=500,
     error:Boolean=false,
+    asButton:Boolean=false,
     masked:VisualTransformation= VisualTransformation.None,
     keyboardType: KeyboardType= KeyboardType.Text,
     imeAction:ImeAction = ImeAction.Done,
     leading:@Composable (() -> Unit)? = null,
     onChange:(String)->Unit ={},
+    onClick: () -> Unit={}
 ) {
     val ctx = LocalContext.current
 
@@ -71,6 +73,7 @@ fun FormInput(
         )
         TextField(
             value = initialValue,
+            enabled = !asButton,
             onValueChange = {
                 if(it.length <= maxLength) {
                     onChange(it)
@@ -84,7 +87,13 @@ fun FormInput(
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold
             ),
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth().clickable(
+                onClick = {
+                    onClick()
+                },
+                enabled = asButton
+
+            ),
             placeholder = {
                 Text(
                     text = placeholder,
