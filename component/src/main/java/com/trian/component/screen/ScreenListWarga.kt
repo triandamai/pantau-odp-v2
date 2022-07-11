@@ -1,10 +1,14 @@
 package com.trian.component.screen
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trian.component.AppbarBasic
@@ -19,11 +23,24 @@ import compose.icons.octicons.ArrowLeft24
  * created_at 10/03/22 - 13.25
  * site https://trian.app
  */
+data class OdpUIState(
+    var name:String="",
+    var email:String="",
+    var nip:String="",
+    var id:String=""
+)
+data class ListOdpUIState(
+    var loading:Boolean = false,
+    var error:Boolean = false,
+    var errorMessage:String="",
+    var data:List<OdpUIState> = listOf()
+)
 @Composable
 fun ScreenListWarga(
     modifier: Modifier = Modifier,
+    state:ListOdpUIState= ListOdpUIState(),
     onBackPressed:()->Unit={},
-    onDetailOfficer:(slug:String)->Unit={}
+    onDetailOdp:(slug:String)->Unit={}
 ) {
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
     Scaffold(
@@ -50,9 +67,15 @@ fun ScreenListWarga(
         SwipeRefresh(state =swipeRefreshState, onRefresh = { /*TODO*/ }) {
             LazyColumn(content = {
                 item {
+                    Spacer(modifier = modifier.height(20.dp))
+                }
+                items(state.data) {
                     ItemPetugas(
+                        name=it.name,
+                        email = it.email,
+                        nip = it.nip,
                         onClick = {
-                            onDetailOfficer("wkwk")
+                            onDetailOdp(it.id)
                         }
                     )
                 }

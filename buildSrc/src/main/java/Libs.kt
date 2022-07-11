@@ -13,6 +13,7 @@ object Libs {
                 val messaging by lazy { "com.google.firebase:firebase-messaging-ktx" }
                 val crashlytics by lazy { "com.google.firebase:firebase-crashlytics-ktx" }
                 val analytics by lazy { "com.google.firebase:firebase-analytics-ktx" }
+                val functions by lazy {"com.google.firebase:firebase-functions-ktx"}
             }
 
             //for google authentication

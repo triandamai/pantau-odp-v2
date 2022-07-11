@@ -16,7 +16,7 @@ fun NavGraphBuilder.routeListWarga(
             onBackPressed = {
                             router.popBackStack()
             },
-            onDetailOfficer = {
+            onDetailOdp = {
                 router.navigate(Routes.DetailOdp.navigate("sas")){
                     launchSingleTop = true
                 }

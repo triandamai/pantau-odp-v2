@@ -31,9 +31,21 @@ import com.trian.component.R
  * created_at 09/03/22 - 15.27
  * site https://trian.app
  */
+data class SuccessOfficerUIState(
+    var loading:Boolean=true,
+    var error:Boolean = false,
+    var errorMessage:String="",
+    var name:String="n/a",
+    var email:String="n/a",
+    var placeOfAssignment:String="n/a",
+    var nip:String="",
+    var opd:String="",
+
+)
 @Composable
 fun ScreenSuccessUser(
     modifier: Modifier = Modifier,
+    state:SuccessOfficerUIState=SuccessOfficerUIState(),
     onDismiss:()->Unit={}
 ) {
     BackHandler {
@@ -97,7 +109,7 @@ fun ScreenSuccessUser(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "Trian Damai",
+                            text = state.name,
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -111,7 +123,7 @@ fun ScreenSuccessUser(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "trian@trian.app",
+                            text = state.email,
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -125,7 +137,7 @@ fun ScreenSuccessUser(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "Purwokerto selatan",
+                            text = state.placeOfAssignment,
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -139,14 +151,14 @@ fun ScreenSuccessUser(
                     ){
                         Column {
                             Text(
-                                text = "Nik",
+                                text = "OPD",
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onSurface
                                 )
                             )
                             Spacer(modifier = modifier.height(10.dp))
                             Text(
-                                text = "43255472743",
+                                text = state.opd,
                                 style = MaterialTheme.typography.body1
                             )
                         }
@@ -190,14 +202,14 @@ fun ScreenSuccessUser(
                     ) {
                         Column {
                             Text(
-                                text = "Alamat",
+                                text = "NIP",
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onSurface
                                 )
                             )
                             Spacer(modifier = modifier.height(10.dp))
                             Text(
-                                text = "Purwokerto Selatan",
+                                text = state.nip,
                                 style = MaterialTheme.typography.body1
                             )
                         }

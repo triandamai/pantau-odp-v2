@@ -17,6 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import app.trian.coordinator.BuildConfig
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.functions.FirebaseFunctions
 import com.trian.data.repository.OdpRepositoryImpl
 import com.trian.data.repository.OfficerRepositoryImpl
 import com.trian.data.repository.UserRepositoryImpl
@@ -52,10 +53,14 @@ object DataModule {
     @Provides
     internal fun provideOdpRepository(
         dispatcherProvider: DispatcherProvider,
-        mainDataSource: MainDataSource
+        mainDataSource: MainDataSource,
+        firebaseAuth: FirebaseAuth,
+        firestore: FirebaseFirestore
     ):OdpRepository = OdpRepositoryImpl(
         dispatcher = dispatcherProvider,
-        mainDataSource = mainDataSource
+        mainDataSource = mainDataSource,
+        firebaseAuth = firebaseAuth,
+        firestore = firestore
     )
 
     @Provides
@@ -73,14 +78,21 @@ object DataModule {
     internal fun provideOfficerRepository(
         dispatcherProvider: DispatcherProvider,
         firestore: FirebaseFirestore,
-        firebaseAuth: FirebaseAuth
+        firebaseAuth: FirebaseAuth,
+        firebaseFunctions: FirebaseFunctions
     ):OfficerRepository = OfficerRepositoryImpl(
         dispatcher=dispatcherProvider,
         firebaseAuth = firebaseAuth,
-        firestore = firestore
+        firestore = firestore,
+        function = firebaseFunctions
     )
 
+
+
     //firebase
+    @Provides
+    internal fun provideFirebaseFunction()= FirebaseFunctions.getInstance()
+
     @Provides
     fun provideFirebaseAuth():FirebaseAuth = FirebaseAuth.getInstance()
 

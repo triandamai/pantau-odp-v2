@@ -38,6 +38,7 @@ fun NavGraphBuilder.routeLogin(
                     email,password
                 ){
                     success,message->
+                    loading = false
                     if(success){
                         ctx.toastSuccess(message)
                         router.navigate(Routes.Main.MAIN){

@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
+import logcat.LogPriority
+import logcat.logcat
 
 class UserRepositoryImpl(
     private val dispatcherProvider: DispatcherProvider,
@@ -34,6 +36,8 @@ class UserRepositoryImpl(
                 throw Exception("Cannot find user")
             }
             if(!user.isEmailVerified){
+                firebaseAuth.currentUser?.sendEmailVerification()
+
                 firebaseAuth.signOut()
                 throw Exception("Email belum di verifikasi silahkan cek kotak masuk email Anda!")
             }

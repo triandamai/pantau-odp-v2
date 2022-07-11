@@ -1,23 +1,25 @@
 package com.trian.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.SetOptions
-import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.gson.Gson
 import com.trian.data.coroutines.DispatcherProvider
 import com.trian.data.models.dto.Officer
+import com.trian.data.models.response.CreateOfficerResponse
 import com.trian.data.repository.design.OfficerRepository
 import com.trian.data.utils.utils.getRandomPassword
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
+import org.json.JSONObject
 
 class OfficerRepositoryImpl(
     private val dispatcher: DispatcherProvider,
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val function:FirebaseFunctions
 ):OfficerRepository {
     override suspend fun saveOfficerPemantau(
         email:String,
@@ -36,42 +38,31 @@ class OfficerRepositoryImpl(
                 .document(currentUser.uid)
                 .get().await().toObject(Officer::class.java) ?: throw Exception("Anda belum masuk!.")
 
-            val randomPassword = getRandomPassword()
-            //TODO: should use firebase function http
-            val authenticate = firebaseAuth.createUserWithEmailAndPassword(
-                email,
-                randomPassword
-            ).await()
+            val jsonObj = JSONObject()
+            jsonObj.put("name",name)
+            jsonObj.put("nip",nip)
+            jsonObj.put("opd",opd)
+            jsonObj.put("email",email)
+            jsonObj.put("villageId",villageId)
+            jsonObj.put("villageName",villageName)
+            jsonObj.put("districtId",user.districtId)
+            jsonObj.put("districtName",user.districtName)
 
+            val createOfficer = function.getHttpsCallable("createPemantau")
+                .call(jsonObj)
+                .continueWith {
+                    val data = it.result.data as String
+                     data
+                }
 
-            val updateName = userProfileChangeRequest {
-                displayName = name
+            val result = createOfficer.await()
+
+            val response = Gson().fromJson(result,CreateOfficerResponse::class.java)
+            if(response.success){
+                emit(Pair(true,"Berhasil menambah petugas"))
+            }else{
+                emit(Pair(false,"Gagal Menambahkan petugas"))
             }
-
-            firebaseAuth.currentUser?.updateProfile(updateName)
-            firebaseAuth.currentUser?.sendEmailVerification()
-
-            val officer = Officer(
-                uid = "${authenticate.user?.uid}",
-                email = email,
-                name = name,
-                villageId = villageId,
-                villageName = villageName,
-                districtId = user.districtId,
-                districtName = user.districtName,
-                nip = nip,
-                opd = opd,
-                level = level
-            )
-
-            firestore.collection("OFFICER")
-                .document(authenticate.user!!.uid)
-                .set(
-                    officer,
-                    SetOptions.merge()
-                )
-
-            emit(Pair(true,"Berhasil menambah petugas"))
         }catch (e:Exception){
             throw e
         }
@@ -106,12 +97,19 @@ class OfficerRepositoryImpl(
 
         val listPemantau = firestore.collection("OFFICER")
             .whereEqualTo("districtId",officer.districtId)
+            .whereEqualTo("level","PEMANTAU")
             .get()
             .await()
+
         val toModel = listPemantau.documents.map {
             it.toObject(Officer::class.java)!!
-        }
+        }.filter {
+                (it.uid != officer.uid)
+            }
 
+        if(toModel.isEmpty()){
+            throw Exception("Tidak ditemukan data, Anda bisa menambahkan pada halaman utama")
+        }
         emit(toModel)
 
     }.flowOn(dispatcher.io())

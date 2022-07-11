@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.trian.component.AppbarBasic
 import com.trian.component.R
 import com.trian.component.form.FormInput
+import com.trian.component.form.FormInputClickable
 import com.trian.component.form.FormInputWithButton
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.utils.from
@@ -112,17 +113,13 @@ fun ScreenFormPemantau(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 )
-                FormInput(
+                FormInputClickable(
                     initialValue = selectedAddress,
-                    asButton = true,
                     placeholder = stringResource(R.string.placeholder_petugas_desa),
                     label = stringResource(R.string.label_input_petugas_desa),
-                    singleLine = true,
                     onClick={
                             onSelectAddress()
                     },
-                    keyboardType = KeyboardType.Email,
-                    imeAction = ImeAction.Next
                 )
                 FormInput(
                     initialValue = nip,

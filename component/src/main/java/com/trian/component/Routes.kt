@@ -8,7 +8,13 @@ object Routes {
     const val Onboard ="OnboardScreen"
     const val ResetPassword = "ResetPasswordScreen"
     const val Login = "Login"
-    const val SuccessFormPemantau = "SuccessFormPemantau"
+
+    object SuccessFormPemantau{
+        const val argKey = "slug"
+        const val route = "SuccessFormPemantau/{$argKey}"
+        fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
+        fun navigate(arg:String) = "Petugas/$arg"
+    }
     const val SuccessFormWarga = "SuccessFormWarga"
     const val SuccessFormAssessment = "SuccessFormAssessment"
     const val SuccessFormOdp = "SuccessOdp"

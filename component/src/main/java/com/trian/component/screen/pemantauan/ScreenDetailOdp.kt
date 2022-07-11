@@ -25,9 +25,22 @@ import compose.icons.octicons.ArrowLeft24
  * site https://trian.app
  */
 
+data class DetailOdpUIState(
+    var loading:Boolean=false,
+    var error:Boolean=false,
+    var errorMessage:String="",
+    var name:String="",
+    var address:String="",
+    var phone:String="",
+    var placeOfBirth:String="",
+    var dateOfBirth:String="",
+    var alreadyHasAssesment:Boolean=false,
+)
+
 @Composable
 fun ScreenDetailOdp(
     modifier: Modifier = Modifier,
+    state:DetailOdpUIState=DetailOdpUIState(),
     onBackPressed:()->Unit={}
 ) {
     Scaffold(
@@ -74,7 +87,7 @@ fun ScreenDetailOdp(
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "Trian Damai",
+                        text = state.name,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -88,7 +101,7 @@ fun ScreenDetailOdp(
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "Purwokerto selatan",
+                        text = state.address,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -102,7 +115,7 @@ fun ScreenDetailOdp(
                     )
                     Spacer(modifier = modifier.height(10.dp))
                     Text(
-                        text = "08xxxxx",
+                        text = state.phone,
                         style = MaterialTheme.typography.body1
                     )
                 }
@@ -123,7 +136,7 @@ fun ScreenDetailOdp(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "Purbalingga",
+                            text = state.placeOfBirth,
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -147,7 +160,7 @@ fun ScreenDetailOdp(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "04-16-19",
+                            text = state.dateOfBirth,
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -174,7 +187,7 @@ fun ScreenDetailOdp(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "Sudah di survei",
+                            text = if(state.alreadyHasAssesment)"Sudah di survei" else "Belum di survei",
                             style = MaterialTheme.typography.body1
                         )
                     }

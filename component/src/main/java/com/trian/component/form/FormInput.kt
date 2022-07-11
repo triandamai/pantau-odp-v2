@@ -46,13 +46,11 @@ fun FormInput(
     maxLine:Int=1,
     maxLength:Int=500,
     error:Boolean=false,
-    asButton:Boolean=false,
     masked:VisualTransformation= VisualTransformation.None,
     keyboardType: KeyboardType= KeyboardType.Text,
     imeAction:ImeAction = ImeAction.Done,
     leading:@Composable (() -> Unit)? = null,
-    onChange:(String)->Unit ={},
-    onClick: () -> Unit={}
+    onChange:(String)->Unit ={}
 ) {
     val ctx = LocalContext.current
 
@@ -73,7 +71,7 @@ fun FormInput(
         )
         TextField(
             value = initialValue,
-            enabled = !asButton,
+            enabled = true,
             onValueChange = {
                 if(it.length <= maxLength) {
                     onChange(it)
@@ -86,13 +84,6 @@ fun FormInput(
             textStyle =MaterialTheme.typography.body2.copy(
                 color = MaterialTheme.colors.onBackground,
                 fontWeight = FontWeight.Bold
-            ),
-            modifier = modifier.fillMaxWidth().clickable(
-                onClick = {
-                    onClick()
-                },
-                enabled = asButton
-
             ),
             placeholder = {
                 Text(
@@ -139,6 +130,101 @@ fun FormInput(
         )
     }
 }
+
+@Composable
+fun FormInputClickable(
+    initialValue:String="",
+    label:String="",
+    placeholder:String="",
+    modifier: Modifier=Modifier,
+    showPasswordObsecure:Boolean=false,
+    error:Boolean=false,
+    masked:VisualTransformation= VisualTransformation.None,
+    leading:@Composable (() -> Unit)? = null,
+    onChange:(String)->Unit ={},
+    onClick: () -> Unit={}
+) {
+    val ctx = LocalContext.current
+
+    var visibleObsecure by remember {
+        mutableStateOf(false)
+    }
+    Column(
+        modifier = modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+        Spacer(modifier = modifier.height(10.dp))
+        Text(
+            text = label,
+            style = MaterialTheme.typography.caption.copy(
+                color = MaterialTheme.colors.onSurface
+            )
+        )
+        TextField(
+            value = initialValue,
+            enabled = false,
+            onValueChange = {
+
+                    onChange(it)
+            },
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.Transparent,
+                errorIndicatorColor = ExpensesColor,
+            ),
+            textStyle =MaterialTheme.typography.body2.copy(
+                color = MaterialTheme.colors.onBackground,
+                fontWeight = FontWeight.Bold
+            ),
+            modifier = modifier.fillMaxWidth().clickable(
+                onClick = {
+                    onClick()
+                },
+                enabled = true
+
+            ),
+            placeholder = {
+                Text(
+                    text = placeholder,
+                    style = MaterialTheme.typography.body2.copy(
+                        color = MaterialTheme.colors.onSurface,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
+            },
+            maxLines = 1,
+            singleLine = true,
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    ctx.hideKeyboard()
+                }
+            ),
+            leadingIcon = leading,
+            trailingIcon = {
+                if(showPasswordObsecure){
+                    IconToggleButton(checked = visibleObsecure, onCheckedChange = {
+                        visibleObsecure = !visibleObsecure
+                    }) {
+                        Icon(
+                            imageVector = if(visibleObsecure) Octicons.Eye16 else Octicons.EyeClosed16,
+                            contentDescription = "",
+                            tint = if (visibleObsecure) DisableContentColor else MaterialTheme.colors.primary
+                        )
+                    }
+                }
+            },
+            visualTransformation=
+            if(showPasswordObsecure)
+                if(visibleObsecure)
+                    VisualTransformation.None
+                else
+                    PasswordVisualTransformation()
+            else masked,
+            isError = error
+        )
+    }
+}
+
 
 @Composable
 fun FormInputWithButton(

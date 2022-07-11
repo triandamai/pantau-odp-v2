@@ -73,7 +73,7 @@ fun NavGraphBuilder.routeFormPemantau(
                     success,message->
                     if(success){
                         ctx.toastSuccess(message)
-                        router.navigate(Routes.SuccessFormPemantau){
+                        router.navigate(Routes.SuccessFormPemantau.route){
                             popUpTo(Routes.FormUser){
                                 inclusive=true
                             }

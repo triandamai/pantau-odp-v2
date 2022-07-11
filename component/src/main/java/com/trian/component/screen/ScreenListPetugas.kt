@@ -13,6 +13,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trian.component.AppbarBasic
 import com.trian.component.ItemPetugas
+import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.data.models.dto.Officer
 import compose.icons.Octicons
@@ -61,28 +62,31 @@ fun ScreenListPetugas(
         }
     ) {
         SwipeRefresh(state =swipeRefreshState, onRefresh = { /*TODO*/ }) {
-            LazyColumn(content = {
-                item {
-                    Spacer(modifier = modifier.height(16.dp))
-                }
-                if(!state.error && !state.loading) {
-                    items(state.data) {
-                        ItemPetugas(
-                            name = it.name,
-                            email = it.email,
-                            nip = it.nip,
-                            onClick = {
-                                onDetailOfficer(it.uid)
-                            }
-                        )
+            if(state.error){
+                ScreenEmptyState(
+                    image = R.drawable.bg_empty_2,
+                    title = "Tidak ada data pemantau",
+                    subtitle = state.errorMessage
+                )
+            }else{
+                LazyColumn(content = {
+                    item {
+                        Spacer(modifier = modifier.height(16.dp))
                     }
-                }
-
-                //TODO: show empty state and loading
-
-
-
-            })
+                    if(!state.error && !state.loading) {
+                        items(state.data) {
+                            ItemPetugas(
+                                name = it.name,
+                                email = it.email,
+                                nip = it.nip,
+                                onClick = {
+                                    onDetailOfficer(it.uid)
+                                }
+                            )
+                        }
+                    }
+                })
+            }
         }
     }
 }

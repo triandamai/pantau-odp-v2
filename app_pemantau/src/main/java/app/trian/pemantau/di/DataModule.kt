@@ -12,6 +12,7 @@ import com.trian.data.remote.app.design.MainDataSource
 import app.trian.pemantau.BuildConfig
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.functions.FirebaseFunctions
 import com.trian.data.repository.OdpRepositoryImpl
 import com.trian.data.repository.OfficerRepositoryImpl
 import com.trian.data.repository.UserRepositoryImpl
@@ -56,10 +57,14 @@ object DataModule {
     @Provides
     internal fun provideOdpRepository(
         dispatcherProvider: DispatcherProvider,
-        mainDataSource: MainDataSource
+        mainDataSource: MainDataSource,
+        firebaseAuth: FirebaseAuth,
+        firestore: FirebaseFirestore
     ):OdpRepository = OdpRepositoryImpl(
         dispatcher = dispatcherProvider,
-        mainDataSource = mainDataSource
+        mainDataSource = mainDataSource,
+        firebaseAuth = firebaseAuth,
+        firestore = firestore
     )
 
     @Provides
@@ -77,14 +82,20 @@ object DataModule {
     internal fun provideOfficerRepository(
         dispatcherProvider: DispatcherProvider,
         firestore: FirebaseFirestore,
-        firebaseAuth: FirebaseAuth
+        firebaseAuth: FirebaseAuth,
+        functions:FirebaseFunctions
     ): OfficerRepository = OfficerRepositoryImpl(
         dispatcher=dispatcherProvider,
         firebaseAuth = firebaseAuth,
-        firestore = firestore
+        firestore = firestore,
+        function=functions
     )
 
     //firebase
+
+    @Provides
+    fun provideFirebaseFunctions()=FirebaseFunctions.getInstance()
+
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
 

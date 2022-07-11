@@ -207,6 +207,7 @@ dependencies {
         implementation(messaging)
         implementation(crashlytics)
         implementation(analytics)
+        implementation(functions)
 
     }
 
