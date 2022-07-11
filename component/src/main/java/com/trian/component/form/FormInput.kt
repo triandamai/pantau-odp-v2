@@ -72,6 +72,7 @@ fun FormInput(
         TextField(
             value = initialValue,
             enabled = true,
+            modifier = modifier.fillMaxWidth(),
             onValueChange = {
                 if(it.length <= maxLength) {
                     onChange(it)

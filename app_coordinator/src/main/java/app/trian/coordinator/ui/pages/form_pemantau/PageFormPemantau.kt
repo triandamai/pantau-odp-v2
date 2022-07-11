@@ -2,6 +2,7 @@ package app.trian.coordinator.ui.pages.form_pemantau
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,6 +13,7 @@ import com.trian.component.Routes
 import com.trian.component.dialog.DialogLoading
 import com.trian.component.dialog.DialogPickStrictAndVillage
 import com.trian.component.dialog.ItemAddress
+import com.trian.component.dialog.PickDistrictOrVillageUIState
 import com.trian.component.screen.user.ScreenFormPemantau
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.utils.toastError
@@ -23,6 +25,10 @@ fun NavGraphBuilder.routeFormPemantau(
 ) {
     composable(Routes.FormUser) {
         val viewModel = hiltViewModel<FormPemantauViewModel>()
+        val villageUIState by viewModel.listVillage.observeAsState(initial = PickDistrictOrVillageUIState(
+            loading = true,
+            error = false
+        ))
         val ctx = LocalContext.current
 
         var showPickAddress by remember {
@@ -39,6 +45,7 @@ fun NavGraphBuilder.routeFormPemantau(
 
         DialogPickStrictAndVillage(
             show = showPickAddress,
+            state = villageUIState,
             onDismiss = {
                 showPickAddress = false
             },
@@ -71,9 +78,10 @@ fun NavGraphBuilder.routeFormPemantau(
                     villageId = selectedAddress?.id ?: ""
                 ){
                     success,message->
+                    loading=false
                     if(success){
-                        ctx.toastSuccess(message)
-                        router.navigate(Routes.SuccessFormPemantau.route){
+                        ctx.toastSuccess("Berhasil membuat akun pemantau")
+                        router.navigate(Routes.SuccessFormPemantau.navigate(message)){
                             popUpTo(Routes.FormUser){
                                 inclusive=true
                             }

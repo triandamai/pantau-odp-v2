@@ -2,6 +2,8 @@ package com.trian.component.screen.user
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -75,6 +77,7 @@ fun ScreenFormPemantau(
         Column(
             modifier = modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 30.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
@@ -119,7 +122,7 @@ fun ScreenFormPemantau(
                     label = stringResource(R.string.label_input_petugas_desa),
                     onClick={
                             onSelectAddress()
-                    },
+                    }
                 )
                 FormInput(
                     initialValue = nip,
@@ -129,7 +132,7 @@ fun ScreenFormPemantau(
                     onChange = {
                         nip = it
                     },
-                    keyboardType = KeyboardType.Text,
+                    keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 )
                 FormInput(
@@ -140,7 +143,7 @@ fun ScreenFormPemantau(
                     onChange = {
                                opd = it
                     },
-                    keyboardType = KeyboardType.Text,
+                    keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 )
                 FormInputWithButton(

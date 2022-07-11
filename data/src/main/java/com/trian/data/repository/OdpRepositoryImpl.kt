@@ -78,6 +78,13 @@ class OdpRepositoryImpl(
      val citizen = data.documents.map {
        it.toObject(Citizen::class.java)!!
      }
+      .filter {
+       (it.uid != user.uid)
+      }
+   if(citizen.isEmpty()){
+    throw Exception("Anda bisa menambahkan data odp di halaman utama")
+   }
+
     emit(citizen)
 
   }catch (e:Exception){
@@ -104,7 +111,13 @@ class OdpRepositoryImpl(
 
    val citizen = data.documents.map {
     it.toObject(Citizen::class.java)!!
+   }.filter {
+    (it.uid != user.uid)
    }
+   if(citizen.isEmpty()){
+    throw Exception("Anda bisa menambahkan data odp di halaman utama")
+   }
+
    emit(citizen)
 
   }catch (e:Exception){

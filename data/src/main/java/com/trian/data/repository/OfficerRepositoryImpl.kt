@@ -51,17 +51,20 @@ class OfficerRepositoryImpl(
             val createOfficer = function.getHttpsCallable("createPemantau")
                 .call(jsonObj)
                 .continueWith {
-                    val data = it.result.data as String
+                    val data = it.result.data as HashMap<*, *>
                      data
                 }
 
             val result = createOfficer.await()
 
-            val response = Gson().fromJson(result,CreateOfficerResponse::class.java)
-            if(response.success){
-                emit(Pair(true,"Berhasil menambah petugas"))
+            val success = result["success"] as Boolean
+            val message = result["message"] as String
+
+            if(success){
+                val uid = result["data"] as String
+                emit(Pair(true,uid))
             }else{
-                emit(Pair(false,"Gagal Menambahkan petugas"))
+                emit(Pair(false,message))
             }
         }catch (e:Exception){
             throw e

@@ -6,7 +6,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.trian.data.coroutines.DispatcherProvider
 import com.trian.data.models.dto.Officer
+import com.trian.data.models.response.VillageResponse
+import com.trian.data.remote.app.design.MainDataSource
 import com.trian.data.repository.design.UserRepository
+import com.trian.data.utils.network.DataState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -17,7 +20,8 @@ import logcat.logcat
 class UserRepositoryImpl(
     private val dispatcherProvider: DispatcherProvider,
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val mainDataSource: MainDataSource
 ):UserRepository {
     override suspend fun isUserLoggedIn(): Boolean {
         return firebaseAuth.currentUser != null
@@ -82,6 +86,30 @@ class UserRepositoryImpl(
             emit(Pair(user,officer))
         }catch (e:Exception){
             throw e
+        }
+    }.flowOn(dispatcherProvider.io())
+
+    override suspend fun getListVillage(): Flow<List<VillageResponse>> = flow<List<VillageResponse>> {
+        val currentUser = firebaseAuth.currentUser ?: throw Exception("Anda tidak mempunyai akses")
+
+        val user = firestore
+            .collection("OFFICER")
+            .document(currentUser.uid)
+            .get()
+            .await()
+            .toObject(Officer::class.java) ?: throw Exception("Anda tida mempunyai akses")
+
+
+
+        when(val result = mainDataSource.getVillages()){
+            is DataState.onData -> {
+                emit(result.data.filter {
+                    it.id.contains(user.districtId)
+                })
+            }
+            is DataState.onFailure -> throw Exception("Tidak ditemukan data!")
+
+            DataState.onLoading -> throw Exception("Tidak ditemukan data!")
         }
     }.flowOn(dispatcherProvider.io())
 }

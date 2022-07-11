@@ -67,11 +67,13 @@ object DataModule {
     internal fun provideUserRepository(
         dispatcherProvider: DispatcherProvider,
         firebaseAuth: FirebaseAuth,
-        firestore: FirebaseFirestore
+        firestore: FirebaseFirestore,
+        mainDataSource: MainDataSource
     ):UserRepository=UserRepositoryImpl(
         dispatcherProvider = dispatcherProvider,
         firebaseAuth = firebaseAuth,
-        firestore = firestore
+        firestore = firestore,
+        mainDataSource = mainDataSource
     )
 
     @Provides

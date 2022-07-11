@@ -13,6 +13,8 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.trian.component.AppbarBasic
 import com.trian.component.ItemPetugas
+import com.trian.component.ItemWarga
+import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
@@ -25,8 +27,8 @@ import compose.icons.octicons.ArrowLeft24
  */
 data class OdpUIState(
     var name:String="",
-    var email:String="",
-    var nip:String="",
+    var phone:String="",
+    var nik:String="",
     var id:String=""
 )
 data class ListOdpUIState(
@@ -65,21 +67,29 @@ fun ScreenListWarga(
         }
     ) {
         SwipeRefresh(state =swipeRefreshState, onRefresh = { /*TODO*/ }) {
-            LazyColumn(content = {
-                item {
-                    Spacer(modifier = modifier.height(20.dp))
-                }
-                items(state.data) {
-                    ItemPetugas(
-                        name=it.name,
-                        email = it.email,
-                        nip = it.nip,
-                        onClick = {
-                            onDetailOdp(it.id)
-                        }
-                    )
-                }
-            })
+            if(state.error){
+                ScreenEmptyState(
+                    image = R.drawable.bg_empty_2,
+                    title = "TIdak ada data warga odp",
+                    subtitle = state.errorMessage
+                )
+            }else{
+                LazyColumn(content = {
+                    item {
+                        Spacer(modifier = modifier.height(20.dp))
+                    }
+                    items(state.data) {
+                        ItemWarga(
+                            name=it.name,
+                            phone = it.phone,
+                            nik = it.nik,
+                            onClick = {
+                                onDetailOdp(it.id)
+                            }
+                        )
+                    }
+                })
+            }
         }
     }
 }

@@ -33,9 +33,27 @@ class FormPemantauSuccessViewModel @Inject constructor(
             .getDetailPemantau(
                 uid
             )
-            .catch {  }
+            .catch {
+                _officerState.postValue(
+                    SuccessOfficerUIState(
+                        loading = false,
+                        error = true,
+                        errorMessage ="${it.message}"
+                    )
+                )
+            }
             .onEach {
-
+                _officerState.postValue(
+                    SuccessOfficerUIState(
+                        loading = false,
+                        error = false,
+                        name = it.name,
+                        email = it.email,
+                        placeOfAssignment = it.villageName,
+                        nip = it.nip,
+                        opd = it.opd
+                    )
+                )
             }
             .collect()
     }
