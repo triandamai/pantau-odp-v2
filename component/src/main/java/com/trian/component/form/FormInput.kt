@@ -350,7 +350,6 @@ fun FormPickerWithButton(
     buttonEnabled:Boolean=true,
     masked:VisualTransformation=VisualTransformation.None,
     keyboardType:KeyboardType=KeyboardType.Text,
-    imeAction: ImeAction=ImeAction.Send,
     leading:@Composable (() -> Unit)? = null,
     onClick:()->Unit={},
     onSubmit:()->Unit={}

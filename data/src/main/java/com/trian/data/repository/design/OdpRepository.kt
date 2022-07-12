@@ -13,4 +13,24 @@ interface OdpRepository {
     suspend fun getListOdpByVillage():Flow<List<Citizen>>
 
     suspend fun getListOdpByDistrict():Flow<List<Citizen>>
+
+    suspend fun saveOdp( name:String,
+                         religion:String,
+                         nik:String,
+                         dateOfBirth:String,
+                         placeOfBirth:String,
+                         address:String,
+                         rt:String,
+                         rw:String,
+                         bloodType:String,
+                         profession:String,
+                         phoneNUmber:String,
+                         tripHistory:String,
+                         placeOfTrip:String,
+                         isolation:Boolean,
+                         safetyNet:Boolean,
+                         behavior:Boolean,
+                         condition:String,
+                         gender:String
+    ):Flow<Pair<Boolean,String>>
 }

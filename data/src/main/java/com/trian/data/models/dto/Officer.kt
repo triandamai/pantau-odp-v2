@@ -13,5 +13,7 @@ data class Officer(
     var name:String="",
     var nip:String="",
     var opd:String="",
-    var level:String=""
+    var level:String="",
+    var createdAt:Long=0,
+    var updatedAt:Long=0
 )

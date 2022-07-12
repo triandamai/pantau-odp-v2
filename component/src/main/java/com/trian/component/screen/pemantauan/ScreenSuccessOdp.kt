@@ -38,9 +38,18 @@ import com.trian.component.theme.listGradient
  * created_at 09/03/22 - 15.27
  * site https://trian.app
  */
+data class SuccessOdpUIState(
+    var loading:Boolean=false,
+    var error:Boolean=false,
+    var errorMessage:String="",
+    var citizenName:String="",
+    var address:String="",
+    var dateOfBirth:String=""
+)
 @Composable
 fun ScreenSuccessOdp(
     modifier: Modifier = Modifier,
+    state:SuccessOdpUIState=SuccessOdpUIState(),
     onDismiss:()->Unit={}
 ) {
     BackHandler {
@@ -86,7 +95,7 @@ fun ScreenSuccessOdp(
             )
             Spacer(modifier = modifier.height(20.dp))
             Text(
-                text = "Warga is added successfully to the app",
+                text = "Berhasil menambahkan data warga ODP",
                 style = MaterialTheme.typography.caption.copy(
                     color = MaterialTheme.colors.onSurface
                 ),
@@ -125,7 +134,7 @@ fun ScreenSuccessOdp(
                         )
                         Spacer(modifier = modifier.height(6.dp))
                         Text(
-                            text =  "Trian Damai",
+                            text = state.citizenName,
                             style = MaterialTheme.typography.body2.copy(
                                 color = Color.White,
                                 fontWeight = FontWeight.Bold
@@ -147,7 +156,7 @@ fun ScreenSuccessOdp(
                             )
                             Spacer(modifier = modifier.height(6.dp))
                             Text(
-                                text = "Purwokerto Selatan",
+                                text = state.address,
                                 style = MaterialTheme.typography.body2.copy(
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
@@ -173,7 +182,7 @@ fun ScreenSuccessOdp(
                             )
                             Spacer(modifier = modifier.height(6.dp))
                             Text(
-                                text = "01-01-2022",
+                                text = state.dateOfBirth,
                                 style = MaterialTheme.typography.body2.copy(
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold

@@ -1,5 +1,6 @@
 package com.trian.component.dialog
 
+import android.location.Address
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,26 +23,25 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.trian.component.theme.PantauWargaTheme
 
-data class ItemAddress(
-    var id:String="",
-    var name:String=""
-)
 
-data class PickDistrictOrVillageUIState(
-    var loading:Boolean=false,
-    var error:Boolean = false,
-    var errorMessage:String = "",
-    var data:List<ItemAddress> = listOf()
-)
+
+
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun DialogPickStrictAndVillage(
+fun DialogPickReligion(
     show:Boolean=false,
     modifier: Modifier=Modifier,
-    state:PickDistrictOrVillageUIState = PickDistrictOrVillageUIState(),
     onDismiss:()->Unit={},
-    onSelect:(ItemAddress)->Unit={_->}
+    onSelect:(String)->Unit={}
 ) {
+    val listReligion = listOf<String>(
+        "Islam",
+        "Katolik",
+        "Protestant",
+        "Hindhu",
+        "Budha",
+        "Konghucu"
+    )
     if(show) {
         Dialog(
             onDismissRequest = onDismiss,
@@ -84,8 +84,9 @@ fun DialogPickStrictAndVillage(
                     Spacer(modifier = modifier.height(16.dp))
                     LazyColumn(
                         content = {
-                            items(state.data){
-                                Address(name = it.name){
+                            items(listReligion){
+
+                                Religion(name = it){
                                     onSelect(it)
                                 }
                             }
@@ -99,14 +100,13 @@ fun DialogPickStrictAndVillage(
 }
 
 @Composable
-fun Address(
+fun Religion(
     modifier: Modifier=Modifier,
     name:String,
     onClick:()->Unit={}
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
             .padding(vertical = 2.dp)
             .clickable { onClick() },
     ) {
@@ -114,33 +114,23 @@ fun Address(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center
+            horizontalAlignment = Alignment.Start
         ) {
             Text(
                 text = name,
-                textAlign = TextAlign.Start,
-                modifier = modifier.fillMaxWidth()
+                modifier = modifier.fillMaxWidth(),
+                textAlign = TextAlign.Start
             )
         }
         Divider()
-        Spacer(modifier = modifier.height(5.dp))
     }
 }
 
 @Preview
 @Composable
-fun PreviewAddress() {
+fun PreviewPickReligion() {
     PantauWargaTheme {
-        Address(name = "Purwokerto")
-    }
-}
-
-@Preview
-@Composable
-fun PreviewPickDistrictOrVillage() {
-    PantauWargaTheme {
-        DialogPickStrictAndVillage(
+        DialogPickReligion(
             show = true
         )
     }

@@ -112,4 +112,6 @@
     <string name="label_opd">OPD</string>
     <string name="content_description_image_form_odp">Input warga dipantau</string>
     <string name="title_page_form_monitoring">Input data warga dipantau</string>
+    <string name="label_input_warga_nama_wilayah_perjalanan">Nama daerah/negara</string>
+    <string name="placeholder_input_warga_nama_wilayah_perjalanan">Nama daerah/negara</string>
 </resources>

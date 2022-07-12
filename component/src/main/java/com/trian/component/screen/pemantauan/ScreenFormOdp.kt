@@ -9,8 +9,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,10 +27,12 @@ import com.google.accompanist.pager.rememberPagerState
 import com.trian.component.AppbarBasic
 import com.trian.component.R
 import com.trian.component.form.FormInput
+import com.trian.component.form.FormInputClickable
 import com.trian.component.form.FormInputWithButton
 import com.trian.component.theme.BackgroundDashboard
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.utils.from
+import com.trian.component.utils.toastError
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
 import kotlinx.coroutines.launch
@@ -47,20 +48,146 @@ import kotlinx.coroutines.launch
 @Composable
 fun ScreenFormOdp(
     modifier: Modifier = Modifier,
+    dateOfBirth: String = "",
+    religion: String = "",
     onBackPressed: () -> Unit = {},
     onShowDatePicker: () -> Unit = {},
     onShowPickReligion: () -> Unit = {},
-    onSubmit: () -> Unit = {}
+    onSubmit: (
+        name: String,
+        religion: String,
+        nik: String,
+        dateOfBirth: String,
+        placeOfBirth: String,
+        address: String,
+        rt: String,
+        rw: String,
+        bloodType: String,
+        profession: String,
+        phoneNUmber: String,
+        tripHistory: String,
+        placeOfTrip: String,
+        isolation: Boolean,
+        safetyNet: Boolean,
+        behavior: Boolean,
+        condition: String,
+        gender: String
+    ) -> Unit = { _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _ -> }
 ) {
     val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
 
     val pagerState = rememberPagerState(
-        pageCount = 7,
+        pageCount = 6,
         initialPage = 0,
         infiniteLoop = false
     )
 
+    var name by remember {
+        mutableStateOf("")
+    }
+
+    var nik by remember {
+        mutableStateOf("")
+    }
+    var placeOfBirth by remember {
+        mutableStateOf("")
+    }
+
+    var address by remember {
+        mutableStateOf("")
+    }
+
+    var rt by remember {
+        mutableStateOf("")
+    }
+
+    var rw by remember {
+        mutableStateOf("")
+    }
+
+    var proffesion by remember {
+        mutableStateOf("")
+    }
+
+    var phoneNumber by remember {
+        mutableStateOf("")
+    }
+
+    var bloodType by remember {
+        mutableStateOf("")
+    }
+
+    var tripHistory by remember {
+        mutableStateOf("")
+    }
+
+    var placeOfTrip by remember {
+        mutableStateOf("")
+    }
+
+    var isolation by remember {
+        mutableStateOf<Boolean?>(null)
+    }
+    var safetyNet by remember {
+        mutableStateOf<Boolean?>(null)
+    }
+
+    var condition by remember {
+        mutableStateOf("")
+    }
+
+    var behavior by remember {
+        mutableStateOf<Boolean?>(null)
+    }
+    var gender by remember {
+        mutableStateOf("")
+    }
+
+    fun validateFirst() {
+        if (name.isBlank() ||
+            religion.isBlank() ||
+            nik.isBlank() ||
+            dateOfBirth.isBlank() ||
+            placeOfBirth.isBlank() ||
+            address.isBlank() ||
+            rt.isBlank() ||
+            rw.isBlank() ||
+            bloodType.isBlank() ||
+            proffesion.isBlank() ||
+            phoneNumber.isBlank() ||
+            tripHistory.isBlank() ||
+            placeOfTrip.isBlank() ||
+            isolation == null ||
+            safetyNet == null ||
+            behavior == null ||
+            condition.isBlank() ||
+            gender.isBlank()
+        ) {
+            ctx.toastError("Mohon isi semua data!")
+        } else {
+            onSubmit(
+                name,
+                religion,
+                nik,
+                dateOfBirth,
+                placeOfBirth,
+                address,
+                rt,
+                rw,
+                bloodType,
+                proffesion,
+                phoneNumber,
+                tripHistory,
+                placeOfTrip,
+                isolation!!,
+                safetyNet!!,
+                behavior!!,
+                condition,
+                gender
+            )
+        }
+    }
 
     fun nextPage() {
         scope.launch {
@@ -168,36 +295,33 @@ fun ScreenFormOdp(
                                     verticalArrangement = Arrangement.Bottom
                                 ) {
                                     FormInput(
-                                        initialValue = "",
+                                        initialValue = name,
                                         placeholder = stringResource(R.string.placeholder_warga_nama),
                                         label = stringResource(R.string.label_input_warga_nama),
                                         singleLine = true,
                                         onChange = {
-
+                                            name = it
                                         },
                                         keyboardType = KeyboardType.Text,
                                         imeAction = ImeAction.Next
                                     )
-                                    FormInput(
-                                        initialValue = "",
+                                    FormInputClickable(
+                                        initialValue = religion,
                                         placeholder = stringResource(R.string.label_input_warga_agama),
                                         label = stringResource(R.string.label_input_warga_agama),
-                                        singleLine = true,
-                                        onChange = {
-
-                                        },
-                                        keyboardType = KeyboardType.Text,
-                                        imeAction = ImeAction.Next
+                                        onClick = {
+                                            onShowPickReligion()
+                                        }
                                     )
                                     FormInputWithButton(
-                                        initialValue = "",
+                                        initialValue = nik,
                                         placeholder = stringResource(R.string.label_input_warga_nik),
                                         label = stringResource(R.string.label_input_warga_nik),
                                         singleLine = true,
                                         keyboardType = KeyboardType.Number,
                                         maxLength = 16,
                                         onChange = {
-
+                                            nik = it
                                         },
                                         onSubmit = {
                                             nextPage()
@@ -213,43 +337,77 @@ fun ScreenFormOdp(
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
                                         label = "Nama",
-                                        value = "Trian Damai"
+                                        value = name
                                     )
                                 ),
                                 inputContent = {
-                                    Text(
-                                        text = "Tempat, dan tanggal lahir?",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    )
-                                    FormInput(
-                                        initialValue = "",
-                                        placeholder = stringResource(R.string.label_input_warga_tempat_lahir),
-                                        label = stringResource(R.string.label_input_warga_tempat_lahir),
-                                        singleLine = true,
-                                        onChange = {
 
-                                        },
-                                        keyboardType = KeyboardType.Email,
-                                        imeAction = ImeAction.Next
-                                    )
-                                    FormInputWithButton(
-                                        initialValue = "",
-                                        placeholder = stringResource(R.string.label_input_warga_tanggal_lahir),
-                                        label = stringResource(R.string.label_input_warga_tanggal_lahir),
-                                        singleLine = true,
-                                        keyboardType = KeyboardType.Number,
-                                        maxLength = 13,
-                                        onChange = {
+                                    LazyColumn(content = {
+                                        item {
+                                            Text(
+                                                text = "Jenis kelamin",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            )
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "Laki Laki",
+                                                selected = "L" == gender
+                                            ) {
 
-                                        },
-                                        onSubmit = {
-                                            nextPage()
-                                        },
+                                                gender = "L"
+                                            }
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "Perempuan",
+                                                selected = "P" == gender
+                                            ) {
 
-                                        )
+                                                gender = "P"
+                                            }
+                                        }
+                                        item {
+                                            Text(
+                                                text = "Tempat, dan tanggal lahir",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            )
+                                        }
+                                        item {
+                                            FormInputClickable(
+                                                initialValue = dateOfBirth,
+                                                placeholder = stringResource(R.string.label_input_warga_tanggal_lahir),
+                                                label = stringResource(R.string.label_input_warga_tanggal_lahir),
+                                                onClick = {
+                                                    onShowDatePicker()
+                                                },
+                                            )
+                                        }
+                                        item {
+                                            FormInputWithButton(
+                                                initialValue = placeOfBirth,
+                                                placeholder = stringResource(R.string.label_input_warga_tempat_lahir),
+                                                label = stringResource(R.string.label_input_warga_tempat_lahir),
+                                                singleLine = true,
+                                                keyboardType = KeyboardType.Text,
+                                                maxLength = 13,
+                                                onChange = {
+                                                    placeOfBirth = it
+                                                },
+                                                onSubmit = {
+                                                    nextPage()
+                                                },
+
+                                                )
+                                        }
+                                    })
+
 
                                 }
                             )
@@ -259,7 +417,7 @@ fun ScreenFormOdp(
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
                                         label = "Nama",
-                                        value = "Trian Damai"
+                                        value = name
                                     )
                                 ),
                                 inputContent = {
@@ -271,36 +429,36 @@ fun ScreenFormOdp(
                                         )
                                     )
                                     FormInput(
-                                        initialValue = "",
+                                        initialValue = address,
                                         placeholder = stringResource(R.string.label_input_warga_alamat),
                                         label = stringResource(R.string.label_input_warga_alamat),
                                         singleLine = true,
                                         onChange = {
-
+                                            address = it
                                         },
                                         keyboardType = KeyboardType.Text,
                                         imeAction = ImeAction.Next
                                     )
                                     FormInput(
-                                        initialValue = "",
+                                        initialValue = rt,
                                         placeholder = stringResource(R.string.label_input_warga_rt),
                                         label = stringResource(R.string.label_input_warga_rt),
                                         singleLine = true,
                                         onChange = {
-
+                                            rt = it
                                         },
                                         keyboardType = KeyboardType.Number,
                                         imeAction = ImeAction.Next
                                     )
                                     FormInputWithButton(
-                                        initialValue = "",
+                                        initialValue = rw,
                                         placeholder = stringResource(R.string.label_input_warga_rw),
                                         label = stringResource(R.string.label_input_warga_rw),
                                         singleLine = true,
                                         keyboardType = KeyboardType.Number,
                                         maxLength = 13,
                                         onChange = {
-
+                                            rw = it
                                         },
                                         onSubmit = {
                                             nextPage()
@@ -316,43 +474,108 @@ fun ScreenFormOdp(
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
                                         label = "Nama",
-                                        value = "Trian Damai"
+                                        value = name
                                     )
                                 ),
                                 inputContent = {
-                                    Text(
-                                        text = "Informasi Pekerjaan",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    )
-                                    FormInput(
-                                        initialValue = "",
-                                        placeholder = stringResource(R.string.label_input_warga_pekerjaan),
-                                        label = stringResource(R.string.label_input_warga_pekerjaan),
-                                        singleLine = true,
-                                        onChange = {
 
-                                        },
-                                        keyboardType = KeyboardType.Text,
-                                        imeAction = ImeAction.Next
-                                    )
-                                    FormInputWithButton(
-                                        initialValue = "",
-                                        placeholder = stringResource(R.string.label_input_warga_no_telp),
-                                        label = stringResource(R.string.label_input_warga_no_telp),
-                                        singleLine = true,
-                                        keyboardType = KeyboardType.Number,
-                                        maxLength = 13,
-                                        onChange = {
+                                    LazyColumn(content = {
+                                        item {
+                                            Text(
+                                                text = "Golongan Darah",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            )
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "A",
+                                                selected = "A" == bloodType
+                                            ) {
 
-                                        },
-                                        onSubmit = {
-nextPage()
-                                        },
+                                                bloodType = "A"
+                                            }
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "B",
+                                                selected = "B" == bloodType
+                                            ) {
 
-                                        )
+                                                bloodType = "B"
+                                            }
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "AB",
+                                                selected = "AB" == bloodType
+                                            ) {
+
+                                                bloodType = "AB"
+                                            }
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "O",
+                                                selected = "O" == bloodType
+                                            ) {
+
+                                                bloodType = "O"
+                                            }
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "Tidak Ada",
+                                                selected = "NONE" == bloodType
+                                            ) {
+
+                                                bloodType = "NONE"
+                                            }
+                                        }
+                                        item {
+                                            Text(
+                                                text = "Informasi Pekerjaan",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                )
+                                            )
+                                        }
+                                        item {
+                                            FormInput(
+                                                initialValue = proffesion,
+                                                placeholder = stringResource(R.string.label_input_warga_pekerjaan),
+                                                label = stringResource(R.string.label_input_warga_pekerjaan),
+                                                singleLine = true,
+                                                onChange = {
+                                                    proffesion = it
+                                                },
+                                                keyboardType = KeyboardType.Text,
+                                                imeAction = ImeAction.Next
+                                            )
+                                        }
+                                        item {
+                                            FormInputWithButton(
+                                                initialValue = phoneNumber,
+                                                placeholder = stringResource(R.string.label_input_warga_no_telp),
+                                                label = stringResource(R.string.label_input_warga_no_telp),
+                                                singleLine = true,
+                                                keyboardType = KeyboardType.Number,
+                                                maxLength = 13,
+                                                onChange = {
+                                                    phoneNumber = it
+                                                },
+                                                onSubmit = {
+                                                    nextPage()
+                                                },
+
+                                                )
+
+                                        }
+                                    })
+
 
                                 }
                             )
@@ -362,37 +585,75 @@ nextPage()
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
                                         label = "Nama",
-                                        value = "Trian Damai"
+                                        value = name
                                     )
                                 ),
                                 inputContent = {
-                                    Text(
-                                        text = "Golongan Darah",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        )
-                                    )
+
                                     LazyColumn(content = {
                                         item {
+                                            Text(
+                                                text = "Riwayat Perjalanan",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                ),
+                                                textAlign = TextAlign.Start
+                                            )
+                                        }
+                                        item {
                                             ItemTripSelection(
-                                                name = "A",
-                                                selected = false
+                                                name = "Luar Negeri",
+                                                selected = "LN" == tripHistory
                                             ) {
 
-                                                nextPage()
+                                                tripHistory = "LN"
                                             }
                                         }
                                         item {
                                             ItemTripSelection(
-                                                name = "B",
-                                                selected = false
+                                                name = "Daerah Terjangkit",
+                                                selected = "DT" == tripHistory
                                             ) {
 
-                                                nextPage()
+                                                tripHistory = "DT"
                                             }
                                         }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "Kontak dengan pasien Positif COVID19",
+                                                selected = "CONTACT" == tripHistory
+                                            ) {
+
+                                                tripHistory = "CONTACT"
+                                            }
+                                        }
+                                        item {
+                                            ItemTripSelection(
+                                                name = "Tidak melakukan perjalanan",
+                                                selected = "NONE" == tripHistory
+                                            ) {
+
+                                                tripHistory = "NONE"
+                                            }
+                                        }
+                                        item {
+                                            FormInputWithButton(
+                                                initialValue = placeOfTrip,
+                                                placeholder = stringResource(R.string.placeholder_input_warga_nama_wilayah_perjalanan),
+                                                label = stringResource(R.string.label_input_warga_nama_wilayah_perjalanan),
+                                                keyboardType = KeyboardType.Text,
+                                                imeAction = ImeAction.Next,
+                                                onChange = {
+                                                    placeOfTrip = it
+                                                },
+                                                onSubmit = {
+                                                    nextPage()
+                                                }
+                                            )
+                                        }
                                     })
+
                                 }
                             )
 
@@ -402,183 +663,116 @@ nextPage()
                                 itemModels = listOf(
                                     ItemDetailTransactionModel(
                                         label = "Nama",
-                                        value = "Trian Damai"
+                                        value = name
                                     )
                                 ),
                                 inputContent = {
-                                    Text(
-                                        text = "Riwayat Perjalanan",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        ),
-                                        textAlign = TextAlign.Start
-                                    )
+
                                     LazyColumn(content = {
                                         item {
-                                            ItemTripSelection(
-                                                name = "Luar Negeri",
-                                                selected = false
-                                            ) {
-
-                                                nextPage()
-                                            }
+                                            Text(
+                                                text = "Surat pernyataan isolasi mandiri",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                ),
+                                                textAlign = TextAlign.Start
+                                            )
                                         }
-                                        item {
-                                            ItemTripSelection(
-                                                name = "Daerah Terjangkit",
-                                                selected = false
-                                            ) {
-
-                                                nextPage()
-                                            }
-                                        }
-                                        item {
-                                            ItemTripSelection(
-                                                name = "Kontak dengan pasien Positif COVID19",
-                                                selected = false
-                                            ) {
-
-                                                nextPage()
-                                            }
-                                        }
-                                        item {
-                                            ItemTripSelection(
-                                                name = "Tidak melakukan perjalanan",
-                                                selected = false
-                                            ) {
-
-                                                nextPage()
-                                            }
-                                        }
-                                    })
-                                    FormInputWithButton(
-                                        initialValue = "",
-                                        placeholder = stringResource(R.string.label_input_warga_tanggal_lahir),
-                                        label = stringResource(R.string.label_input_warga_tanggal_lahir),
-                                        singleLine = true,
-                                        keyboardType = KeyboardType.Text,
-                                        maxLength = 13,
-                                        onChange = {
-
-                                        },
-                                        onSubmit = {
-nextPage()
-                                        },
-
-                                        )
-                                }
-                            )
-
-                        }
-                        6 -> {
-                            ScreenNameTransaction(
-                                itemModels = listOf(
-                                    ItemDetailTransactionModel(
-                                        label = "Nama",
-                                        value = "Trian Damai"
-                                    )
-                                ),
-                                inputContent = {
-                                    Text(
-                                        text = "Surat pernyataan isolasi mandiri",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        ),
-                                        textAlign = TextAlign.Start
-                                    )
-                                    LazyColumn(content = {
                                         item {
                                             ItemTripSelection(
                                                 name = "Surat ada",
-                                                selected = false
+                                                selected = isolation ?: false
                                             ) {
 
-                                                nextPage()
+                                                isolation = true
                                             }
                                         }
                                         item {
                                             ItemTripSelection(
                                                 name = "Tidak ada surat",
-                                                selected = false
+                                                selected = !(isolation ?: true)
                                             ) {
 
-                                                nextPage()
+                                                isolation = false
                                             }
                                         }
-                                    })
-                                    Text(
-                                        text = "Jaring pengaman",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        ),
-                                        textAlign = TextAlign.Start
-                                    )
-                                    LazyColumn(content = {
+                                        item {
+                                            Text(
+                                                text = "Jaring pengaman",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                ),
+                                                textAlign = TextAlign.Start
+                                            )
+                                        }
                                         item {
                                             ItemTripSelection(
                                                 name = "Butuh Bantuan",
-                                                selected = false
+                                                selected = safetyNet ?: false
                                             ) {
 
-                                                nextPage()
+                                                safetyNet = true
                                             }
                                         }
                                         item {
                                             ItemTripSelection(
                                                 name = "Tidak Butuh Bantuan",
-                                                selected = false
+                                                selected = !(safetyNet ?: true)
                                             ) {
 
-                                                nextPage()
+                                                safetyNet = false
                                             }
                                         }
-                                    })
-                                    Text(
-                                        text = "Perilaku",
-                                        style = MaterialTheme.typography.body1.copy(
-                                            color = MaterialTheme.colors.onBackground,
-                                            fontWeight = FontWeight.Bold
-                                        ),
-                                        textAlign = TextAlign.Start
-                                    )
-                                    LazyColumn(content = {
+                                        item {
+                                            Text(
+                                                text = "Perilaku",
+                                                style = MaterialTheme.typography.body1.copy(
+                                                    color = MaterialTheme.colors.onBackground,
+                                                    fontWeight = FontWeight.Bold
+                                                ),
+                                                textAlign = TextAlign.Start
+                                            )
+                                        }
                                         item {
                                             ItemTripSelection(
                                                 name = "Patuh",
-                                                selected = false
+                                                selected = behavior ?: false
                                             ) {
 
-                                                nextPage()
+                                                behavior = true
                                             }
                                         }
                                         item {
                                             ItemTripSelection(
                                                 name = "Tidak Patuh",
-                                                selected = false
+                                                selected = !(behavior ?: false)
                                             ) {
 
-                                                nextPage()
+                                                behavior = false
                                             }
                                         }
+                                        item {
+                                            FormInputWithButton(
+                                                initialValue = condition,
+                                                placeholder = stringResource(R.string.label_input_warga_kondisi),
+                                                label = stringResource(R.string.label_input_warga_kondisi),
+                                                singleLine = true,
+                                                keyboardType = KeyboardType.Text,
+                                                maxLength = 13,
+                                                onChange = {
+                                                    condition = it
+                                                },
+                                                onSubmit = {
+                                                    validateFirst()
+                                                },
+
+                                                )
+                                        }
                                     })
-                                    FormInputWithButton(
-                                        initialValue = "",
-                                        placeholder = stringResource(R.string.label_input_warga_kondisi),
-                                        label = stringResource(R.string.label_input_warga_kondisi),
-                                        singleLine = true,
-                                        keyboardType = KeyboardType.Text,
-                                        maxLength = 13,
-                                        onChange = {
 
-                                        },
-                                        onSubmit = {
-                                            onSubmit()
-                                        },
 
-                                        )
                                 }
                             )
 

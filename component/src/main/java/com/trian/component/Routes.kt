@@ -17,7 +17,12 @@ object Routes {
     }
     const val SuccessFormWarga = "SuccessFormWarga"
     const val SuccessFormAssessment = "SuccessFormAssessment"
-    const val SuccessFormOdp = "SuccessOdp"
+    object SuccessFormOdp {
+        const val argKey = "slug"
+        const val route = "SuccessODP/{$argKey}"
+        fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
+        fun navigate(arg:String) = "SuccessODP/$arg"
+    }
 
     object Main{
         const val MAIN = "MAIN"

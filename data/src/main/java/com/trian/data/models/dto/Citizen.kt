@@ -16,7 +16,10 @@ data class Citizen(
     var identityNumber:String="",
     var phoneNumber:String="",
     var officerNip:String="",
-    var officerName:String=""
+    var officerName:String="",
+    var bloodType:String="",
+    var createdAt:Long=0,
+    var updatedAt:Long=0,
 )
 
 
