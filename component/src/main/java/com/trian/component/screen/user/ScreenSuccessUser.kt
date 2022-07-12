@@ -5,10 +5,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.IconToggleButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,8 +37,8 @@ data class SuccessOfficerUIState(
     var placeOfAssignment:String="n/a",
     var nip:String="",
     var opd:String="",
-
 )
+
 @Composable
 fun ScreenSuccessUser(
     modifier: Modifier = Modifier,
@@ -66,152 +63,188 @@ fun ScreenSuccessUser(
             Icon(imageVector = Octicons.X24, contentDescription = "Close")
         }
 
-        Column(
-            modifier = modifier
-                .fillMaxWidth()
-                .align(Alignment.Center)
-                .padding(30.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.bg_congratulations),
-                contentDescription = ""
-            )
-            Spacer(modifier = modifier.height(20.dp))
-            Text(
-                text = "Congratulation!",
-                style = MaterialTheme.typography.body1
-            )
-            Spacer(modifier = modifier.height(20.dp))
-            Text(
-                text = "User is added successfully to the app",
-                style = MaterialTheme.typography.caption.copy(
-                    color = MaterialTheme.colors.onSurface
-                ),
+        if(state.loading){
+            Column(
+                modifier = modifier.fillMaxWidth().fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+
+        if(state.error){
+            Column(
+                modifier = modifier.fillMaxWidth().fillMaxHeight(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Oops..!",
+                    style = MaterialTheme.typography.body1
+                )
+                Spacer(modifier = modifier.height(20.dp))
+                Text(
+                    text = state.errorMessage,
+                    style = MaterialTheme.typography.caption.copy(
+                        color = MaterialTheme.colors.onSurface
+                    ),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
+
+        if(!state.loading && !state.error){
+            Column(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = modifier.height(30.dp))
-            Column {
-                Column(
-                    modifier = modifier
-
-                ) {
-                    Column {
-                        Text(
-                            text = "Name",
-                            style = MaterialTheme.typography.caption.copy(
-                                color = MaterialTheme.colors.onSurface
-                            )
-                        )
-                        Spacer(modifier = modifier.height(10.dp))
-                        Text(
-                            text = state.name,
-                            style = MaterialTheme.typography.body1
-                        )
-                    }
-                    Spacer(modifier = modifier.height(30.dp))
-                    Column {
-                        Text(
-                            text = "email",
-                            style = MaterialTheme.typography.caption.copy(
-                                color = MaterialTheme.colors.onSurface
-                            )
-                        )
-                        Spacer(modifier = modifier.height(10.dp))
-                        Text(
-                            text = state.email,
-                            style = MaterialTheme.typography.body1
-                        )
-                    }
-                    Spacer(modifier = modifier.height(30.dp))
-                    Column {
-                        Text(
-                            text = "Penugasan",
-                            style = MaterialTheme.typography.caption.copy(
-                                color = MaterialTheme.colors.onSurface
-                            )
-                        )
-                        Spacer(modifier = modifier.height(10.dp))
-                        Text(
-                            text = state.placeOfAssignment,
-                            style = MaterialTheme.typography.body1
-                        )
-                    }
-                    Spacer(modifier = modifier.height(30.dp))
-                    Row (
-                        modifier= modifier
-                            .height(IntrinsicSize.Min)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ){
-                        Column {
-                            Text(
-                                text = "OPD",
-                                style = MaterialTheme.typography.caption.copy(
-                                    color = MaterialTheme.colors.onSurface
-                                )
-                            )
-                            Spacer(modifier = modifier.height(10.dp))
-                            Text(
-                                text = state.opd,
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
-                        Column(
-                            modifier = modifier
-                                .padding(vertical = 4.dp)
-                                .fillMaxHeight()
-                                .width(1.dp)
-                                .background(
-                                    color = MaterialTheme.colors.onSurface
-                                )
-                        ) {
-
-                        }
-                        Column {
-                            Text(
-                                text = "Date of Birth",
-                                style = MaterialTheme.typography.caption.copy(
-                                    color = MaterialTheme.colors.onSurface
-                                )
-                            )
-                            Spacer(modifier = modifier.height(10.dp))
-                            Text(
-                                text = "04-16-19",
-                                style = MaterialTheme.typography.body1
-                            )
-                        }
-                    }
-                    Spacer(modifier = modifier
-                        .height(30.dp))
-                    DottedLine(
+                    .align(Alignment.Center)
+                    .padding(30.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.bg_congratulations),
+                    contentDescription = ""
+                )
+                Spacer(modifier = modifier.height(20.dp))
+                Text(
+                    text = "Congratulation!",
+                    style = MaterialTheme.typography.body1
+                )
+                Spacer(modifier = modifier.height(20.dp))
+                Text(
+                    text = "User is added successfully to the app",
+                    style = MaterialTheme.typography.caption.copy(
                         color = MaterialTheme.colors.onSurface
-                    )
-                    Spacer(modifier = modifier
-                        .height(30.dp))
-                    Row(
+                    ),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp),
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = modifier.height(30.dp))
+                Column {
+                    Column(
                         modifier = modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+
                     ) {
                         Column {
                             Text(
-                                text = "NIP",
+                                text = "Name",
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onSurface
                                 )
                             )
                             Spacer(modifier = modifier.height(10.dp))
                             Text(
-                                text = state.nip,
+                                text = state.name,
                                 style = MaterialTheme.typography.body1
                             )
+                        }
+                        Spacer(modifier = modifier.height(30.dp))
+                        Column {
+                            Text(
+                                text = "email",
+                                style = MaterialTheme.typography.caption.copy(
+                                    color = MaterialTheme.colors.onSurface
+                                )
+                            )
+                            Spacer(modifier = modifier.height(10.dp))
+                            Text(
+                                text = state.email,
+                                style = MaterialTheme.typography.body1
+                            )
+                        }
+                        Spacer(modifier = modifier.height(30.dp))
+                        Column {
+                            Text(
+                                text = "Penugasan",
+                                style = MaterialTheme.typography.caption.copy(
+                                    color = MaterialTheme.colors.onSurface
+                                )
+                            )
+                            Spacer(modifier = modifier.height(10.dp))
+                            Text(
+                                text = state.placeOfAssignment,
+                                style = MaterialTheme.typography.body1
+                            )
+                        }
+                        Spacer(modifier = modifier.height(30.dp))
+                        Row (
+                            modifier= modifier
+                                .height(IntrinsicSize.Min)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            Column {
+                                Text(
+                                    text = "OPD",
+                                    style = MaterialTheme.typography.caption.copy(
+                                        color = MaterialTheme.colors.onSurface
+                                    )
+                                )
+                                Spacer(modifier = modifier.height(10.dp))
+                                Text(
+                                    text = state.opd,
+                                    style = MaterialTheme.typography.body1
+                                )
+                            }
+                            Column(
+                                modifier = modifier
+                                    .padding(vertical = 4.dp)
+                                    .fillMaxHeight()
+                                    .width(1.dp)
+                                    .background(
+                                        color = MaterialTheme.colors.onSurface
+                                    )
+                            ) {
+
+                            }
+                            Column {
+                                Text(
+                                    text = "Date of Birth",
+                                    style = MaterialTheme.typography.caption.copy(
+                                        color = MaterialTheme.colors.onSurface
+                                    )
+                                )
+                                Spacer(modifier = modifier.height(10.dp))
+                                Text(
+                                    text = "04-16-19",
+                                    style = MaterialTheme.typography.body1
+                                )
+                            }
+                        }
+                        Spacer(modifier = modifier
+                            .height(30.dp))
+                        DottedLine(
+                            color = MaterialTheme.colors.onSurface
+                        )
+                        Spacer(modifier = modifier
+                            .height(30.dp))
+                        Row(
+                            modifier = modifier
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Column {
+                                Text(
+                                    text = "NIP",
+                                    style = MaterialTheme.typography.caption.copy(
+                                        color = MaterialTheme.colors.onSurface
+                                    )
+                                )
+                                Spacer(modifier = modifier.height(10.dp))
+                                Text(
+                                    text = state.nip,
+                                    style = MaterialTheme.typography.body1
+                                )
+                            }
                         }
                     }
                 }

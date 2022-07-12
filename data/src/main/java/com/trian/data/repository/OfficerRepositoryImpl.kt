@@ -117,4 +117,16 @@ class OfficerRepositoryImpl(
 
     }.flowOn(dispatcher.io())
 
+    override suspend fun deletePemantau(uid: String): Flow<Pair<Boolean, String>> = flow<Pair<Boolean, String>> {
+        try {
+            firestore.collection("OFFICER")
+                .document(uid)
+                .delete()
+                .await()
+            emit(Pair(true,"Berhasil menghapus data!"))
+        }catch (e:Exception){
+            throw e
+        }
+    }.flowOn(dispatcher.io())
+
 }

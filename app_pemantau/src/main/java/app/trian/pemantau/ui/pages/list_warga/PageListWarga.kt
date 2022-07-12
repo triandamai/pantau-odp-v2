@@ -1,6 +1,7 @@
 package app.trian.pemantau.ui.pages.list_warga
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,6 +22,9 @@ fun NavGraphBuilder.routeListWarga(
             loading = true,
             error = false
         ))
+        LaunchedEffect(key1 = Unit, block = {
+            viewModel.getListOdp()
+        })
         ScreenListWarga(
             state=odpState,
             onBackPressed = {
@@ -29,6 +33,7 @@ fun NavGraphBuilder.routeListWarga(
             onDetailOdp = {
                 router.navigate(Routes.DetailOdp.navigate(it)){
                     launchSingleTop = true
+                    restoreState = false
                 }
             }
         )

@@ -68,6 +68,7 @@ fun ButtonSecondary(
     text:String="",
     modifier: Modifier=Modifier,
     enabled:Boolean = true,
+    color:Color=MaterialTheme.colors.primary,
     onClick:()->Unit={}
 ) {
     val ctx = LocalContext.current
@@ -80,12 +81,12 @@ fun ButtonSecondary(
             .height(48.dp.from(ctx)),
         colors = ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color.Transparent,
-            contentColor = MaterialTheme.colors.primary,
+            contentColor = color,
             disabledContentColor = DisableContentColor,
         ),
         border = BorderStroke(
             width=1.dp,
-            color = if(enabled) MaterialTheme.colors.primary else DisableColor
+            color = if(enabled) color else DisableColor
         ),
         shape = MaterialTheme.shapes.medium
     ) {

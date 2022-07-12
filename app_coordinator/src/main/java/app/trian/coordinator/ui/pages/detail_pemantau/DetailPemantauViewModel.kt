@@ -51,4 +51,16 @@ class DetailPemantauViewModel @Inject constructor(
             }
             .collect()
     }
+
+    fun deletePemantau(uid:String,cb:(Boolean,String)->Unit) = viewModelScope.launch {
+        officerRepository
+            .deletePemantau(uid)
+            .catch {
+                cb(false,"${it.message}")
+            }
+            .onEach {
+                cb(it.first,it.second)
+            }
+            .collect()
+    }
 }

@@ -67,6 +67,7 @@ fun NavGraphBuilder.routeFormPemantau(
             selectedAddress = selectedAddress?.name ?: "",
             onSubmit = {
                 name,email,nip,opd->
+
                 loading = true
                 viewModel.saveOfficer(
                     name= name,
@@ -81,6 +82,7 @@ fun NavGraphBuilder.routeFormPemantau(
                     loading=false
                     if(success){
                         ctx.toastSuccess("Berhasil membuat akun pemantau")
+
                         router.navigate(Routes.SuccessFormPemantau.navigate(message)){
                             popUpTo(Routes.FormUser){
                                 inclusive=true

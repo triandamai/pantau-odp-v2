@@ -22,5 +22,8 @@ interface OfficerRepository {
     suspend fun getListPemantau(
     ):Flow<List<Officer>>
 
+    suspend fun deletePemantau(
+        uid: String
+    ):Flow<Pair<Boolean,String>>
 
 }

@@ -48,10 +48,23 @@ class DetailOdpViewModel @Inject constructor(
                         phone = it.first.phoneNumber,
                         placeOfBirth = it.first.placeOfBirth,
                         dateOfBirth = it.first.dateOfBirth,
-                        alreadyHasAssesment = it.second
+                        alreadyHasAssesment = it.second,
+                        uid = it.first.uid
                     )
                 )
             }
             .collect()
     }
+
+    fun deleteOdp(uid:String,cb:(Boolean,String)->Unit)=viewModelScope.launch {
+        odpRepository.deleteOdp(uid)
+            .catch {
+                cb(false,"${it.message}")
+            }
+            .onEach {
+                cb(it.first,it.second)
+            }
+            .collect()
+    }
+
 }

@@ -33,4 +33,6 @@ interface OdpRepository {
                          condition:String,
                          gender:String
     ):Flow<Pair<Boolean,String>>
+
+    suspend fun deleteOdp(uid:String):Flow<Pair<Boolean,String>>
 }

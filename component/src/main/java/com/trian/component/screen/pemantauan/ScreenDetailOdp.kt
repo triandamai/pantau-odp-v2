@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -29,6 +30,7 @@ data class DetailOdpUIState(
     var loading:Boolean=false,
     var error:Boolean=false,
     var errorMessage:String="",
+    var uid:String="",
     var name:String="",
     var address:String="",
     var phone:String="",
@@ -41,7 +43,11 @@ data class DetailOdpUIState(
 fun ScreenDetailOdp(
     modifier: Modifier = Modifier,
     state:DetailOdpUIState=DetailOdpUIState(),
-    onBackPressed:()->Unit={}
+    onBackPressed:()->Unit={},
+    onEdit:()->Unit={},
+    onDelete:()->Unit={},
+    onAssessment:()->Unit={}
+
 ) {
     Scaffold(
         topBar = {
@@ -195,7 +201,9 @@ fun ScreenDetailOdp(
                         text = "Assesment",
                         backgroundColor = MaterialTheme.colors.primary,
                         textColor = MaterialTheme.colors.primary,
-
+onClick = {
+    onAssessment()
+}
                         )
                 }
 
@@ -203,7 +211,18 @@ fun ScreenDetailOdp(
                     .height(30.dp))
                 ButtonSecondary(
                     text = "Edit",
-                    onClick = {}
+                    onClick = {
+                        onEdit()
+                    }
+                )
+                Spacer(modifier = modifier
+                    .height(24.dp))
+                ButtonSecondary(
+                    text = "Hapus",
+                    color = Color.Red,
+                    onClick = {
+                        onDelete()
+                    }
                 )
             }
         }

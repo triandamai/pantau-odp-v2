@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import logcat.LogPriority
+import logcat.logcat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,7 +26,9 @@ class FormPemantauSuccessViewModel @Inject constructor(
     val officerState get() = _officerState
 
     init {
+
         val uid = savedStateHandle.get<String>(Routes.SuccessFormPemantau.argKey).orEmpty()
+
         getDetailOfficer(uid)
     }
 
@@ -34,6 +38,7 @@ class FormPemantauSuccessViewModel @Inject constructor(
                 uid
             )
             .catch {
+                logcat(tag = "tag", priority = LogPriority.ERROR) { "${it.message}" }
                 _officerState.postValue(
                     SuccessOfficerUIState(
                         loading = false,
@@ -43,6 +48,7 @@ class FormPemantauSuccessViewModel @Inject constructor(
                 )
             }
             .onEach {
+                logcat(tag = "tag", priority = LogPriority.ERROR) { "${it.name}" }
                 _officerState.postValue(
                     SuccessOfficerUIState(
                         loading = false,

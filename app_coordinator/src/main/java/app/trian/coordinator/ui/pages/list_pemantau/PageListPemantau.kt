@@ -2,6 +2,7 @@ package app.trian.coordinator.ui.pages.list_pemantau
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,6 +25,9 @@ fun NavGraphBuilder.routeListPemantau(
                 loading = true
             )
         )
+        LaunchedEffect(key1 = Unit, block = {
+            viewModel.getListPemantau()
+        })
         ScreenListPetugas(
             state = listPemantau,
             onBackPressed = {

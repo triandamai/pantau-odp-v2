@@ -13,7 +13,7 @@ object Routes {
         const val argKey = "slug"
         const val route = "SuccessFormPemantau/{$argKey}"
         fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
-        fun navigate(arg:String) = "Petugas/$arg"
+        fun navigate(arg:String) = "SuccessFormPemantau/$arg"
     }
     const val SuccessFormWarga = "SuccessFormWarga"
     const val SuccessFormAssessment = "SuccessFormAssessment"
