@@ -245,7 +245,7 @@ fun ScreenHome(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Covid 19",
+                            text = "Positif",
                             style = MaterialTheme.typography.body2.copy(
                                 fontWeight = FontWeight.Bold
                             )
