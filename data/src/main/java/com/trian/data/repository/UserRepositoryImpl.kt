@@ -65,6 +65,18 @@ class UserRepositoryImpl(
         emit(Pair(true,"Login Berhasil!"))
     }.flowOn(dispatcherProvider.io())
 
+    override suspend fun changePassword(newPassword: String): Flow<Pair<Boolean, String>> = flow<Pair<Boolean, String>> {
+        try {
+           val user = firebaseAuth.currentUser
+               ?: throw Exception("Tidak dapat merubah password!")
+
+            user.updatePassword(newPassword).await()
+            emit((Pair(true,"Berhasil merubah password!")))
+        }catch (e:Exception){
+            throw e
+        }
+    }.flowOn(dispatcherProvider.io())
+
     override suspend fun resetPassword(
         email: String
     ): Flow<Pair<Boolean, String>> = flow {

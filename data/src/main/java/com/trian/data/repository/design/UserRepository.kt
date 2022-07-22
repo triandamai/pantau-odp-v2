@@ -14,6 +14,8 @@ interface UserRepository {
         level:String
     ):Flow<Pair<Boolean,String>>
 
+    suspend fun changePassword(newPassword:String):Flow<Pair<Boolean,String>>
+
     suspend fun resetPassword(email:String):Flow<Pair<Boolean,String>>
 
     suspend fun getProfileOfficer():Flow<Pair<FirebaseUser,Officer>>
