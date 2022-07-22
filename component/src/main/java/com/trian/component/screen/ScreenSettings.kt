@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +25,7 @@ import com.trian.component.theme.DisableContentColor
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.utils.coloredShadow
 import com.trian.component.utils.from
+import com.trian.component.utils.getAppVersion
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
 import compose.icons.octicons.Person16
@@ -40,9 +40,9 @@ import compose.icons.octicons.Person24
 fun ScreenSettings(
     modifier: Modifier = Modifier,
     menus: List<SettingModel> = listOf(),
-    onClick:()->Unit,
-    onNavigate:(String)->Unit,
-    onBackPressed:()->Unit
+    onClick: () -> Unit,
+    onNavigate: (String) -> Unit,
+    onBackPressed: () -> Unit
 ) {
 
     val ctx = LocalContext.current
@@ -78,14 +78,15 @@ fun ScreenSettings(
                     Column(
                         modifier = modifier.padding(top = 20.dp)
                     ) {
-                        Row(modifier = modifier
-                            .fillMaxWidth()
-                            .clip(MaterialTheme.shapes.large)
-                            .background(MaterialTheme.colors.primary)
-                            .coloredShadow(
-                                MaterialTheme.colors.primary
-                            )
-                            .padding(all = 20.dp),
+                        Row(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .clip(MaterialTheme.shapes.large)
+                                .background(MaterialTheme.colors.primary)
+                                .coloredShadow(
+                                    MaterialTheme.colors.primary
+                                )
+                                .padding(all = 20.dp),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -107,7 +108,7 @@ fun ScreenSettings(
                         }
                     }
                     Image(
-                        painter = painterResource(id =R.drawable.ic_premium),
+                        painter = painterResource(id = R.drawable.ic_premium),
                         contentDescription = "",
                         modifier = modifier
                             .align(Alignment.TopEnd)
@@ -118,13 +119,31 @@ fun ScreenSettings(
             item {
                 Spacer(modifier = modifier.height(30.dp))
             }
-            items(menus){
+            items(menus) {
                 ItemSetting(
                     name = it.name,
                     description = it.description,
                     icon = it.icon,
-                    actions = {},
-                    onClick = {}
+                    actions = {
+                        when (it.action) {
+                            ActionType.switch -> {}
+                            ActionType.version -> {
+                                Text(
+                                    text = ctx.getAppVersion(),
+                                    style = MaterialTheme.typography.caption.copy(
+                                        color = MaterialTheme.colors.onSurface
+                                    )
+                                )
+                            }
+                            ActionType.none -> {}
+                        }
+                    },
+                    onClick = {
+                        when (it.type) {
+                            SettingType.navigation -> onNavigate(it.route)
+                            SettingType.button -> onClick()
+                        }
+                    }
                 )
             }
 
@@ -136,12 +155,12 @@ fun ScreenSettings(
 
 @Composable
 fun ItemSetting(
-    modifier: Modifier=Modifier,
-    name:String="",
-    description: String="",
-    icon: ImageVector=Octicons.Person16,
-    actions:@Composable ()->Unit={},
-    onClick: () -> Unit={},
+    modifier: Modifier = Modifier,
+    name: String = "",
+    description: String = "",
+    icon: ImageVector = Octicons.Person16,
+    actions: @Composable () -> Unit = {},
+    onClick: () -> Unit = {},
 ) {
     val ctx = LocalContext.current
 
@@ -172,7 +191,7 @@ fun ItemSetting(
         ) {
             Icon(
                 imageVector = icon,
-                contentDescription ="",
+                contentDescription = "",
                 modifier = modifier
                     .size(46.dp.from(ctx)),
                 tint = DisableContentColor
@@ -180,7 +199,7 @@ fun ItemSetting(
         }
         Spacer(modifier = modifier.width(10.dp))
         Column(
-            modifier= modifier
+            modifier = modifier
                 .height(50.dp.from(ctx)),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start
@@ -215,17 +234,23 @@ fun ItemSetting(
 }
 
 data class SettingModel(
-    var name:String,
-    var description:String,
-    var icon:ImageVector,
-    var action:String,
-    var type:SettingType,
-    var route:String
+    var name: String,
+    var description: String,
+    var icon: ImageVector,
+    var action: ActionType,
+    var type: SettingType,
+    var route: String
 )
 
-enum class SettingType{
+enum class SettingType {
     navigation,
     button,
+}
+
+enum class ActionType {
+    switch,
+    version,
+    none
 }
 
 @Preview
@@ -238,7 +263,7 @@ fun PreviewScreenSetting() {
                     name = "Item pertama",
                     description = "deskripsi",
                     icon = Octicons.Person24,
-                    action = "",
+                    action = ActionType.switch,
                     type = SettingType.button,
                     route = ""
                 )

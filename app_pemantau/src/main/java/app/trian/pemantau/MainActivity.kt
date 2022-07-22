@@ -13,6 +13,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
+import app.trian.pemantau.ui.pages.change_password.routeChangePassword
 import app.trian.pemantau.ui.pages.detail_odp.routeDetailOdp
 import app.trian.pemantau.ui.pages.form_assesment.routeFormAssessment
 import app.trian.pemantau.ui.pages.form_odp.routeFormOdp
@@ -26,6 +27,7 @@ import app.trian.pemantau.ui.pages.main.home.routeHome
 import app.trian.pemantau.ui.pages.main.profile.routeProfile
 import app.trian.pemantau.ui.pages.onboard.routeOnboard
 import app.trian.pemantau.ui.pages.reset_password.routeResetPassword
+import app.trian.pemantau.ui.pages.settings.routeSettings
 import app.trian.pemantau.ui.pages.splash.routeSplash
 import com.google.accompanist.insets.ExperimentalAnimatedInsets
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -95,6 +97,10 @@ class MainActivity : ComponentActivity() {
                             routeProfile(router,::restart)
 
                         }
+
+                        routeSettings(router)
+
+                        routeChangePassword(router)
 
                         routeFormSuccessOdp(router)
 

@@ -15,20 +15,31 @@ import com.trian.component.screen.main.ScreenProfile
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.routeProfile(
     router: NavHostController,
-    onRestartActivity:()->Unit
+    onRestartActivity: () -> Unit
 ) {
     composable(Routes.Main.Profile) {
         val viewModel = hiltViewModel<ProfileViewModel>()
-        val profileState by viewModel.profileState.observeAsState(initial = ProfileUIState(
-            loading = true,
-            error = false
-        )
+        val profileState by viewModel.profileState.observeAsState(
+            initial = ProfileUIState(
+                loading = true,
+                error = false
+            )
         )
 
         ScreenProfile(
             router = router,
             menus = menu,
             profile = profileState,
+            onSetting = {
+                router.navigate(Routes.Settings) {
+                    launchSingleTop = true
+                }
+            },
+            onFabClick = {
+                router.navigate(Routes.FormUser) {
+                    launchSingleTop = true
+                }
+            },
             onRestartActivity = {
                 viewModel.signOut()
 

@@ -13,7 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,13 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.trian.component.AppbarProfile
-import com.trian.component.ButtonSmallSecondary
 import com.trian.component.ItemMenuDrawer
+import com.trian.component.R
 import com.trian.component.theme.HexToJetpackColor
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.theme.listGradient
 import com.trian.component.utils.coloredShadow
-import com.trian.component.R
 import kotlinx.coroutines.launch
 
 /**
@@ -38,24 +36,26 @@ import kotlinx.coroutines.launch
  */
 
 data class ProfileUIState(
-    var loading:Boolean=false,
-    var error:Boolean = false,
-    var errorMessage :String = "",
+    var loading: Boolean = false,
+    var error: Boolean = false,
+    var errorMessage: String = "",
 
-    var name:String="",
-    var email:String="",
-    var placeOfAssignment:String="",
-    var nip:String="",
-    var opd:String="",
+    var name: String = "",
+    var email: String = "",
+    var placeOfAssignment: String = "",
+    var nip: String = "",
+    var opd: String = "",
 )
 
 @Composable
 fun ScreenProfile(
     modifier: Modifier = Modifier,
     router: NavHostController,
-    menus:List<ItemMenuDrawer> = listOf(),
-    profile:ProfileUIState=ProfileUIState(),
-    onRestartActivity:()->Unit={}
+    menus: List<ItemMenuDrawer> = listOf(),
+    profile: ProfileUIState = ProfileUIState(),
+    onFabClick: () -> Unit = {},
+    onSetting: () -> Unit = {},
+    onRestartActivity: () -> Unit = {}
 ) {
 
 
@@ -65,13 +65,13 @@ fun ScreenProfile(
 
 
     BaseMainScreen(
-        drawerState=drawerState,
+        drawerState = drawerState,
         router = router,
         onRestartActivity = onRestartActivity,
         menus = menus,
         userName = profile.name,
         onFabClicked = {
-
+            onFabClick()
         },
         topAppbar = {
             AppbarProfile(
@@ -81,7 +81,7 @@ fun ScreenProfile(
                     }
                 },
                 onAction = {
-
+                    onSetting()
                 }
             )
         },
@@ -109,7 +109,7 @@ fun ScreenProfile(
 
                         Column {
                             Text(
-                                text =  profile.name,
+                                text = profile.name,
                                 style = MaterialTheme.typography.h4.copy(
                                     color = MaterialTheme.colors.onBackground,
                                     fontWeight = FontWeight.Bold
@@ -118,33 +118,34 @@ fun ScreenProfile(
                         }
                     }
                     Spacer(modifier = modifier.height(30.dp))
-                    Row(modifier = modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.large)
-                        .background(
-                            brush = Brush.linearGradient(
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .clip(MaterialTheme.shapes.large)
+                            .background(
+                                brush = Brush.linearGradient(
 
-                                   listOf(
-                                    HexToJetpackColor.getColor(
-                                        listGradient[0].first
-                                    ),
-                                    HexToJetpackColor.getColor(
-                                        listGradient[0].second
+                                    listOf(
+                                        HexToJetpackColor.getColor(
+                                            listGradient[0].first
+                                        ),
+                                        HexToJetpackColor.getColor(
+                                            listGradient[0].second
+                                        )
                                     )
-                                )
 
+                                )
                             )
-                        )
-                        .coloredShadow(
-                            MaterialTheme.colors.primary
-                        )
-                        .padding(all = 20.dp),
+                            .coloredShadow(
+                                MaterialTheme.colors.primary
+                            )
+                            .padding(all = 20.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Column {
                             Text(
-                                text =  "Penugasan di",
+                                text = "Penugasan di",
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onPrimary
                                 )

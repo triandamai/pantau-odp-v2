@@ -27,6 +27,16 @@ fun NavGraphBuilder.routeProfile(
             router = router,
             menus = menu,
             profile = profileState,
+            onSetting = {
+                        router.navigate(Routes.Settings){
+                            launchSingleTop=true
+                        }
+            },
+            onFabClick = {
+                router.navigate(Routes.FormUser){
+                    launchSingleTop=true
+                }
+            },
             onRestartActivity = {
                 viewModel.signOut()
                 restartActivity()
