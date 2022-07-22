@@ -1,5 +1,6 @@
 package app.trian.coordinator
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,6 +8,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
+import app.trian.coordinator.ui.pages.change_password.routeChangePassword
 import app.trian.coordinator.ui.pages.detail_pemantau.routeDetailPemantau
 import app.trian.coordinator.ui.pages.login.routeLogin
 import app.trian.coordinator.ui.pages.main.home.routeHome
@@ -17,6 +19,7 @@ import app.trian.coordinator.ui.pages.list_pemantau.routeListPemantau
 import app.trian.coordinator.ui.pages.list_odp.routeListWarga
 import app.trian.coordinator.ui.pages.onboard.routeOnboard
 import app.trian.coordinator.ui.pages.reset_password.routeResetPassword
+import app.trian.coordinator.ui.pages.settings.routeSettings
 import app.trian.coordinator.ui.pages.splash.routeSplash
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.navigation
@@ -78,11 +81,15 @@ class MainActivity : ComponentActivity() {
                             route = Routes.Main.MAIN,
                             startDestination = Routes.Main.Home
                         ){
-                            routeHome(router)
+                            routeHome(router,::restart)
 
-                            routeProfile(router)
+                            routeProfile(router,::restart)
 
                         }
+
+                        routeSettings(router)
+
+                        routeChangePassword(router)
 
                         routeFormPemantauSuccess(router)
 
@@ -102,6 +109,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    fun restart(){
+        Intent(this,MainActivity::class.java).apply {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }.also {
+            startActivity(it)
+            finish()
+        }
+    }
 
 }
 

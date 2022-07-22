@@ -14,7 +14,8 @@ import com.trian.component.screen.main.ScreenProfile
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.routeProfile(
-    router: NavHostController
+    router: NavHostController,
+    restartActivity:()->Unit
 ) {
     composable(Routes.Main.Profile) {
         val viewModel = hiltViewModel<ProfileViewModel>()
@@ -26,7 +27,10 @@ fun NavGraphBuilder.routeProfile(
             router = router,
             menus = menu,
             profile = profileState,
-            onRestartActivity = {}
+            onRestartActivity = {
+                viewModel.signOut()
+                restartActivity()
+            }
         )
     }
 }

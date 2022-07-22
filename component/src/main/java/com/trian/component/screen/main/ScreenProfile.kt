@@ -69,6 +69,7 @@ fun ScreenProfile(
         router = router,
         onRestartActivity = onRestartActivity,
         menus = menus,
+        userName = profile.name,
         onFabClicked = {
 
         },

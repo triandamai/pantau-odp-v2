@@ -59,6 +59,7 @@ class UserRepositoryImpl(
             }
 
             if(data.level != level){
+                firebaseAuth.signOut()
                 throw Exception("Anda tidak memiliki akses!")
             }
         emit(Pair(true,"Login Berhasil!"))
@@ -112,4 +113,8 @@ class UserRepositoryImpl(
             DataState.onLoading -> throw Exception("Tidak ditemukan data!")
         }
     }.flowOn(dispatcherProvider.io())
+
+    override suspend fun signOut() {
+        firebaseAuth.signOut()
+    }
 }

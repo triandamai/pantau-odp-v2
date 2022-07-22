@@ -1,5 +1,8 @@
 package com.trian.data.models.dto
 
+import androidx.annotation.Keep
+
+@Keep
 data class Officer(
     var uid:String="",
     var email:String="",

@@ -65,7 +65,6 @@ fun NavGraphBuilder.routeDetailOdp(
                               ctx.toastError(message)
                           }
                       }
-
                   },
               )
 

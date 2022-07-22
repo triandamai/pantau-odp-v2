@@ -1,10 +1,10 @@
-package app.trian.coordinator.ui.pages.onboard
+package app.trian.coordinator.ui.pages.change_password
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class OnboardViewModel @Inject constructor() : ViewModel() {
+class ChangePasswordViewModel @Inject constructor() : ViewModel() {
 
 }

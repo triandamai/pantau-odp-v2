@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.trian.component.screen.main.MonitoringUIState
 import com.trian.data.repository.design.OdpRepository
+import com.trian.data.repository.design.UserRepository
 import com.trian.data.utils.network.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -18,13 +19,17 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val odpRepository: OdpRepository
+    private val odpRepository: OdpRepository,
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private var _monitoringState = MutableLiveData<MonitoringUIState>()
     val monitoringState get() = _monitoringState
+    private var _userName = MutableLiveData<String>()
+    val userName get() = _userName
 
     init {
+        getProfile()
         getMonitoring()
     }
 
@@ -67,5 +72,23 @@ class HomeViewModel @Inject constructor(
                 )
             }
             .collect()
+    }
+
+    fun getProfile()=viewModelScope.launch {
+        userRepository
+            .getProfileOfficer()
+            .catch {
+                _userName.postValue(
+                    "Tidak diketahui"
+                )
+            }
+            .onEach {
+                _userName.postValue(it.second.name)
+            }
+            .collect()
+    }
+
+    fun signOut()=viewModelScope.launch {
+        userRepository.signOut()
     }
 }

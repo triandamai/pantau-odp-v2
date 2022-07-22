@@ -8,8 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.component.utils.getAppVersion
 
@@ -43,7 +45,7 @@ fun ScreenSplashScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "KasKu",
+                text = stringResource(R.string.txt_app_label),
                 style = MaterialTheme.typography.subtitle2.copy(
                     color = MaterialTheme.colors.surface
                 )

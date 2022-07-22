@@ -1,5 +1,8 @@
 package com.trian.data.models.dto
 
+import androidx.annotation.Keep
+
+@Keep
 data class Assessment(
     var citizenUid:String="",
     var tripHistory:String="",

@@ -1,7 +1,9 @@
 package com.trian.data.models.response
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class MonitoringResponse (
     @SerializedName("ODP")
     val odp: String,

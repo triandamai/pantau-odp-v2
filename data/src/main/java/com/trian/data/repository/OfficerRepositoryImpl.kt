@@ -117,13 +117,26 @@ class OfficerRepositoryImpl(
 
     }.flowOn(dispatcher.io())
 
-    override suspend fun deletePemantau(uid: String): Flow<Pair<Boolean, String>> = flow<Pair<Boolean, String>> {
+    override suspend fun deletePemantau(uid: String): Flow<Pair<Boolean, String>> = flow {
         try {
-            firestore.collection("OFFICER")
-                .document(uid)
-                .delete()
-                .await()
-            emit(Pair(true,"Berhasil menghapus data!"))
+            val jsonObj = JSONObject()
+            jsonObj.put("uid",uid)
+            val deleteOfficer = function.getHttpsCallable("deleteOfficer")
+                .call(jsonObj)
+                .continueWith {
+                    it.result.data as HashMap<*, *>
+                }
+
+            val result = deleteOfficer.await()
+
+            val success = result["success"] as Boolean
+            val message = result["message"] as String
+
+            if(success){
+                emit(Pair(true,message))
+            }else{
+                emit(Pair(false,message))
+            }
         }catch (e:Exception){
             throw e
         }

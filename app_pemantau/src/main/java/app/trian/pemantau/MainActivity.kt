@@ -1,5 +1,6 @@
 package app.trian.pemantau
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -89,9 +90,9 @@ class MainActivity : ComponentActivity() {
                             route = Routes.Main.MAIN,
                             startDestination = Routes.Main.Home
                         ){
-                            routeHome(router)
+                            routeHome(router,::restart)
 
-                            routeProfile(router)
+                            routeProfile(router,::restart)
 
                         }
 
@@ -118,6 +119,14 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    fun restart(){
+        Intent(this,MainActivity::class.java).apply {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }.also {
+            startActivity(it)
+            finish()
+        }
+    }
 
 }
 

@@ -23,8 +23,8 @@ android {
         applicationId = ApplicationId.Pemantau
         minSdk = 23
         targetSdk = 30
-        versionCode = 17
-        versionName = "1.0.1(14)"
+        versionCode = 2
+        versionName = "1.0.0(2)"
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true

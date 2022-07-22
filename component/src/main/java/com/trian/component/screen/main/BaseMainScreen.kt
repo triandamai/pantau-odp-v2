@@ -2,8 +2,7 @@ package com.trian.component.screen.main
 
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
@@ -11,6 +10,7 @@ import androidx.navigation.NavHostController
 import com.trian.component.BottomNav
 import com.trian.component.ItemMenuDrawer
 import com.trian.component.NavDrawer
+import com.trian.component.dialog.DialogLogout
 import com.trian.component.theme.BackgroundDashboard
 import compose.icons.Octicons
 import compose.icons.octicons.Plus24
@@ -29,6 +29,7 @@ fun BaseMainScreen(
     router: NavHostController,
     drawerState: DrawerState,
     menus:List<ItemMenuDrawer> = listOf(),
+    userName:String="",
     topAppbar: @Composable ()->Unit = {},
     onRestartActivity:()->Unit={},
     content:@Composable ()->Unit={},
@@ -36,11 +37,27 @@ fun BaseMainScreen(
 ) {
 
     val scope = rememberCoroutineScope()
+    var dialogLogout by remember {
+        mutableStateOf(false)
+    }
+    DialogLogout(
+        show = dialogLogout,
+        onCancel = {
+                  dialogLogout = false
+        },
+        onConfirm = {
+                    onRestartActivity()
+        },
+        onDismiss = {
+            dialogLogout = false
+        }
+    )
     ModalDrawer(
         drawerState = drawerState ,
         drawerContent = {
             NavDrawer(
                 menus = menus,
+                userName = userName,
                 onClick = {
 
                     scope.launch {
@@ -49,7 +66,7 @@ fun BaseMainScreen(
                         when(it.route){
                             "logout"->{
                                 //sign out
-                                onRestartActivity()
+                               dialogLogout = true
                             }
                         }
 

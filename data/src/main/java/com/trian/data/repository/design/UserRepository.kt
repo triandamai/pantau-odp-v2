@@ -19,4 +19,6 @@ interface UserRepository {
     suspend fun getProfileOfficer():Flow<Pair<FirebaseUser,Officer>>
 
     suspend fun getListVillage():Flow<List<VillageResponse>>
+
+    suspend fun signOut()
 }

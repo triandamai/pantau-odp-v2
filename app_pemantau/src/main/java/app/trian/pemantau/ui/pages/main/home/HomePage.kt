@@ -32,17 +32,20 @@ val menu = listOf(
 
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.routeHome(
-    router: NavHostController
+    router: NavHostController,
+    onRestartActivity:()->Unit
 ) {
     composable(Routes.Main.Home) {
         val viewModel = hiltViewModel<HomeViewModel>()
         val monitoring by viewModel.monitoringState.observeAsState(
             initial = MonitoringUIState()
         )
+        val name by viewModel.userName.observeAsState(initial = "")
        ScreenHome(
            router = router,
            menus = menu,
            monitoring = monitoring,
+           userName=name,
            onFabClicked = {
                router.navigate(Routes.FormOdp){
                    launchSingleTop = true
@@ -52,6 +55,11 @@ fun NavGraphBuilder.routeHome(
                router.navigate(Routes.ListOdp){
                    launchSingleTop = true
                }
+           },
+           onRestartActivity = {
+               viewModel.signOut()
+
+               onRestartActivity()
            }
        )
     }

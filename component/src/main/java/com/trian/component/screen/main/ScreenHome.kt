@@ -58,6 +58,7 @@ fun ScreenHome(
     router: NavHostController,
     menus:List<ItemMenuDrawer> = listOf(),
     monitoring:MonitoringUIState= MonitoringUIState(),
+    userName:String="",
     onFabClicked:()->Unit={},
     onRestartActivity:()->Unit={},
     onDetailMonitoring:()->Unit={}
@@ -73,6 +74,7 @@ fun ScreenHome(
         onRestartActivity=onRestartActivity,
         onFabClicked = onFabClicked,
         menus = menus,
+        userName = userName,
         topAppbar = {
             AppbarHome(
                 title = "Home",

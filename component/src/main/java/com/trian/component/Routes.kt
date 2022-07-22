@@ -8,6 +8,8 @@ object Routes {
     const val Onboard ="OnboardScreen"
     const val ResetPassword = "ResetPasswordScreen"
     const val Login = "Login"
+    const val Settings = "Settings"
+    const val ChangePassword = "ChangePassword"
 
     object SuccessFormPemantau{
         const val argKey = "slug"

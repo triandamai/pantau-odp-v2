@@ -114,4 +114,11 @@
     <string name="title_page_form_monitoring">Input data warga dipantau</string>
     <string name="label_input_warga_nama_wilayah_perjalanan">Nama daerah/negara</string>
     <string name="placeholder_input_warga_nama_wilayah_perjalanan">Nama daerah/negara</string>
+    <string name="text_confirmation_signout">Apakah Anda yakin keluar dari applikasi?</string>
+    <string name="btn_cancel">Batal</string>
+    <string name="btn_signout">Keluar</string>
+    <string name="txt_app_label">Pantau ODP</string>
+    <string name="txt_title_screen_setting">Pengaturan</string>
+    <string name="content_description_icon_back">Kembali ke halaman sebelumnya</string>
+    <string name="txt_title_change_password">Ubah password</string>
 </resources>
