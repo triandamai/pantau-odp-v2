@@ -71,7 +71,8 @@ class UserRepositoryImpl(
                ?: throw Exception("Tidak dapat merubah password!")
 
             user.updatePassword(newPassword).await()
-            emit((Pair(true,"Berhasil merubah password!")))
+            firebaseAuth.signOut()
+            emit((Pair(true,"Berhasil merubah password, silahkan masuk kembali")))
         }catch (e:Exception){
             throw e
         }

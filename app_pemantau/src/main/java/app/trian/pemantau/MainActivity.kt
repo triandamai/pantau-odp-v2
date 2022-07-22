@@ -100,7 +100,7 @@ class MainActivity : ComponentActivity() {
 
                         routeSettings(router)
 
-                        routeChangePassword(router)
+                        routeChangePassword(router,::restart)
 
                         routeFormSuccessOdp(router)
 
