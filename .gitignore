@@ -110,3 +110,5 @@ lint/tmp/
 
 keystore.properties
 ./keystore.properties
+
+keystore.jks
