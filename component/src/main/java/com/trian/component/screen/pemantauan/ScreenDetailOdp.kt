@@ -6,15 +6,12 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import com.trian.component.AppbarBasic
-import com.trian.component.ButtonSecondary
-import com.trian.component.ButtonSmallSecondary
-import com.trian.component.DottedLine
+import com.trian.component.*
+import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
@@ -27,32 +24,32 @@ import compose.icons.octicons.ArrowLeft24
  */
 
 data class DetailOdpUIState(
-    var loading:Boolean=false,
-    var error:Boolean=false,
-    var errorMessage:String="",
-    var uid:String="",
-    var name:String="",
-    var address:String="",
-    var phone:String="",
-    var placeOfBirth:String="",
-    var dateOfBirth:String="",
-    var alreadyHasAssesment:Boolean=false,
+    var loading: Boolean = false,
+    var error: Boolean = false,
+    var errorMessage: String = "",
+    var uid: String = "",
+    var name: String = "",
+    var address: String = "",
+    var phone: String = "",
+    var placeOfBirth: String = "",
+    var dateOfBirth: String = "",
+    var alreadyHasAssesment: Boolean = false,
 )
 
 @Composable
 fun ScreenDetailOdp(
     modifier: Modifier = Modifier,
-    state:DetailOdpUIState=DetailOdpUIState(),
-    onBackPressed:()->Unit={},
-    onEdit:()->Unit={},
-    onDelete:()->Unit={},
-    onAssessment:()->Unit={}
+    state: DetailOdpUIState = DetailOdpUIState(),
+    onBackPressed: () -> Unit = {},
+    onEdit: () -> Unit = {},
+    onDelete: () -> Unit = {},
+    onAssessment: () -> Unit = {}
 
 ) {
     Scaffold(
         topBar = {
             AppbarBasic(
-                title = "Detail Warga",
+                title = stringResource(R.string.txt_title_page_detail_citizen),
                 navigationIcon = {
                     IconToggleButton(
                         checked = false,
@@ -126,13 +123,13 @@ fun ScreenDetailOdp(
                     )
                 }
                 Spacer(modifier = modifier.height(30.dp))
-                Row (
-                    modifier= modifier
+                Row(
+                    modifier = modifier
                         .height(IntrinsicSize.Min)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
-                ){
+                ) {
                     Column {
                         Text(
                             text = "Tempat lahir",
@@ -171,13 +168,17 @@ fun ScreenDetailOdp(
                         )
                     }
                 }
-                Spacer(modifier = modifier
-                    .height(30.dp))
+                Spacer(
+                    modifier = modifier
+                        .height(30.dp)
+                )
                 DottedLine(
                     color = MaterialTheme.colors.onSurface
                 )
-                Spacer(modifier = modifier
-                    .height(30.dp))
+                Spacer(
+                    modifier = modifier
+                        .height(30.dp)
+                )
                 Row(
                     modifier = modifier
                         .fillMaxWidth(),
@@ -193,32 +194,36 @@ fun ScreenDetailOdp(
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = if(state.alreadyHasAssesment)"Sudah di survei" else "Belum di survei",
+                            text = if (state.alreadyHasAssesment) "Sudah di survei" else "Belum di survei",
                             style = MaterialTheme.typography.body1
                         )
                     }
                     ButtonSmallSecondary(
-                        text = "Assesment",
+                        text = stringResource(R.string.txt_btn_assessment),
                         backgroundColor = MaterialTheme.colors.primary,
                         textColor = MaterialTheme.colors.primary,
-onClick = {
-    onAssessment()
-}
-                        )
+                        onClick = {
+                            onAssessment()
+                        }
+                    )
                 }
 
-                Spacer(modifier = modifier
-                    .height(30.dp))
+                Spacer(
+                    modifier = modifier
+                        .height(30.dp)
+                )
                 ButtonSecondary(
-                    text = "Edit",
+                    text = stringResource(id = R.string.txt_btn_edit),
                     onClick = {
                         onEdit()
                     }
                 )
-                Spacer(modifier = modifier
-                    .height(24.dp))
+                Spacer(
+                    modifier = modifier
+                        .height(24.dp)
+                )
                 ButtonSecondary(
-                    text = "Hapus",
+                    text = stringResource(id = R.string.txt_btn_delete),
                     color = Color.Red,
                     onClick = {
                         onDelete()

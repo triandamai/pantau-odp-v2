@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -43,7 +44,7 @@ fun ScreenListPetugas(
     Scaffold(
         topBar = {
             AppbarBasic(
-                title = "List Petugas",
+                title = stringResource(R.string.txt_title_list_officer),
                 navigationIcon = {
                     IconToggleButton(
                         checked = false,
@@ -65,7 +66,7 @@ fun ScreenListPetugas(
             if(state.error){
                 ScreenEmptyState(
                     image = R.drawable.bg_empty_2,
-                    title = "Tidak ada data pemantau",
+                    title = stringResource(R.string.txt_empty_state_list_officer),
                     subtitle = state.errorMessage
                 )
             }else{

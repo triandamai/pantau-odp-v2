@@ -10,12 +10,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.trian.component.ButtonSmallSecondary
 import com.trian.component.DottedLine
 import com.trian.component.theme.PantauWargaTheme
 import compose.icons.Octicons
@@ -29,7 +27,7 @@ import com.trian.component.R
  * site https://trian.app
  */
 data class SuccessOfficerUIState(
-    var loading:Boolean=true,
+    var loading:Boolean=false,
     var error:Boolean = false,
     var errorMessage:String="",
     var name:String="n/a",
@@ -37,6 +35,7 @@ data class SuccessOfficerUIState(
     var placeOfAssignment:String="n/a",
     var nip:String="",
     var opd:String="",
+    var level:String="n/a"
 )
 
 @Composable
@@ -60,7 +59,7 @@ fun ScreenSuccessUser(
             },
             modifier = modifier.align(Alignment.TopStart)
         ) {
-            Icon(imageVector = Octicons.X24, contentDescription = "Close")
+            Icon(imageVector = Octicons.X24, contentDescription = stringResource(R.string.content_description_close))
         }
 
         if(state.loading){
@@ -112,12 +111,12 @@ fun ScreenSuccessUser(
                 )
                 Spacer(modifier = modifier.height(20.dp))
                 Text(
-                    text = "Congratulation!",
+                    text = stringResource(R.string.txt_message_screen_success_user),
                     style = MaterialTheme.typography.body1
                 )
                 Spacer(modifier = modifier.height(20.dp))
                 Text(
-                    text = "User is added successfully to the app",
+                    text = stringResource(R.string.txt_message_subtitle_screen_success_user),
                     style = MaterialTheme.typography.caption.copy(
                         color = MaterialTheme.colors.onSurface
                     ),
@@ -134,7 +133,7 @@ fun ScreenSuccessUser(
                     ) {
                         Column {
                             Text(
-                                text = "Name",
+                                text = stringResource(R.string.label_success_user_name),
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onSurface
                                 )
@@ -148,7 +147,7 @@ fun ScreenSuccessUser(
                         Spacer(modifier = modifier.height(30.dp))
                         Column {
                             Text(
-                                text = "email",
+                                text = stringResource(R.string.label_success_user_email),
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onSurface
                                 )
@@ -162,7 +161,7 @@ fun ScreenSuccessUser(
                         Spacer(modifier = modifier.height(30.dp))
                         Column {
                             Text(
-                                text = "Penugasan",
+                                text = stringResource(R.string.label_success_user_place_of_duty),
                                 style = MaterialTheme.typography.caption.copy(
                                     color = MaterialTheme.colors.onSurface
                                 )
@@ -183,7 +182,7 @@ fun ScreenSuccessUser(
                         ){
                             Column {
                                 Text(
-                                    text = "OPD",
+                                    text = stringResource(R.string.label_success_user_opd),
                                     style = MaterialTheme.typography.caption.copy(
                                         color = MaterialTheme.colors.onSurface
                                     )
@@ -207,14 +206,14 @@ fun ScreenSuccessUser(
                             }
                             Column {
                                 Text(
-                                    text = "Date of Birth",
+                                    text = stringResource(R.string.label_success_user_level),
                                     style = MaterialTheme.typography.caption.copy(
                                         color = MaterialTheme.colors.onSurface
                                     )
                                 )
                                 Spacer(modifier = modifier.height(10.dp))
                                 Text(
-                                    text = "04-16-19",
+                                    text = state.level,
                                     style = MaterialTheme.typography.body1
                                 )
                             }
@@ -234,7 +233,7 @@ fun ScreenSuccessUser(
                         ) {
                             Column {
                                 Text(
-                                    text = "NIP",
+                                    text = stringResource(R.string.label_success_user_nip),
                                     style = MaterialTheme.typography.caption.copy(
                                         color = MaterialTheme.colors.onSurface
                                     )

@@ -5,12 +5,16 @@ this is monorepo for mobile app of Buss Tracker mobile application
 
 Name | Description      | design
 ------------ | ------------- | ----- |
-[`app_user`](app_user/README.md) | Application for user|[`figma`](https://www.figma.com/file/Wk21cf0hjf0kzgvCJtLsVe/Bus-tracker) [`assets`]()|
-[`app_driver`](app_driver/README.md)|Application for doctor| [`figma`]() [`assets`]()
+[`app_koordinator`](app_koordinator/README.md) | Application for user|[`figma`]() [`assets`]()|
+[`app_pemantau`](app_pemantau/README.md)|Application for doctor| [`figma`]() [`assets`]()
 [`buildSrc`](buildSrc/README.md) | Source of Dependencies |
 [`data`](data/README.md) | Data layer (Local Database,Networking)|
 [`component`](component/README.md) | Component|
 
+# Onboard
+1. Pantau ODP(Kabupaten banyumas)
+2. Monitor(Memantau orang-orang yang ber pergian)
+3. Penyaluran(bantuan kesehatan)
 
 # pantau-odp-v2
 creating apps for odp version 2

@@ -7,14 +7,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.trian.component.AppbarBasic
 import com.trian.component.ButtonSecondary
 import com.trian.component.ButtonSmallSecondary
 import com.trian.component.DottedLine
+import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
 import com.trian.data.models.dto.Officer
+import com.trian.data.utils.utils.formatReadableDate
 import compose.icons.Octicons
 import compose.icons.octicons.ArrowLeft24
 
@@ -42,7 +45,7 @@ fun ScreenDetailOfficer(
     Scaffold(
         topBar = {
             AppbarBasic(
-                title = "Detail Petugas",
+                title = stringResource(R.string.txt_title_page_detail_officer),
                 navigationIcon = {
                     IconToggleButton(
                         checked = false,
@@ -76,7 +79,7 @@ fun ScreenDetailOfficer(
             ) {
                 Column {
                     Text(
-                        text = "Nama",
+                        text = stringResource(R.string.txt_label_detail_officer_name),
                         style = MaterialTheme.typography.caption.copy(
                             color = MaterialTheme.colors.onSurface
                         )
@@ -90,7 +93,7 @@ fun ScreenDetailOfficer(
                 Spacer(modifier = modifier.height(30.dp))
                 Column {
                     Text(
-                        text = "NIP",
+                        text = stringResource(R.string.txt_label_detail_officer_nip),
                         style = MaterialTheme.typography.caption.copy(
                             color = MaterialTheme.colors.onSurface
                         )
@@ -104,7 +107,7 @@ fun ScreenDetailOfficer(
                 Spacer(modifier = modifier.height(30.dp))
                 Column {
                     Text(
-                        text = "OPD",
+                        text = stringResource(R.string.txt_label_detail_officer_opd),
                         style = MaterialTheme.typography.caption.copy(
                             color = MaterialTheme.colors.onSurface
                         )
@@ -125,7 +128,7 @@ fun ScreenDetailOfficer(
                 ){
                     Column {
                         Text(
-                            text = "Type",
+                            text = stringResource(R.string.txt_label_detail_officer_level),
                             style = MaterialTheme.typography.caption.copy(
                                 color = MaterialTheme.colors.onSurface
                             )
@@ -149,14 +152,14 @@ fun ScreenDetailOfficer(
                     }
                     Column {
                         Text(
-                            text = "Created at",
+                            text = stringResource(R.string.txt_label_detail_officer_created_at),
                             style = MaterialTheme.typography.caption.copy(
                                 color = MaterialTheme.colors.onSurface
                             )
                         )
                         Spacer(modifier = modifier.height(10.dp))
                         Text(
-                            text = "04-16-19",
+                            text = state.officer.createdAt.formatReadableDate(),
                             style = MaterialTheme.typography.body1
                         )
                     }
@@ -176,7 +179,7 @@ fun ScreenDetailOfficer(
                 ) {
                     Column {
                         Text(
-                            text = "Penugasan",
+                            text = stringResource(R.string.txt_label_detail_officer_assignment),
                             style = MaterialTheme.typography.caption.copy(
                                 color = MaterialTheme.colors.onSurface
                             )
@@ -188,7 +191,7 @@ fun ScreenDetailOfficer(
                         )
                     }
                     ButtonSmallSecondary(
-                        text = "Edit",
+                        text = stringResource(R.string.txt_btn_edit),
                         backgroundColor = MaterialTheme.colors.primary,
                         textColor = MaterialTheme.colors.primary,
                         onClick = {
@@ -198,9 +201,10 @@ fun ScreenDetailOfficer(
                 }
 
                 Spacer(modifier = modifier
-                    .height(24.dp))
+                    .height(24.dp)
+                )
                 ButtonSecondary(
-                    text = "Hapus",
+                    text = stringResource(R.string.txt_btn_delete),
                     color = Color.Red,
                     onClick = {
                         onDelete()

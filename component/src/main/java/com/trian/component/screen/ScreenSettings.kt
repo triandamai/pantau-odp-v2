@@ -92,14 +92,14 @@ fun ScreenSettings(
                         ) {
                             Column {
                                 Text(
-                                    text = "Do more with premium",
+                                    text = stringResource(R.string.txt_banner_setting_title),
                                     style = MaterialTheme.typography.caption.copy(
                                         color = MaterialTheme.colors.onPrimary
                                     )
                                 )
                                 Spacer(modifier = modifier.height(6.dp))
                                 Text(
-                                    text = "Become premium",
+                                    text = stringResource(R.string.txt_banner_setting),
                                     style = MaterialTheme.typography.body1.copy(
                                         color = MaterialTheme.colors.onPrimary
                                     )

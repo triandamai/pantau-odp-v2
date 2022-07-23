@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -48,7 +49,7 @@ fun ScreenListWarga(
     Scaffold(
         topBar = {
             AppbarBasic(
-                title = "List Warga",
+                title = stringResource(R.string.txt_title_page_list_citizen),
                 navigationIcon = {
                     IconToggleButton(
                         checked = false,
@@ -70,7 +71,7 @@ fun ScreenListWarga(
             if(state.error){
                 ScreenEmptyState(
                     image = R.drawable.bg_empty_2,
-                    title = "TIdak ada data warga odp",
+                    title = stringResource(R.string.txt_empty_list_citizen),
                     subtitle = state.errorMessage
                 )
             }else{

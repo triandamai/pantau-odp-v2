@@ -92,7 +92,7 @@ fun ScreenChangePassword(
             Column {
                 Image(
                     painter = painterResource(id = R.drawable.bg_onboard_2),
-                    contentDescription = stringResource(R.string.conten_description_image_change_password),
+                    contentDescription = stringResource(R.string.content_description_image_change_password),
                     modifier = modifier.fillMaxWidth(fraction = 0.5f)
                 )
             }
@@ -116,8 +116,8 @@ fun ScreenChangePassword(
                     onChange = {
                         newPassword=it
                     },
-                    placeholder = stringResource(R.string.placeholed_new_password),
-                    label = stringResource(R.string.labe_input_new_password),
+                    placeholder = stringResource(R.string.placeholder_new_password),
+                    label = stringResource(R.string.label_input_new_password),
                     showPasswordObsecure = true,
                     singleLine = true,
                     keyboardType = KeyboardType.Password,

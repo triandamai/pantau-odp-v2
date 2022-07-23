@@ -116,6 +116,7 @@ fun ScreenFormPemantau(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 )
+
                 FormInputClickable(
                     initialValue = selectedAddress,
                     placeholder = stringResource(R.string.placeholder_petugas_desa),
@@ -124,6 +125,7 @@ fun ScreenFormPemantau(
                             onSelectAddress()
                     }
                 )
+
                 FormInput(
                     initialValue = nip,
                     placeholder = stringResource(R.string.placeholder_petugas_nip),

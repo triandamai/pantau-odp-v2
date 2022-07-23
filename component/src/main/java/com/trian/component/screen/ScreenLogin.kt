@@ -69,7 +69,7 @@ fun ScreenLogin(
 
     Scaffold(
         topBar = {
-            AppbarAuth(navigationText = stringResource(R.string.btn_sign_up)){
+            AppbarAuth(navigationText = stringResource(R.string.txt_btn_help)){
 
             }
         }
