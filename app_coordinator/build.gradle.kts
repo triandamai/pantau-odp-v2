@@ -24,8 +24,8 @@ android {
         applicationId = ApplicationId.Coordinator
         minSdk = 23
         targetSdk = 30
-        versionCode = 3
-        versionName = "1.0.0(3)"
+        versionCode = 6
+        versionName = "1.0.0(6)"
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -201,7 +201,9 @@ dependencies {
     //firebase
     with(Libs.Com.Google.Firebase) {
         implementation(platform(bom))
-        implementation(auth)
+        implementation(auth){
+            exclude(module = "play-services-safetynet")
+        }
         implementation(firestore)
         implementation(storage)
         implementation(messaging)

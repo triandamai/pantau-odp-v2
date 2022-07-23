@@ -23,8 +23,8 @@ android {
         applicationId = ApplicationId.Pemantau
         minSdk = 23
         targetSdk = 30
-        versionCode = 2
-        versionName = "1.0.0(2)"
+        versionCode = 5
+        versionName = "1.0.0(5)"
         multiDexEnabled = true
         vectorDrawables {
             useSupportLibrary = true
@@ -97,7 +97,7 @@ android {
 
 dependencies {
 
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.0")
 
     implementation(project(Modules.data))
     implementation(project(Modules.component))
@@ -200,7 +200,9 @@ dependencies {
     //firebase
     with(Libs.Com.Google.Firebase) {
         implementation(platform(bom))
-        implementation(auth)
+        implementation(auth){
+            exclude(module = "play-services-safetynet")
+        }
         implementation(firestore)
         implementation(storage)
         implementation(messaging)

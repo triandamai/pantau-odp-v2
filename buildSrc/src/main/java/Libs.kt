@@ -6,7 +6,7 @@ object Libs {
 
             //for firebase sdk
             object Firebase {
-                val bom by lazy { "com.google.firebase:firebase-bom:29.0.4" }
+                val bom by lazy { "com.google.firebase:firebase-bom:30.2.0" }
                 val auth by lazy { "com.google.firebase:firebase-auth-ktx" }
                 val firestore by lazy { "com.google.firebase:firebase-firestore-ktx" }
                 val storage by lazy { "com.google.firebase:firebase-storage-ktx" }
