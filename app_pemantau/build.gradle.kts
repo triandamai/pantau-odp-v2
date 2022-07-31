@@ -17,6 +17,7 @@ val filePathProperties = findProperty("KEYSTORE_FILE_PATH")
 val keyAliasProperties = findProperty("KEYSTORE_ALIAS")
 val keyPasswordProperties = findProperty("KEY_PASSWORD")
 val storePasswordProperties =  findProperty("STORE_PASSWORD")
+
 android {
     compileSdk = 31
     defaultConfig {

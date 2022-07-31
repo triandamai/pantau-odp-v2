@@ -27,7 +27,6 @@ import com.trian.data.repository.design.UserRepository
 
 /**
  * Persistence Class
- * Author PT Cexup Telemedicine
  * Created by Trian Damai
  * 01/09/2021
  */
