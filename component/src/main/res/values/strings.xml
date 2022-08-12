@@ -125,7 +125,7 @@
     <string name="txt_empty_state_list_officer">Tidak ada data pemantau</string>
     <string name="content_description_close">Close</string>
     <string name="txt_message_screen_success_user">Berhasil!</string>
-    <string name="txt_message_subtitle_screen_success_user">Berhasil menambahkan data ODP!</string>
+    <string name="txt_message_subtitle_screen_success_user">Berhasil menambahkan data Pemantau!</string>
     <string name="label_success_user_name">Nama</string>
     <string name="label_success_user_email">Email</string>
     <string name="label_success_user_place_of_duty">Penugasan</string>
