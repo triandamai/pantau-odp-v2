@@ -14,12 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.trian.component.R
 import com.trian.component.theme.PantauWargaTheme
 
 data class ItemAddress(
@@ -74,7 +76,7 @@ fun DialogPickStrictAndVillage(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Select date transaction",
+                            text = stringResource(R.string.txt_title_dialog_pick_address),
                             style = MaterialTheme.typography.body1.copy(
                                 color = MaterialTheme.colors.onBackground,
                                 fontWeight = FontWeight.Bold

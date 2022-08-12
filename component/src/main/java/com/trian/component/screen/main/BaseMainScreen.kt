@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.trian.component.BottomNav
@@ -12,6 +13,9 @@ import com.trian.component.ItemMenuDrawer
 import com.trian.component.NavDrawer
 import com.trian.component.dialog.DialogLogout
 import com.trian.component.theme.BackgroundDashboard
+import com.trian.component.utils.emailTo
+import com.trian.component.utils.gotoApp
+import com.trian.component.utils.intentTo
 import compose.icons.Octicons
 import compose.icons.octicons.Plus24
 import kotlinx.coroutines.delay
@@ -36,6 +40,7 @@ fun BaseMainScreen(
     onFabClicked:()->Unit={}
 ) {
 
+    val ctx = LocalContext.current
     val scope = rememberCoroutineScope()
     var dialogLogout by remember {
         mutableStateOf(false)
@@ -67,6 +72,15 @@ fun BaseMainScreen(
                             "logout"->{
                                 //sign out
                                dialogLogout = true
+                            }
+                            "feedback"->{
+                                ctx.emailTo(to = "triandamai@gmail.com", subject = "Feedback ODP")
+                            }
+                            "rating"->{
+                                ctx.gotoApp()
+                            }
+                            "privacy_policy"->{
+                                ctx.intentTo()
                             }
                         }
 

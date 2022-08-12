@@ -1,4 +1,4 @@
-package app.trian.coordinator.ui.pages.form_pemantau
+package app.trian.coordinator.ui.pages.form_edit_pemantau
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.*
@@ -18,11 +18,11 @@ import com.trian.component.utils.toastError
 import com.trian.component.utils.toastSuccess
 
 @OptIn(ExperimentalAnimationApi::class)
-fun NavGraphBuilder.routeFormPemantau(
+fun NavGraphBuilder.routeFormEditPemantau(
     router: NavHostController
 ) {
-    composable(Routes.FormUser) {
-        val viewModel = hiltViewModel<FormPemantauViewModel>()
+    composable(Routes.FormEditUser.route) {
+        val viewModel = hiltViewModel<FormEditPemantauViewModel>()
         val villageUIState by viewModel.listVillage.observeAsState(initial = PickDistrictOrVillageUIState(
             loading = true,
             error = false
@@ -69,10 +69,8 @@ fun NavGraphBuilder.routeFormPemantau(
                 loading = true
                 viewModel.saveOfficer(
                     name= name,
-                    email=email,
                     nip =nip,
                     opd=opd,
-                    level="PEMANTAU",
                     villageName = selectedAddress?.name ?: "",
                     villageId = selectedAddress?.id ?: ""
                 ){

@@ -198,26 +198,26 @@ fun ScreenDetailOdp(
                             style = MaterialTheme.typography.body1
                         )
                     }
-                    ButtonSmallSecondary(
-                        text = stringResource(R.string.txt_btn_assessment),
-                        backgroundColor = MaterialTheme.colors.primary,
-                        textColor = MaterialTheme.colors.primary,
-                        onClick = {
-                            onAssessment()
-                        }
-                    )
+//                    ButtonSmallSecondary(
+//                        text = stringResource(R.string.txt_btn_assessment),
+//                        backgroundColor = MaterialTheme.colors.primary,
+//                        textColor = MaterialTheme.colors.primary,
+//                        onClick = {
+//                            onAssessment()
+//                        }
+//                    )
                 }
 
                 Spacer(
                     modifier = modifier
                         .height(30.dp)
                 )
-                ButtonSecondary(
-                    text = stringResource(id = R.string.txt_btn_edit),
-                    onClick = {
-                        onEdit()
-                    }
-                )
+//                ButtonSecondary(
+//                    text = stringResource(id = R.string.txt_btn_edit),
+//                    onClick = {
+//                        onEdit()
+//                    }
+//                )
                 Spacer(
                     modifier = modifier
                         .height(24.dp)

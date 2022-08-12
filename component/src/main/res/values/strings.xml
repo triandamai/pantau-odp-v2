@@ -143,4 +143,5 @@
     <string name="txt_btn_delete">Hapus</string>
     <string name="txt_title_page_detail_citizen">Detail Warga</string>
     <string name="txt_btn_assessment">Assesment</string>
+    <string name="txt_title_dialog_pick_address">Pilih nama wilayah</string>
 </resources>

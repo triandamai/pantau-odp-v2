@@ -20,17 +20,17 @@ val menu = listOf(
     ),
     ItemMenuDrawer(
         name = "Feedback",
-        route = "categories",
+        route = "feedback",
         type = "button"
     ),
     ItemMenuDrawer(
         name = "Rating",
-        route = "categories",
+        route = "rating",
         type = "button"
     ),
     ItemMenuDrawer(
         name = "Privacy policy",
-        route = "categories",
+        route = "privacy_policy",
         type = "button"
     ),
 )

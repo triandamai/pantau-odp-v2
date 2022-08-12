@@ -10,6 +10,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import app.trian.coordinator.ui.pages.change_password.routeChangePassword
 import app.trian.coordinator.ui.pages.detail_pemantau.routeDetailPemantau
+import app.trian.coordinator.ui.pages.form_edit_pemantau.routeFormEditPemantau
 import app.trian.coordinator.ui.pages.login.routeLogin
 import app.trian.coordinator.ui.pages.main.home.routeHome
 import app.trian.coordinator.ui.pages.main.profile.routeProfile
@@ -94,6 +95,8 @@ class MainActivity : ComponentActivity() {
                         routeFormPemantauSuccess(router)
 
                         routeFormPemantau(router)
+
+                        routeFormEditPemantau(router)
 
                         routeDetailPemantau(router)
 

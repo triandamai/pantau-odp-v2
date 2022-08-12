@@ -35,6 +35,13 @@ object Routes {
     const val FormUser = "FormUserScreen"
     const val FormOdp = "FormOdpScreen"
 
+    object FormEditUser{
+        const val argKey = "slug"
+        const val route = "EditPetugas/{$argKey}"
+        fun navArg()=listOf(navArgument(argKey) { type = NavType.StringType })
+        fun navigate(arg:String) = "EditPetugas/$arg"
+    }
+
     const val ListPemantau = "ListPemantau"
     const val ListOdp = "ListOdp"
 

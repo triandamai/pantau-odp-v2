@@ -131,7 +131,6 @@ fun ButtonIcon(
 fun ButtonSocial(
     text:String="",
     modifier: Modifier=Modifier,
-    tag:String="",
     enabled:Boolean = true,
     onClick:()->Unit={}
 ) {

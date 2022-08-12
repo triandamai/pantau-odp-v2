@@ -12,6 +12,7 @@ import com.trian.component.Routes
 import com.trian.component.screen.main.ProfileUIState
 import com.trian.component.screen.main.ScreenProfile
 
+
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.routeProfile(
     router: NavHostController,

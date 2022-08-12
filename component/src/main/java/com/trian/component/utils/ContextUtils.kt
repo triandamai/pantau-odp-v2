@@ -27,7 +27,7 @@ fun Context.getAppVersion():String{
         "0.0.0"
     }
 }
-fun Context.intentTo(destination: String) {
+fun Context.intentTo(destination: String="https://pantau-odp.trian.app/privacy-policy") {
     val ctx = this
     Intent(
         Intent.ACTION_VIEW,

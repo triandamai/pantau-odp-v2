@@ -103,10 +103,7 @@ fun ItemStatFull(
     onClick:()->Unit={}
 ) {
     val ctx = LocalContext.current
-    val currentWidth = ctx
-        .resources
-        .displayMetrics.widthPixels.dp /
-            LocalDensity.current.density
+
     Box(
         modifier = modifier
             .fillMaxWidth()

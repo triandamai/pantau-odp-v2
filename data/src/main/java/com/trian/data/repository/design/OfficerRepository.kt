@@ -19,6 +19,15 @@ interface OfficerRepository {
         uid:String=""
     ):Flow<Officer>
 
+    suspend fun updatePemantau(
+        uid:String,
+        name:String,
+        opd:String,
+        nip:String,
+        villageId: String,
+        villageName: String
+    ):Flow<Pair<Boolean,String>>
+
     suspend fun getListPemantau(
     ):Flow<List<Officer>>
 

@@ -9,6 +9,7 @@ import com.trian.data.models.dto.Officer
 import com.trian.data.models.response.CreateOfficerResponse
 import com.trian.data.repository.design.OfficerRepository
 import com.trian.data.utils.utils.getRandomPassword
+import com.trian.data.utils.utils.getTodayTimeStamp
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -84,8 +85,35 @@ class OfficerRepositoryImpl(
             emit(officer)
 
         }catch (e:Exception){
-
+            throw e
         }
+    }.flowOn(dispatcher.io())
+
+    override suspend fun updatePemantau(
+        uid:String,
+        name: String,
+        opd: String,
+        nip: String,
+        villageId: String,
+        villageName: String
+    ): Flow<Pair<Boolean, String>> = flow<Pair<Boolean, String>> {
+        try {
+            firestore.collection("OFFICER")
+                .document(uid)
+                .set(mapOf(
+                    "name" to name,
+                    "opd" to opd,
+                    "nip" to nip,
+                    "villageId" to villageId,
+                    "villageName" to villageName,
+                    "updatedAt" to getTodayTimeStamp()
+                ))
+                .await()
+        }catch (e:Exception){
+            throw e
+        }
+
+
     }.flowOn(dispatcher.io())
 
     override suspend fun getListPemantau(

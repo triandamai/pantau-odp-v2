@@ -77,7 +77,11 @@ fun NavGraphBuilder.routeDetailPemantau(
                     }
                },
                onEdit = {
-
+                   if(!detailPemantau.error && !detailPemantau.loading) {
+                       router.navigate(Routes.DetailUser.navigate(detailPemantau.officer.uid)){
+                           launchSingleTop = true
+                       }
+                   }
                },
                onBackPressed = {
                    router.popBackStack()
