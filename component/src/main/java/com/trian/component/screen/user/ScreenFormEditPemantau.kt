@@ -29,6 +29,9 @@ import compose.icons.octicons.ArrowLeft24
 fun ScreenFormEditPemantau(
     modifier: Modifier=Modifier,
     selectedAddress:String ="",
+    currentName:String="",
+    currentNip:String="",
+    currentOpd:String="",
     onSelectAddress:()->Unit={},
     onBackPressed:()->Unit={},
     onSubmit:(
@@ -39,14 +42,23 @@ fun ScreenFormEditPemantau(
 ){
     val ctx = LocalContext.current
     var name by remember {
-        mutableStateOf("")
+        mutableStateOf(currentName)
     }
     var nip by remember {
-        mutableStateOf("")
+        mutableStateOf(currentNip)
     }
     var opd by remember {
-        mutableStateOf("")
+        mutableStateOf(currentOpd)
     }
+    LaunchedEffect(key1 = currentName, block ={
+        name = currentName
+    })
+    LaunchedEffect(key1 = currentNip, block ={
+        nip = currentNip
+    })
+    LaunchedEffect(key1 = currentOpd, block ={
+        opd = currentOpd
+    })
 
     Scaffold(
         topBar = {

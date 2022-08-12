@@ -77,8 +77,9 @@ fun NavGraphBuilder.routeDetailPemantau(
                     }
                },
                onEdit = {
-                   if(!detailPemantau.error && !detailPemantau.loading) {
-                       router.navigate(Routes.DetailUser.navigate(detailPemantau.officer.uid)){
+
+                   if(detailPemantau.officer.uid.isNotEmpty()) {
+                       router.navigate(Routes.FormEditUser.navigate(detailPemantau.officer.uid)){
                            launchSingleTop = true
                        }
                    }

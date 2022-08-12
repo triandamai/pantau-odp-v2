@@ -2,6 +2,7 @@ package com.trian.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.gson.Gson
 import com.trian.data.coroutines.DispatcherProvider
@@ -14,6 +15,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.tasks.await
+import logcat.LogPriority
+import logcat.logcat
 import org.json.JSONObject
 
 class OfficerRepositoryImpl(
@@ -75,12 +78,11 @@ class OfficerRepositoryImpl(
     override suspend fun getDetailPemantau(
         uid: String
     ): Flow<Officer> = flow {
+        logcat(tag = "tag3", priority = LogPriority.ERROR) { uid }
         try {
             val officer = firestore.collection("OFFICER")
                 .document(uid)
-                .get()
-                .await()
-                .toObject(Officer::class.java) ?: throw Exception("Tidak dapat menemukan pemantau")
+                .get().await().toObject(Officer::class.java) ?: throw Exception("Tidak dapat menemukan data!")
 
             emit(officer)
 
@@ -107,8 +109,10 @@ class OfficerRepositoryImpl(
                     "villageId" to villageId,
                     "villageName" to villageName,
                     "updatedAt" to getTodayTimeStamp()
-                ))
+                ),
+                SetOptions.merge())
                 .await()
+            emit(Pair(true,"Sukses merubah data!"))
         }catch (e:Exception){
             throw e
         }

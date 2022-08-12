@@ -8,6 +8,7 @@ import com.trian.component.Routes
 import com.trian.component.screen.user.SuccessOfficerUIState
 import com.trian.data.repository.design.OfficerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -29,16 +30,19 @@ class FormPemantauSuccessViewModel @Inject constructor(
 
         val uid = savedStateHandle.get<String>(Routes.SuccessFormPemantau.argKey).orEmpty()
 
+        logcat(tag = "tag1", priority = LogPriority.ERROR) { uid }
         getDetailOfficer(uid)
     }
 
     fun getDetailOfficer(uid:String)=viewModelScope.launch {
+        delay(1000)
+
         officerRepository
             .getDetailPemantau(
                 uid
             )
             .catch {
-                logcat(tag = "tag", priority = LogPriority.ERROR) { "${it.message}" }
+                logcat(tag = "tag2", priority = LogPriority.ERROR) { "${it.message}" }
                 _officerState.postValue(
                     SuccessOfficerUIState(
                         loading = false,
@@ -48,7 +52,7 @@ class FormPemantauSuccessViewModel @Inject constructor(
                 )
             }
             .onEach {
-                logcat(tag = "tag", priority = LogPriority.ERROR) { "${it.name}" }
+                logcat(tag = "tag2", priority = LogPriority.ERROR) { "${it.name}" }
                 _officerState.postValue(
                     SuccessOfficerUIState(
                         loading = false,
@@ -57,7 +61,8 @@ class FormPemantauSuccessViewModel @Inject constructor(
                         email = it.email,
                         placeOfAssignment = it.villageName,
                         nip = it.nip,
-                        opd = it.opd
+                        opd = it.opd,
+                        level = it.level
                     )
                 )
             }

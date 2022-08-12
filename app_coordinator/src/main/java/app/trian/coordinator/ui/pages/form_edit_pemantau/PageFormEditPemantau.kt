@@ -13,6 +13,8 @@ import com.trian.component.dialog.DialogLoading
 import com.trian.component.dialog.DialogPickStrictAndVillage
 import com.trian.component.dialog.ItemAddress
 import com.trian.component.dialog.PickDistrictOrVillageUIState
+import com.trian.component.screen.user.DetailOfficerUIState
+import com.trian.component.screen.user.ScreenFormEditPemantau
 import com.trian.component.screen.user.ScreenFormPemantau
 import com.trian.component.utils.toastError
 import com.trian.component.utils.toastSuccess
@@ -27,6 +29,12 @@ fun NavGraphBuilder.routeFormEditPemantau(
             loading = true,
             error = false
         ))
+        val detailPemantau by viewModel.detailOfficerState.observeAsState(
+            initial = DetailOfficerUIState(
+                loading = true,
+                error = false
+            )
+        )
         val ctx = LocalContext.current
 
         var showPickAddress by remember {
@@ -41,6 +49,12 @@ fun NavGraphBuilder.routeFormEditPemantau(
             mutableStateOf<ItemAddress?>(null)
         }
 
+        LaunchedEffect(key1 = detailPemantau, block = {
+            selectedAddress = ItemAddress(
+                id = detailPemantau.officer.villageId,
+                name = detailPemantau.officer.villageName
+            )
+        })
         DialogPickStrictAndVillage(
             show = showPickAddress,
             state = villageUIState,
@@ -55,7 +69,7 @@ fun NavGraphBuilder.routeFormEditPemantau(
 
         DialogLoading(show = loading)
 
-        ScreenFormPemantau(
+        ScreenFormEditPemantau(
             onBackPressed = {
                 router.popBackStack()
             },
@@ -63,8 +77,11 @@ fun NavGraphBuilder.routeFormEditPemantau(
                 showPickAddress = true
             },
             selectedAddress = selectedAddress?.name ?: "",
+            currentName = detailPemantau.officer.name,
+            currentNip = detailPemantau.officer.nip,
+            currentOpd = detailPemantau.officer.opd,
             onSubmit = {
-                name,email,nip,opd->
+                name,nip,opd->
 
                 loading = true
                 viewModel.saveOfficer(
@@ -79,12 +96,7 @@ fun NavGraphBuilder.routeFormEditPemantau(
                     if(success){
                         ctx.toastSuccess("Berhasil membuat akun pemantau")
 
-                        router.navigate(Routes.SuccessFormPemantau.navigate(message)){
-                            popUpTo(Routes.FormUser){
-                                inclusive=true
-                            }
-                            launchSingleTop = true
-                        }
+                        router.popBackStack()
                     }else{
                         ctx.toastError(message)
                     }

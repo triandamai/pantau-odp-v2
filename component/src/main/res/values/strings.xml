@@ -130,7 +130,7 @@
     <string name="label_success_user_email">Email</string>
     <string name="label_success_user_place_of_duty">Penugasan</string>
     <string name="label_success_user_opd">OPD</string>
-    <string name="label_success_user_level">Jabatan</string>
+    <string name="label_success_user_level">Level</string>
     <string name="label_success_user_nip">NIP</string>
     <string name="txt_title_page_detail_officer">Detail Petugas</string>
     <string name="txt_label_detail_officer_name">Nama</string>

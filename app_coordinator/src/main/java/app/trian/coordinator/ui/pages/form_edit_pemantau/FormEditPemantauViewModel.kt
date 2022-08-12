@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.trian.component.Routes
 import com.trian.component.dialog.ItemAddress
 import com.trian.component.dialog.PickDistrictOrVillageUIState
+import com.trian.component.screen.user.DetailOfficerUIState
 import com.trian.data.repository.design.OfficerRepository
 import com.trian.data.repository.design.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +27,39 @@ class FormEditPemantauViewModel @Inject constructor(
     private var _listVillage = MutableLiveData<PickDistrictOrVillageUIState>()
     val listVillage get() = _listVillage
 
+    private var _detailOfficerState = MutableLiveData<DetailOfficerUIState>()
+    val detailOfficerState get() = _detailOfficerState
+
+
     init {
         getListVillage()
+        val uid = savedStateHandle.get<String>(Routes.DetailUser.argKey).orEmpty()
+        getDetailPemantau(uid)
+    }
+
+
+    fun getDetailPemantau(uid:String) = viewModelScope.launch {
+        officerRepository
+            .getDetailPemantau(uid)
+            .catch {
+                _detailOfficerState.postValue(
+                    DetailOfficerUIState(
+                        loading = false,
+                        error = true,
+                        errorMessage = "${it.message}"
+                    )
+                )
+            }
+            .onEach {
+                _detailOfficerState.postValue(
+                    DetailOfficerUIState(
+                        loading = false,
+                        error = false,
+                        officer = it
+                    )
+                )
+            }
+            .collect()
     }
 
     fun getListVillage()=viewModelScope.launch {
