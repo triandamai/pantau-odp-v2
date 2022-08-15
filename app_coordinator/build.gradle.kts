@@ -51,7 +51,6 @@ android {
     buildTypes {
         getByName("release") {
 
-
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled=true
             multiDexKeepProguard = file("multidex-config.txt")
